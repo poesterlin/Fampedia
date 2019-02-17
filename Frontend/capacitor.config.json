@@ -1,0 +1,6 @@
+{
+  "appId": "de.squad.fampedia",
+  "appName": "Fampedia",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
