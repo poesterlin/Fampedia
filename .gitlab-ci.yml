@@ -42,9 +42,8 @@ assembleDebug:
     - cd android
     - chmod +x ./gradlew
     - ./gradlew assembleDebug
-    - cd app/build/outputs
-    - ls
   artifacts:
     paths:
     - Frontend/android/app/build/outputs/
+    - Frontend/www/
     expire_in: 1 week
