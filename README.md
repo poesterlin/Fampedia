@@ -1,4 +1,4 @@
 # Fampedia
 
 ## Setup
-Setup documentation can be found [here](Setup.md)
+Setup documentation can be found [here](Docs/Setup.md)
