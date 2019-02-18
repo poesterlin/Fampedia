@@ -22,7 +22,7 @@
   "homepage": "https://gitlab.com/philipOE/fampedia#README",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "npm run --prefix Frontend lint"
     }
   }
 }
