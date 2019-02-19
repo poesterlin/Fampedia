@@ -10,7 +10,8 @@
     "prepare": "npm run build && cap sync && cap copy",
     "android": "npm run prepare && cap open android",
     "ios": "npm run prepare && cap open ios",
-    "electron": "npm run prepare && npm run --prefix electron electron:start"
+    "electron": "npm run prepare && npm run --prefix electron electron:start",
+    "compile": "cap sync && cap copy && cap update"
   },
   "private": true,
   "dependencies": {
@@ -49,6 +50,6 @@
     "protractor": "~5.4.2",
     "ts-node": "~8.0.2",
     "tslint": "~5.12.1",
-    "typescript": "~3.3.3"
+    "typescript": "^3.2.4"
   }
 }
