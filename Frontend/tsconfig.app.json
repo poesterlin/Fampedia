@@ -1,0 +1,12 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "dist/tsc/app",
+        "types": []
+    },
+    "exclude": [
+        "./unittest.ts",
+        "**/*.spec.ts",
+        "**/*.ignore.ts"
+    ]
+}
