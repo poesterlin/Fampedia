@@ -1,0 +1,10 @@
+{
+    "test": "Portuguese",
+    "titles": {
+        "undefined": "",
+        "DASHBOARD": "Dashboard"
+    },
+    "navbar":{
+        "LANGUAGE_SWITCH": "Change language"
+    }
+}
