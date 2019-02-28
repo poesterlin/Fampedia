@@ -17,8 +17,10 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotFoundModule } from './not-found/not-found.module';
+import { LogoComponent } from './logo/logo.component';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { NavbarComponent } from './navbar/navbar.component';
 
 declare var Hammer: any;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -58,6 +60,7 @@ export class MyHammerConfig extends HammerGestureConfig {
         MaterialModule,
         RoutingModule,
         NotFoundModule,
+        DashboardModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -69,7 +72,8 @@ export class MyHammerConfig extends HammerGestureConfig {
     declarations: [
         ExceptionComponent,
         AppComponent,
-        DashboardComponent,
+        LogoComponent,
+        NavbarComponent
     ],
     providers: [
         { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig, },

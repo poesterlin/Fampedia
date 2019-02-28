@@ -2,7 +2,7 @@
   "name": "fampedia",
   "version": "0.0.0",
   "scripts": {
-    "start": "ng serve",
+    "start": "ng serve --hmr",
     "build": "ng build --aot",
     "test": "ng test",
     "lint": "ng lint",
@@ -15,7 +15,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~7.2.5",
+    "@angular/animations": "^7.2.7",
     "@angular/cdk": "^7.3.3",
     "@angular/common": "~7.2.5",
     "@angular/compiler": "~7.2.5",
