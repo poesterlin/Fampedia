@@ -3,5 +3,8 @@
     "titles": {
         "undefined": "",
         "DASHBOARD": "Dashboard"
+    },
+    "navbar":{
+        "LANGUAGE_SWITCH": "Sprache wechseln"
     }
 }
