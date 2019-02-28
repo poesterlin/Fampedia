@@ -1,0 +1,19 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "dist/tsc/app",
+        "module": "commonjs",
+        "types": [
+            "jasmine",
+            "node"
+        ]
+    },
+    "files": [
+        "./unittest.ts",
+        "./polyfills.ts"
+    ],
+    "include": [
+        "**/*.spec.ts",
+        "**/*.d.ts"
+    ]
+}

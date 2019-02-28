@@ -1,0 +1,183 @@
+/*---> global scss helpers <---*/
+
+/*
+    Adds ellipsis to the content of an element.
+    You can specify a max-width if you want.
+    Example: 
+        span {
+            @include ellipsis(500px);
+        }
+*/
+
+@mixin ellipsis($width: false) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    @if $width {
+        max-width: $width;
+    }
+}
+
+/*
+    Can be used for elements that are clickable.
+    Example:
+        h1 {
+            @include clickable();
+        }
+        button {
+            @include clickable(){
+                //hover styling
+                background: blue;
+            }
+        }
+*/
+
+@mixin clickable() {
+    user-select: none;
+    cursor: pointer;
+    &:hover {
+        @content;
+        transition: background-color 0.25s ease-out;
+    }
+}
+
+/*
+    Constrains an image to a specified width and height.
+    Example: 
+        img {
+            @include constrainImage(800px, 450px);
+        }
+*/
+
+@mixin constrainImage($width: 100%, $height: 100%, $mode: contain) {
+    width: $width;
+    height: $height;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: $mode;
+}
+
+/*
+    Applies the content specified in the include statement based on the screen width.
+    Example:
+        #id {
+            @include forType(sm){
+                width: 100%;
+            }
+            @include forType(gt-sm){
+                width: 500px;
+            }
+        }
+*/
+
+@mixin forType($type) {
+    // min-width of a type
+    $extraLarge: 1200px;
+    $large: 992px;
+    $medium: 768px;
+    $small: 600px;
+    /* apply only for this width:*/
+    @if $type==xl {
+        @media only screen and (min-width: $extraLarge) {
+            @content;
+        }
+    }
+    @else if $type==lg {
+        @media only screen and (min-width: $large) and (max-width:$extraLarge) {
+            @content;
+        }
+    }
+    @else if $type==md {
+        @media only screen and (min-width: $medium) and (max-width:$large) {
+            @content;
+        }
+    }
+    @else if $type==sm {
+        @media only screen and (min-width: $small) and (max-width:$medium) {
+            @content;
+        }
+    }
+    @else if $type==xs {
+        @media only screen and (max-width: $small) {
+            @content;
+        }
+    }
+    /* apply for width less than ... : */
+    @else if $type==lt-xl {
+        @media only screen and (max-width: $extraLarge) {
+            @content;
+        }
+    }
+    @else if $type==lt-lg {
+        @media only screen and (max-width: $large) {
+            @content;
+        }
+    }
+    @else if $type==lt-md {
+        @media only screen and (max-width: $medium) {
+            @content;
+        }
+    }
+    /* apply for width greater than ... : */
+    @else if $type==gt-lg {
+        @media only screen and (min-width: $large) {
+            @content;
+        }
+    }
+    @else if $type==gt-md {
+        @media only screen and (min-width: $medium) {
+            @content;
+        }
+    }
+    @else if $type==gt-sm {
+        @media only screen and (min-width: $small) {
+            @content;
+        }
+    }
+}
+
+/*
+    Function that returns a semi-transparent white.
+    Example: 
+        div {
+            border: 1px solid white(0.3);
+            color: black(0.85);
+        }
+*/
+
+@function white($opacity) {
+    @return rgba(255, 255, 255, $opacity);
+}
+
+/**
+    Function that returns a semi-transparent black.
+    Example: 
+        div {
+            background: black(0.8);
+            color: white(0.4);
+        }
+*/
+
+@function black($opacity) {
+    @return rgba(0, 0, 0, $opacity);
+}
+
+/**
+    @include scrollbar;
+*/
+@mixin scrollbar {
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #aaa;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #333;
+        min-height: 60px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #888;
+    }
+}
