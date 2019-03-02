@@ -6,8 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor() { }
+  public importances: number[] = []
+  constructor() {
+    this.importances = new Array(20).fill(null).map(() => Math.floor(Math.random() * 3 + 1));
+  }
 
   ngOnInit() {
   }
