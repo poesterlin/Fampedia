@@ -5,7 +5,7 @@
     "start": "ng serve --hmr",
     "build": "ng build --aot",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint --fix",
     "e2e": "ng e2e",
     "prepare": "npm run build && cap sync && cap copy",
     "android": "npm run prepare && cap open android",

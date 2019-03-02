@@ -1,3 +1,14 @@
 div {
   padding: 50px;
 }
+
+.dash {
+  padding: 0;
+  display: flex;
+  width: 800px;
+  max-width: 95vw;
+  min-width: 50vw;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
