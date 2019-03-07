@@ -8,11 +8,11 @@ import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 })
 export class DashboardGridItemComponent implements OnInit {
   @Input() importance: number = 1;
-  @Input() itemId: number;
-  public title: string;
-  public desc: string;
+  @Input() itemId!: number;
+  public title = '';
+  public desc = '';
   public visible = false;
-  private lasturl;
+  private lasturl = '';
 
   constructor(private sanitizer: DomSanitizer, private elRef: ElementRef) { }
 
