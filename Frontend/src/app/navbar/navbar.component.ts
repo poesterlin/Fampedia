@@ -30,6 +30,7 @@ export interface HeaderMode {
 export class NavbarComponent implements OnInit {
     @Output() buttonEvent = new EventEmitter<string>();
     @Input() config: HeaderMode = {
+        color: 'accent',
         buttons: [],
         helpers: [
             { key: 'translate' },

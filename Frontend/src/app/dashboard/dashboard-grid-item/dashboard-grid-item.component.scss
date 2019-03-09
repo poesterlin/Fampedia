@@ -1,5 +1,7 @@
 @import "../../styles/helperMixins.scss";
+@import "../../styles/theme.scss";
 
+$primary: map-get($theme, primary);
 $radius: 4px;
 
 :host {
@@ -9,7 +11,7 @@ $radius: 4px;
       opacity: 0.8;
     }
     div.text {
-      background: #fffffff0 !important;
+      background: mat-color($accent, 50) !important;
     }
   }
   flex: 1 1 340px;
@@ -30,7 +32,7 @@ $radius: 4px;
       }
     }
     .text {
-      background: #dcdcdcd6;
+      background:  mat-color($accent, 900);
       bottom: 56px;
       height: 46px;
       position: relative;
