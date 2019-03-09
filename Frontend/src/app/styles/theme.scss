@@ -1,0 +1,89 @@
+@import "~@angular/material/theming";
+@include mat-core();
+
+$main-hue: 206;
+$main-sat: 33%;
+$font: #f0f2d8;
+$primary-hue: 182;
+$primary-sat: 50%;
+$fam-accent: #e54b5a;
+$fam-error: #b00020;
+
+$MstartL: 11%;
+$mat-main: (
+  50: hsl($main-hue, $main-sat, $MstartL + 10),
+  100: hsl($main-hue, $main-sat, $MstartL + 13),
+  200: hsl($main-hue, $main-sat, $MstartL + 10),
+  300: hsl($main-hue, $main-sat, $MstartL + 4),
+  400: hsl($main-hue, $main-sat, $MstartL + 4),
+  500: hsl($main-hue, $main-sat, $MstartL + 4),
+  600: hsl($main-hue, $main-sat, $MstartL + 4),
+  700: hsl($main-hue, $main-sat, $MstartL + 4),
+  800: hsl($main-hue, $main-sat, $MstartL + 4),
+  900: hsl($main-hue, $main-sat, $MstartL),
+  A100: hsl($main-hue, $main-sat, 75%),
+  A200: hsl($main-hue, $main-sat, 66%),
+  A400: hsl($main-hue, $main-sat, 55%),
+  A700: hsl($main-hue, $main-sat, 42%),
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: $font,
+    600: $font,
+    700: $font,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: $font,
+    A400: $font,
+    A700: $font
+  )
+);
+
+$PstartL: 30%;
+$mat-primary: (
+  50: hsl($primary-hue, $primary-sat, $PstartL + 10),
+  100: hsl($primary-hue, $primary-sat, $PstartL + 13),
+  200: hsl($primary-hue, $primary-sat, $PstartL + 10),
+  300: hsl($primary-hue, $primary-sat, $PstartL + 4),
+  400: hsl($primary-hue, $primary-sat, $PstartL + 4),
+  500: hsl($primary-hue, $primary-sat, $PstartL + 4),
+  600: hsl($primary-hue, $primary-sat, $PstartL + 4),
+  700: hsl($primary-hue, $primary-sat, $PstartL + 4),
+  800: hsl($primary-hue, $primary-sat, $PstartL + 4),
+  900: hsl($primary-hue, $primary-sat, $PstartL),
+  A100: hsl($primary-hue, $primary-sat, 75%),
+  A200: hsl($primary-hue, $primary-sat, 66%),
+  A400: hsl($primary-hue, $primary-sat, 55%),
+  A700: hsl($primary-hue, $primary-sat, 42%),
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: $font,
+    600: $font,
+    700: $font,
+    800: $white-87-opacity,
+    900: $white-87-opacity,
+    A100: $black-87-opacity,
+    A200: $font,
+    A400: $font,
+    A700: $font
+  )
+);
+
+$primary: mat-palette($mat-main, 300);
+$accent: mat-palette($mat-primary, 800);
+$warn: mat-palette($mat-red, 800);
+
+$theme: mat-dark-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+
+// @include mat-button-theme($candy-app-theme);
+// @include mat-checkbox-theme($candy-app-theme);

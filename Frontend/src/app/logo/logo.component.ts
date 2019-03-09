@@ -1,4 +1,4 @@
-import { Component, AfterViewChecked, Input, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'fampedia-logo',

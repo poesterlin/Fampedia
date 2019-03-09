@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
   public importances: number[] = []
   constructor() {
-    this.importances = new Array(20).fill(null).map(() => Math.floor(Math.random() * 3 + 1));
+    this.importances = new Array(20).fill(null).map(() => Math.ceil(Math.random() * 3));
   }
 
   ngOnInit() {

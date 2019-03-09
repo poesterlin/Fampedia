@@ -1,4 +1,4 @@
-<mat-toolbar *ngIf="showNavbar" [color]="mode.color || 'primary-500'" [ngClass]="{'sticky': mode.sticky}">
+<mat-toolbar *ngIf="showNavbar" [color]="mode.color" [ngClass]="{'sticky': mode.sticky}">
     <div fxLayout="row" fxLayoutAlign="start stretch">
         <button mat-button id="logo" fxFlex="none" (click)="clickAction(mode.logo.onClick)">
             <fampedia-logo></fampedia-logo>
