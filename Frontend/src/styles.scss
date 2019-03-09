@@ -1,0 +1,13 @@
+@import "src/app/styles/theme";
+@import "~@angular/material/theming";
+
+$primary: map-get($theme, primary);
+$accent: map-get($theme, accent);
+
+body {
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  margin: 0;
+  color: $font;
+  background: mat-color($primary);
+//   border: 1px solid mat-color($accent);
+}

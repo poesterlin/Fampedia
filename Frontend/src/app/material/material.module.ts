@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -81,7 +80,7 @@ const modules = [
     exports: modules
 })
 export class MaterialModule {
-    constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+    constructor(matIconRegistry: MatIconRegistry) {
         matIconRegistry.registerFontClassAlias('mdi');
     }
 }

@@ -1,15 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
-
-/* icon fonts */
-@import "~material-design-icons/iconfont/material-icons.css";
-$mdi-font-path: '../node_modules/@mdi/font/fonts';
-@import "~@mdi/font/scss/materialdesignicons.scss";
 
 body {
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
     margin: 0;
-    color: #000000c5;
 }
+
 
 /*
     has to be here because of this:

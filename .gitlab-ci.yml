@@ -37,7 +37,7 @@ assembleDebug:
   script:
     - cd Frontend
     - npm install
-    - npm run prepare
+    - npm run prep
     - ls
     - cd android
     - chmod +x ./gradlew

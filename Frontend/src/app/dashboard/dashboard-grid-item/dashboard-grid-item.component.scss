@@ -1,10 +1,24 @@
 @import "../../styles/helperMixins.scss";
+@import "../../styles/theme.scss";
+
+$primary: map-get($theme, primary);
+$radius: 4px;
 
 :host {
+  @include clickable() {
+    box-shadow: 3px 3px 17px 1px #00000054;
+    img {
+      opacity: 0.8;
+    }
+    div.text {
+      background: mat-color($accent, 50) !important;
+    }
+  }
   flex: 1 1 340px;
   margin: 10px 0.6vw;
   min-width: 140px;
-  max-height: 70vh;
+  max-height: 45vh;
+  border-radius: $radius;
   div.item {
     color: #000000c4;
     width: 100%;
@@ -14,19 +28,23 @@
       min-height: 165px;
       img {
         @include constrainImage(100%, 1, cover);
+        border-radius: $radius;
       }
     }
-    div.text {
-      background: #dcdcdcd6;
-      bottom: 60px;
-      height: 50px;
+    .text {
+      background:  mat-color($accent, 900);
+      bottom: 56px;
+      height: 46px;
       position: relative;
-      padding: 3px;
+      padding: 9px 10px 2px;
+      border-bottom-left-radius: $radius;
+      border-bottom-right-radius: $radius;
       span {
         width: 100%;
         display: block;
       }
       #title {
+        font-size: 110%;
         font-weight: bold;
       }
     }
