@@ -1,17 +1,52 @@
 @import "~styles.scss";
+@import "../styles/helperMixins.scss";
+@import "../styles/theme.scss";
 
-div {
-  padding: 50px;
+menu {
+  padding: 0;
+  margin-top: 50px;
+  overflow-x: auto;
+  display: flex;
+  align-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+  span {
+    @include clickable() {
+      background: cA(100);
+      color: fA(100);
+    }
+    border-radius: 5px;
+    padding: 5px 0;
+    text-align: center;
+    width: 25%;
+    min-width: 90px;
+  }
+}
+
+$gap: 12px;
+@function calcSize($size) {
+  $factor: $size * $gap;
+  $of100: 100 / $size;
+  @return unquote("repeat(#{$size}, calc(#{$of100}vmin - #{$factor}))");
 }
 
 .dash {
+  display: grid;
+  @include forType(gt-sm) {
+    grid-template-columns: calcSize(4);
+    grid-template-rows: calc(25vmin - $gap);
+  }
+  @include forType(xs) {
+    grid-template-columns: calcSize(2);
+    grid-template-rows: calc(50vmin - $gap);
+  }
+  grid-gap: $gap;
   padding: 0;
-  display: flex;
-  width: 900px;
-  max-width: 95vw;
-  min-width: 50vw;
-  margin: auto;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-content: center;
   margin-bottom: 50vh;
+  span {
+    margin: 0 auto;
+    height: 50px;
+  }
 }

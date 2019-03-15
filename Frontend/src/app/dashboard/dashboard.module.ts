@@ -5,13 +5,7 @@ import { DashboardComponent } from './dashboard.component';
 import { DashboardGridItemComponent } from './dashboard-grid-item/dashboard-grid-item.component';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    DashboardGridItemComponent
-  ],
-  imports: [
-    TranslateModule,
-    CommonModule
-  ]
+  declarations: [DashboardComponent, DashboardGridItemComponent],
+  imports: [TranslateModule, CommonModule]
 })
-export class DashboardModule { }
+export class DashboardModule {}

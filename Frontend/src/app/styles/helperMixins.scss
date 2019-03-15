@@ -135,6 +135,9 @@
             @content;
         }
     }
+    @else{
+        @error "wrong type"
+    }
 }
 
 /*
@@ -166,16 +169,16 @@
 /**
     @include scrollbar;
 */
-@mixin scrollbar {
+@mixin scrollbar($height: 10px, $min: 60px) {
     ::-webkit-scrollbar {
-        width: 10px;
+        width: $height;
     }
     ::-webkit-scrollbar-track {
         background: #aaa;
     }
     ::-webkit-scrollbar-thumb {
         background: #333;
-        min-height: 60px;
+        min-height: $min;
     }
     ::-webkit-scrollbar-thumb:hover {
         background: #888;

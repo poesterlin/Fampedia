@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, HostBinding, HostListener, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  HostBinding,
+  HostListener,
+  ElementRef
+} from '@angular/core';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -14,16 +21,42 @@ export class DashboardGridItemComponent implements OnInit {
   public visible = false;
   private lasturl = '';
 
-  constructor(private sanitizer: DomSanitizer, private elRef: ElementRef) { }
+  constructor(private sanitizer: DomSanitizer, private elRef: ElementRef) {}
 
   @HostBinding('style')
-  public get flex(): SafeStyle {
-    return this.sanitizer.bypassSecurityTrustStyle(`flex: ${this.importance} ${this.importance} ${this.importance * 20}%`);
+  public get gridSize(): SafeStyle {
+    let row = 1;
+    let column = 1;
+    switch (this.importance) {
+      case 2:
+        row = window.innerWidth < 600 ? 1 : 2;
+        break;
+      case 3:
+        row = 2;
+        column = 2;
+    }
+    return this.sanitizer.bypassSecurityTrustStyle(
+      `grid-row-end: span ${row}; grid-column-end: span ${column}`
+    );
   }
 
   ngOnInit() {
-    const titles = ['Barcelona Vacations', 'Daily Pictures', 'Mariage 🎉', 'Kate’s Birthday', 'Tacos Tuesdays', 'Sundays Breakfast'];
-    const descriptions = ['August 2017', 'Everyday', 'Today', 'Yesterday', 'Every Tuesday', 'Next week'];
+    const titles = [
+      'Barcelona Vacations',
+      'Daily Pictures',
+      'Mariage 🎉',
+      'Kate’s Birthday',
+      'Tacos Tuesdays',
+      'Sundays Breakfast'
+    ];
+    const descriptions = [
+      'August 2017',
+      'Everyday',
+      'Today',
+      'Yesterday',
+      'Every Tuesday',
+      'Next week'
+    ];
     const random = Math.floor(Math.random() * titles.length);
 
     this.title = titles[random];
@@ -32,15 +65,15 @@ export class DashboardGridItemComponent implements OnInit {
 
   private isElementInViewport(el: HTMLElement) {
     const rect = el.getBoundingClientRect();
-    const height = (window.innerHeight || document.documentElement.clientHeight) * 0.5;
+    const height =
+      (window.innerHeight || document.documentElement.clientHeight) * 0.5;
     return (
       rect.top >= -height &&
       rect.left >= 0 &&
-      rect.bottom <= height * 4 &&
+      rect.bottom <= height &&
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
   }
-
 
   @HostListener('window:DOMContentLoaded')
   @HostListener('window:load')
@@ -54,7 +87,7 @@ export class DashboardGridItemComponent implements OnInit {
 
   get url() {
     if (!this.lasturl) {
-      this.lasturl = 'https://placeimg.com/150/150/any?' + Math.random()
+      this.lasturl = 'https://placeimg.com/150/150/any?' + Math.random();
     }
     return this.lasturl;
   }
