@@ -19,6 +19,8 @@ export function createTranslateLoader(http: HttpClient) {
 // import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { LogoComponent } from './logo/logo.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 // declare var Hammer: any;
 // export class MyHammerConfig extends HammerGestureConfig {
@@ -64,6 +66,7 @@ import { NavbarComponent } from './navbar/navbar.component';
                 deps: [HttpClient]
             }
         }),
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ],
     declarations: [
         ExceptionComponent,

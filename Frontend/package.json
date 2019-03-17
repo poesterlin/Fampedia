@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve --hmr",
-    "build": "ng build --aot",
+    "build": "ng build --aot --prod",
     "test": "ng test",
     "lint": "ng lint --fix",
     "e2e": "ng e2e",
@@ -25,7 +25,9 @@
     "@angular/material": "^7.3.3",
     "@angular/platform-browser": "~7.2.8",
     "@angular/platform-browser-dynamic": "~7.2.8",
+    "@angular/pwa": "^0.12.4",
     "@angular/router": "~7.2.8",
+    "@angular/service-worker": "~7.2.8",
     "@capacitor/android": "^1.0.0-beta.19",
     "@capacitor/cli": "^1.0.0-beta.19",
     "@capacitor/core": "^1.0.0-beta.19",
