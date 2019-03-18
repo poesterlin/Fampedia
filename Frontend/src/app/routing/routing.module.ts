@@ -8,6 +8,12 @@ const routes: Routes = [
     loadChildren: '../dashboard/dashboard.module#DashboardModule',
     data: { title: 'DASHBOARD', preload: true }
   },
+  {
+    path: 'event',
+    loadChildren: '../event/event.module#EventModule',
+    data: { title: 'DASHBOARD', preload: true, delay: 5 }
+  },
+
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   // wildcard for invalid urls
   {
