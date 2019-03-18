@@ -5,13 +5,7 @@
       "name": "Fampedia",
       "installMode": "prefetch",
       "resources": {
-        "files": [
-          "/favicon.ico",
-          "/index.html",
-          "/*.css",
-          "/*.map",
-          "/*.js"
-        ]
+        "files": ["/favicon.ico", "/index.html", "/*.css", "/*.map", "/*.js"]
       },
       "cacheConfig": {
         "maxSize": 50,
@@ -19,7 +13,8 @@
         "timeout": "10s",
         "strategy": "performance"
       }
-    }, {
+    },
+    {
       "name": "assets",
       "installMode": "lazy",
       "updateMode": "prefetch",
@@ -28,6 +23,12 @@
           "/assets/**",
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ]
+      },
+      "cacheConfig": {
+        "maxSize": 50,
+        "maxAge": "5h",
+        "timeout": "10s",
+        "strategy": "performance"
       }
     }
   ]
