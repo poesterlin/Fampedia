@@ -36,7 +36,7 @@ $gap: 12px;
     grid-template-columns: calcSize(4);
     grid-template-rows: calc(25vmin - $gap);
   }
-  @include forType(xs) {
+  @include forType(lt-md) {
     grid-template-columns: calcSize(2);
     grid-template-rows: calc(50vmin - $gap);
   }

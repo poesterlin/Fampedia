@@ -9,7 +9,7 @@ const routes: Routes = [
     data: { title: 'DASHBOARD', preload: true }
   },
   {
-    path: 'event',
+    path: 'event/:id',
     loadChildren: '../event/event.module#EventModule',
     data: { title: 'DASHBOARD', preload: true, delay: 5 }
   },

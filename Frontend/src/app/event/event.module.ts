@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EventComponent } from './event.component';
 import { Routes, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MaterialModule } from '../material/material.module';
 
 const routes: Routes = [
   { path: '**', component: EventComponent, data: { preload: true } }
@@ -10,6 +11,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [EventComponent],
-  imports: [CommonModule, TranslateModule, RouterModule.forChild(routes)]
+  imports: [CommonModule, MaterialModule, TranslateModule, RouterModule.forChild(routes)]
 })
 export class EventModule {}

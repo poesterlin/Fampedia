@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import {
     MatToolbarModule,
     MatButtonModule,
@@ -40,8 +38,6 @@ import {
 const modules = [
     // Flex Layout
     FlexLayoutModule,
-    // Angular Material animation
-    BrowserAnimationsModule,
     // Angular Material Modules
     MatToolbarModule,
     MatButtonModule,

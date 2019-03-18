@@ -7,6 +7,7 @@ import {
   ElementRef
 } from '@angular/core';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'fampedia-dashboard-grid-item',
@@ -15,13 +16,16 @@ import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 })
 export class DashboardGridItemComponent implements OnInit {
   @Input() importance: number = 1;
-  @Input() itemId!: number;
-  public title = '';
-  public desc = '';
+  @Input() itemId!: string;
   public visible = false;
   private lasturl = '';
 
-  constructor(private sanitizer: DomSanitizer, private elRef: ElementRef) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private elRef: ElementRef,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   @HostBinding('style')
   public get gridSize(): SafeStyle {
@@ -41,26 +45,9 @@ export class DashboardGridItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    const titles = [
-      'Barcelona Vacations',
-      'Daily Pictures',
-      'Mariage 🎉',
-      'Kate’s Birthday',
-      'Tacos Tuesdays',
-      'Sundays Breakfast'
-    ];
-    const descriptions = [
-      'August 2017',
-      'Everyday',
-      'Today',
-      'Yesterday',
-      'Every Tuesday',
-      'Next week'
-    ];
-    const random = Math.floor(Math.random() * titles.length);
-
-    this.title = titles[random];
-    this.desc = descriptions[random];
+    this.route.params.subscribe(() => {
+      this.onVisibilityChange();
+    });
   }
 
   private isElementInViewport(el: HTMLElement) {
@@ -85,9 +72,13 @@ export class DashboardGridItemComponent implements OnInit {
     }
   }
 
+  public goToEvent() {
+    this.router.navigate(['/event/', this.itemId]);
+  }
+
   get url() {
     if (!this.lasturl) {
-      this.lasturl = 'https://placeimg.com/150/150/any?' + Math.random();
+      this.lasturl = 'https://picsum.photos/200/300/?random&' + Math.random();
     }
     return this.lasturl;
   }
