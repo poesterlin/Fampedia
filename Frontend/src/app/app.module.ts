@@ -9,6 +9,8 @@ import { ErrorService } from './error/shared/error.service';
 import { ExceptionComponent } from './error/exception/exception.component';
 import { AppComponent } from './app.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MaterialModule } from './material/material.module';
 import { RoutingModule } from './routing/routing.module';
 
@@ -55,6 +57,7 @@ export class MyHammerConfig extends HammerGestureConfig {
 @NgModule({
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,

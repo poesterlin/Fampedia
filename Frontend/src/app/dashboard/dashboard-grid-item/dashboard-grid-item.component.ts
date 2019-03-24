@@ -1,20 +1,17 @@
 import {
   Component,
-  OnInit,
   Input,
   HostBinding,
-  HostListener,
-  ElementRef
 } from '@angular/core';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fampedia-dashboard-grid-item',
   templateUrl: './dashboard-grid-item.component.html',
   styleUrls: ['./dashboard-grid-item.component.scss']
 })
-export class DashboardGridItemComponent implements OnInit {
+export class DashboardGridItemComponent {
   @Input() importance: number = 1;
   @Input() itemId!: string;
   public visible = false;
@@ -22,10 +19,8 @@ export class DashboardGridItemComponent implements OnInit {
 
   constructor(
     private sanitizer: DomSanitizer,
-    private elRef: ElementRef,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  ) { }
 
   @HostBinding('style')
   public get gridSize(): SafeStyle {
@@ -44,42 +39,15 @@ export class DashboardGridItemComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
-    this.route.params.subscribe(() => {
-      this.onVisibilityChange();
-    });
-  }
-
-  private isElementInViewport(el: HTMLElement) {
-    const rect = el.getBoundingClientRect();
-    const height =
-      (window.innerHeight || document.documentElement.clientHeight) * 0.5;
-    return (
-      rect.top >= -height &&
-      rect.left >= 0 &&
-      rect.bottom <= height &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  }
-
-  @HostListener('window:DOMContentLoaded')
-  @HostListener('window:load')
-  @HostListener('window:scroll')
-  @HostListener('window:resize')
-  public onVisibilityChange() {
-    if (this.isElementInViewport(this.elRef.nativeElement) && !this.visible) {
-      this.visible = true;
-    }
-  }
-
   public goToEvent() {
     this.router.navigate(['/event/', this.itemId]);
   }
 
   get url() {
     if (!this.lasturl) {
-      this.lasturl = 'https://picsum.photos/200/300/?random&' + Math.random();
+      this.lasturl = 'https://picsum.photos/200/300/?random'// + Math.random();
     }
     return this.lasturl;
   }
+
 }
