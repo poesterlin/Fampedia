@@ -15,7 +15,6 @@ export class DashboardGridItemComponent {
   @Input() importance: number = 1;
   @Input() itemId!: string;
   public visible = false;
-  private lasturl = '';
 
   constructor(
     private sanitizer: DomSanitizer,
@@ -41,13 +40,6 @@ export class DashboardGridItemComponent {
 
   public goToEvent() {
     this.router.navigate(['/event/', this.itemId]);
-  }
-
-  get url() {
-    if (!this.lasturl) {
-      this.lasturl = 'https://picsum.photos/200/300/?random'// + Math.random();
-    }
-    return this.lasturl;
   }
 
 }

@@ -45,8 +45,27 @@ $gap: 12px;
   justify-content: center;
   align-content: center;
   margin-bottom: 50vh;
+  scroll-snap-type: y mandatory;
   span {
     margin: 0 auto;
     height: 50px;
+  }
+}
+
+.fresh {
+  margin-left: 10px;
+}
+.side {
+  scroll-snap-type: x mandatory;
+  overflow: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  row-gap: 10px;
+  flex-direction: row;
+  .placeholder {
+    opacity: 0;
+    user-select: none;
+    width: 30vw;
+    height: 180px;
   }
 }

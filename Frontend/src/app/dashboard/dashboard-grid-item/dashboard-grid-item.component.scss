@@ -1,5 +1,6 @@
 @import "../../styles/helperMixins.scss";
 @import "../../styles/theme.scss";
+
 $gap: 12px;
 :host {
   @include clickable() {
@@ -13,12 +14,13 @@ $gap: 12px;
   }
 
   @include forType(gt-sm) {
-   height: calc(25vmin - $gap);
+    height: unquote("calc(25vw - #{$gap})");
   }
   @include forType(lt-md) {
-    height: calc(50vmin - $gap);
+    height: unquote("calc(50vw - #{$gap})");
   }
   
+  scroll-snap-align: start;
   div.item {
     color: fP(50);
     height: 100%;

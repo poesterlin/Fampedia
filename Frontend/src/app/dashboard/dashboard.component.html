@@ -1,5 +1,8 @@
-
-
+<span class="fresh"> Fresh New</span>
+<div class="side">
+  <div class="placeholder">placeholder</div>
+  <fampedia-side-scroll *ngFor="let i of importances"></fampedia-side-scroll>
+</div>
 
 <menu>
   <span>menu1</span>
@@ -9,10 +12,6 @@
 </menu>
 
 <div class="dash">
-  <fampedia-dashboard-grid-item
-    [importance]="i"
-    [itemId]="idx + 'id'"
-    *ngFor="let i of importances; let idx = index"
-  >
+  <fampedia-dashboard-grid-item [importance]="i" [itemId]="idx + 'id'" *ngFor="let i of importances; let idx = index">
   </fampedia-dashboard-grid-item>
 </div>
