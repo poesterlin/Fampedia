@@ -8,7 +8,7 @@
     color: fP(50, 0.8);
     margin: 6px 12px;
     border-radius: 7px;
-    scroll-snap-align: start;
+    scroll-snap-align: center;
     img{
         @include constrainImage(100%, 100%, cover);
     }

@@ -5,11 +5,21 @@
 </div>
 
 <menu>
-  <span>menu1</span>
-  <span>menu2</span>
-  <span>menu3</span>
-  <span>menu4</span>
+  <a [routerLink]="['/recipes']">
+    Recipes
+  </a>
+  <a [routerLink]="['/recipes']">
+    Recipes
+  </a>
+  <a [routerLink]="['/recipes']">
+    Recipes
+  </a>
+  <a [routerLink]="['/recipes']">
+    Recipes
+  </a>
 </menu>
+
+
 
 <div class="dash">
   <fampedia-dashboard-grid-item [importance]="i" [itemId]="idx + 'id'" *ngFor="let i of importances; let idx = index">

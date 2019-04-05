@@ -2,7 +2,9 @@
     "test": "Deutsch",
     "titles": {
         "undefined": "",
-        "DASHBOARD": "Dashboard"
+        "DASHBOARD": "Dashboard",
+        "EVENT": "Event",
+        "RECIPES": "Rezepte"
     },
     "navbar":{
         "LANGUAGE_SWITCH": "Sprache wechseln"

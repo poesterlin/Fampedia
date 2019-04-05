@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomPreloader } from './CustomPreloader';
+// import { RecipesComponent } from '../recipes/recipes.component';
 
 const routes: Routes = [
   {
@@ -11,9 +12,13 @@ const routes: Routes = [
   {
     path: 'event/:id',
     loadChildren: '../event/event.module#EventModule',
-    data: { title: 'DASHBOARD', preload: true, delay: 5 }
+    data: { title: 'EVENT', preload: true, delay: 5 }
   },
-
+  {
+    path: 'recipes',
+    loadChildren: '../recipes/recipes.module#RecipesModule',
+    data: { title: 'RECIPES', preload: true, delay: 5 }
+  },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   // wildcard for invalid urls
   {
@@ -26,7 +31,6 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      enableTracing: false,
       useHash: true,
       preloadingStrategy: CustomPreloader
     })
@@ -34,4 +38,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [CustomPreloader]
 })
-export class RoutingModule {}
+export class RoutingModule { }
