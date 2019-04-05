@@ -28,13 +28,15 @@ export class ImageDirective {
       rect.top >= -height &&
       rect.left >= 0 &&
       rect.bottom <= height * 2.5 &&
-      rect.right <= window.innerWidth
+      rect.right <= window.innerWidth * 1.4
     );
   }
 
   @HostListener('window:DOMContentLoaded')
   @HostListener('window:load')
   @HostListener('window:scroll')
+  @HostListener('window:mousewheel')
+  // @HostListener('mousewheel')
   @HostListener('window:resize')
   public onVisibilityChange() {
     if (this.isElementInViewport(this.elRef.nativeElement)) {
