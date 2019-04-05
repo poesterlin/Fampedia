@@ -9,6 +9,8 @@ import { ErrorService } from './error/shared/error.service';
 import { ExceptionComponent } from './error/exception/exception.component';
 import { AppComponent } from './app.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MaterialModule } from './material/material.module';
 import { RoutingModule } from './routing/routing.module';
 
@@ -17,10 +19,11 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { NotFoundModule } from './not-found/not-found.module';
 import { LogoComponent } from './logo/logo.component';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { EventModule } from './event/event.module';
 
 declare var Hammer: any;
 export class MyHammerConfig extends HammerGestureConfig {
@@ -54,13 +57,13 @@ export class MyHammerConfig extends HammerGestureConfig {
 @NgModule({
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
         MaterialModule,
         RoutingModule,
-        NotFoundModule,
-        DashboardModule,
+        EventModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -68,12 +71,13 @@ export class MyHammerConfig extends HammerGestureConfig {
                 deps: [HttpClient]
             }
         }),
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ],
     declarations: [
         ExceptionComponent,
         AppComponent,
         LogoComponent,
-        NavbarComponent
+        NavbarComponent,
     ],
     providers: [
         { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig, },

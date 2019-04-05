@@ -1,60 +1,26 @@
 @import "~@angular/material/theming";
 @include mat-core();
 
-$main-hue: 206;
-$main-sat: 33%;
-$font: #f0f2d8;
-$primary-hue: 182;
-$primary-sat: 50%;
+$primary-hue: 206;
+$primary-sat: 33%;
+$font: #f0f1e5;
+$accent-hue: 179;
+$accent-sat: 80%;
 $fam-accent: #e54b5a;
 $fam-error: #b00020;
 
-$MstartL: 11%;
-$mat-main: (
-  50: hsl($main-hue, $main-sat, $MstartL + 10),
-  100: hsl($main-hue, $main-sat, $MstartL + 13),
-  200: hsl($main-hue, $main-sat, $MstartL + 10),
-  300: hsl($main-hue, $main-sat, $MstartL + 4),
-  400: hsl($main-hue, $main-sat, $MstartL + 4),
-  500: hsl($main-hue, $main-sat, $MstartL + 4),
-  600: hsl($main-hue, $main-sat, $MstartL + 4),
-  700: hsl($main-hue, $main-sat, $MstartL + 4),
-  800: hsl($main-hue, $main-sat, $MstartL + 4),
-  900: hsl($main-hue, $main-sat, $MstartL),
-  A100: hsl($main-hue, $main-sat, 75%),
-  A200: hsl($main-hue, $main-sat, 66%),
-  A400: hsl($main-hue, $main-sat, 55%),
-  A700: hsl($main-hue, $main-sat, 42%),
-  contrast: (
-    50: $black-87-opacity,
-    100: $black-87-opacity,
-    200: $black-87-opacity,
-    300: $black-87-opacity,
-    400: $black-87-opacity,
-    500: $font,
-    600: $font,
-    700: $font,
-    800: $white-87-opacity,
-    900: $white-87-opacity,
-    A100: $black-87-opacity,
-    A200: $font,
-    A400: $font,
-    A700: $font
-  )
-);
-
-$PstartL: 30%;
+$prm-adj: 10;
 $mat-primary: (
-  50: hsl($primary-hue, $primary-sat, $PstartL + 10),
-  100: hsl($primary-hue, $primary-sat, $PstartL + 13),
-  200: hsl($primary-hue, $primary-sat, $PstartL + 10),
-  300: hsl($primary-hue, $primary-sat, $PstartL + 4),
-  400: hsl($primary-hue, $primary-sat, $PstartL + 4),
-  500: hsl($primary-hue, $primary-sat, $PstartL + 4),
-  600: hsl($primary-hue, $primary-sat, $PstartL + 4),
-  700: hsl($primary-hue, $primary-sat, $PstartL + 4),
-  800: hsl($primary-hue, $primary-sat, $PstartL + 4),
-  900: hsl($primary-hue, $primary-sat, $PstartL),
+  50:  hsl($primary-hue, $primary-sat, 75% + $prm-adj),
+  100: hsl($primary-hue, $primary-sat, 45% + $prm-adj),
+  200: hsl($primary-hue, $primary-sat, 32% + $prm-adj),
+  300: hsl($primary-hue, $primary-sat, 25% + $prm-adj),
+  400: hsl($primary-hue, $primary-sat, 20% + $prm-adj),
+  500: hsl($primary-hue, $primary-sat, 16% + $prm-adj),
+  600: hsl($primary-hue, $primary-sat, 12% + $prm-adj),
+  700: hsl($primary-hue, $primary-sat, 10% + $prm-adj),
+  800: hsl($primary-hue, $primary-sat, 8% + $prm-adj),
+  900: hsl($primary-hue, $primary-sat, 5% + $prm-adj),
   A100: hsl($primary-hue, $primary-sat, 75%),
   A200: hsl($primary-hue, $primary-sat, 66%),
   A400: hsl($primary-hue, $primary-sat, 55%),
@@ -68,8 +34,8 @@ $mat-primary: (
     500: $font,
     600: $font,
     700: $font,
-    800: $white-87-opacity,
-    900: $white-87-opacity,
+    800: $font,
+    900: $font,
     A100: $black-87-opacity,
     A200: $font,
     A400: $font,
@@ -77,8 +43,42 @@ $mat-primary: (
   )
 );
 
-$primary: mat-palette($mat-main, 300);
-$accent: mat-palette($mat-primary, 800);
+$acc-adj: 10;
+$mat-accent: (
+  50:  hsl($accent-hue, $accent-sat, 75% + $acc-adj),
+  100: hsl($accent-hue, $accent-sat, 65% + $acc-adj),
+  200: hsl($accent-hue, $accent-sat, 59% + $acc-adj),
+  300: hsl($accent-hue, $accent-sat, 46% + $acc-adj),
+  400: hsl($accent-hue, $accent-sat, 36% + $acc-adj),
+  500: hsl($accent-hue, $accent-sat, 33% + $acc-adj),
+  600: hsl($accent-hue, $accent-sat, 29% + $acc-adj),
+  700: hsl($accent-hue, $accent-sat, 24% + $acc-adj),
+  800: hsl($accent-hue, $accent-sat, 20% + $acc-adj),
+  900: hsl($accent-hue, $accent-sat, 16% + $acc-adj),
+  A100: hsl($accent-hue, $accent-sat, 75%),
+  A200: hsl($accent-hue, $accent-sat, 66%),
+  A400: hsl($accent-hue, $accent-sat, 55%),
+  A700: hsl($accent-hue, $accent-sat, 42%),
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: $font,
+    600: $font,
+    700: $font,
+    800: $font,
+    900: $font,
+    A100: $black-87-opacity,
+    A200: $font,
+    A400: $font,
+    A700: $font
+  )
+);
+
+$primary: mat-palette($mat-primary);
+$accent: mat-palette($mat-accent);
 $warn: mat-palette($mat-red, 800);
 
 $theme: mat-dark-theme($primary, $accent, $warn);
@@ -87,3 +87,35 @@ $theme: mat-dark-theme($primary, $accent, $warn);
 
 // @include mat-button-theme($candy-app-theme);
 // @include mat-checkbox-theme($candy-app-theme);
+
+/* 
+  Theme Color Primary
+ */
+@function cP($type: 500, $alpha: 1) {
+  $col: mat-color($primary, $type);
+  @return transparentize($col, 1 - $alpha);
+}
+
+/* 
+  Theme Color Accent
+ */
+@function cA($type: 500, $alpha: 1) {
+  $col: mat-color($accent, $type);
+  @return transparentize($col, 1 - $alpha);
+}
+
+/* 
+  Contrast Font Primary
+ */
+@function fP($type: 500, $alpha: 1) {
+  $col: mat-color($primary, "#{$type}-contrast");
+  @return transparentize($col, 1 - $alpha);
+}
+
+/* 
+  Contrast Font Accent
+ */
+@function fA($type: 500, $alpha: 1) {
+  $col: mat-color($accent, "#{$type}-contrast");
+  @return transparentize($col, 1 - $alpha);
+}

@@ -6,12 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  public importances: number[] = []
+  public importances: number[] = [];
   constructor() {
-    this.importances = new Array(20).fill(null).map(() => Math.ceil(Math.random() * 3));
+    this.importances = new Array(20)
+      .fill(null)
+      .map(() => Math.ceil(Math.random() * 3));
+    this.importances.unshift(...[1, 1, 3, 1, 1, 1, 1, 2, 2, 1, 1]);
   }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

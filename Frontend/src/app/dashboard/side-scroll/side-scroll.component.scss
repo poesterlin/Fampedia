@@ -1,0 +1,15 @@
+@import "../../styles/helperMixins.scss";
+@import "../../styles/theme.scss";
+
+.item{
+    width: 100px;
+    height: 180px;
+    background: cP(50, 0.8);
+    color: fP(50, 0.8);
+    margin: 6px 12px;
+    border-radius: 7px;
+    scroll-snap-align: center;
+    img{
+        @include constrainImage(100%, 100%, cover);
+    }
+}
