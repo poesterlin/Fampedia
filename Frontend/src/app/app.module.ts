@@ -19,7 +19,6 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { LogoComponent } from './logo/logo.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
@@ -76,7 +75,6 @@ export class MyHammerConfig extends HammerGestureConfig {
     declarations: [
         ExceptionComponent,
         AppComponent,
-        LogoComponent,
         NavbarComponent,
     ],
     providers: [

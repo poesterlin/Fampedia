@@ -1,6 +1,0 @@
-@import "../styles/helperMixins.scss";
-
-img {
-  @include constrainImage(70px, 99%);
-  max-height: 99% !important;
-}
