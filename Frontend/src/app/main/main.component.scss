@@ -1,0 +1,13 @@
+@import "~styles.scss";
+@import "../styles/helperMixins.scss";
+@import "../styles/theme.scss";
+
+.headerContainer {
+  height: 146px;
+  width: 100%;
+  margin-bottom: 10px;
+  background: white;
+  @include forType(gt-md) {
+    height: 108px;
+  }
+}

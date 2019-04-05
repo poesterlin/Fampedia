@@ -10,6 +10,11 @@ const routes: Routes = [
     data: { title: 'DASHBOARD', preload: true }
   },
   {
+    path: 'main',
+    loadChildren: '../main/main.module#MainModule',
+    data: { title: 'DASHBOARD', preload: true }
+  },
+  {
     path: 'event/:id',
     loadChildren: '../event/event.module#EventModule',
     data: { title: 'EVENT', preload: true, delay: 5 }

@@ -1,0 +1,47 @@
+@import "../../styles/helperMixins.scss";
+@import "../../styles/theme.scss";
+
+:host {
+  z-index: 1000;
+  top: 0px;
+  background: white;
+  box-shadow: 0px 1px 6px 4px rgba(0, 0, 0, 0.3);
+  color: black;
+  height: 146px;
+  width: 100vw;
+  @include forType(gt-md){
+    height: 108px;
+  }
+  #right{
+    margin-right: 5px;
+  }
+  .block {
+    background: gray;
+    border-radius: 10%;
+    padding: 10px;
+    height: 65px;
+    width: 75px;
+    margin: 4px 0;
+    font-size: 200%;
+    font-weight: bold;
+    @include forType(gt-md) {
+      height: 100px;
+      width: 100px;
+      margin: 4px;
+    }
+    @include forType(xs) {
+      width: 65px;
+    }
+    @include clickable(){
+      background: lightgray;
+    }
+  }
+  .bigBlock {
+    height: 140px;
+    width: 100px;
+    margin: 3px 5px;
+    @include forType(gt-md) {
+      height: 100px;
+    }
+  }
+}
