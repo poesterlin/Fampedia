@@ -1,3 +1,34 @@
 <div class="headerContainer">
   <fampedia-tool-header></fampedia-tool-header>
 </div>
+
+<menu fxLayout="row">
+  <a [routerLink]="['/main']" fxFlex="25">
+    MAIN
+  </a>
+  <a [routerLink]="['/recipes']" fxFlex="25">
+    Timeline
+  </a>
+  <a [routerLink]="['/recipes']" fxFlex="25">
+    News
+  </a>
+  <a [routerLink]="['/recipes']" fxFlex="25">
+    Archive
+  </a>
+</menu>
+
+<div class="timeline" *ngIf="timeline.length === 2" fxLayout="row">
+  <div id="left" fxFlex="49">
+    <fampedia-timeline-element
+      *ngFor="let el of timeline[0]"
+      [element]="el"
+    ></fampedia-timeline-element>
+  </div>
+  <div id="line" fxFlex="2"></div>
+  <div id="right" fxFlex="49">
+    <fampedia-timeline-element
+      *ngFor="let el of timeline[1]"
+      [element]="el"
+    ></fampedia-timeline-element>
+  </div>
+</div>

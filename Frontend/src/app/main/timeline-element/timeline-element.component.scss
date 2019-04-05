@@ -1,0 +1,51 @@
+@import "../../styles/helperMixins.scss";
+@import "../../styles/theme.scss";
+
+$rad: 8px;
+
+:host {
+  width: 40vw;
+  position: relative;
+  display: inline-block;
+  background: #8BBDBD;
+  border-radius: $rad;
+  div {
+    direction: ltr;
+    display: grid;
+    img {
+      @include constrainImage(95%, 50%, fill);
+      margin: auto;
+      height: unset;
+      z-index: 50;
+      overflow: hidden;
+      border-radius: $rad;
+    }
+  }
+  i.line {
+    background: rgb(97, 97, 97);
+    width: 5vw;
+    height: 1px;
+    position: absolute;
+    &.left {
+      transform: translate(40vw, -50px);
+    }
+    &.right {
+      transform: translate(-40vw, -50px);
+    }
+  }
+  i.bubble {
+    width: 7px;
+    height: 7px;
+    background: rgb(97, 97, 97);
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgb(97, 97, 97);
+    z-index: 50;
+    &.left {
+        transform: translate(calc(45vw - 4px), -54px);
+    }
+    &.right {
+        transform: translate(calc(-45vw + 5px), -54px);
+    }
+  }
+}

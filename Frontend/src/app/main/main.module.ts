@@ -6,12 +6,13 @@ import { ToolHeaderComponent } from './tool-header/tool-header.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { DirectivesModule } from '../directives/directives.module';
 import { MaterialModule } from '../material/material.module';
+import { TimelineElementComponent } from './timeline-element/timeline-element.component';
 const routes: Routes = [
   { path: '**', component: MainComponent, data: { preload: true } }
 ];
 
 @NgModule({
-  declarations: [MainComponent, ToolHeaderComponent],
+  declarations: [MainComponent, ToolHeaderComponent, TimelineElementComponent],
   imports: [
     TranslateModule,
     CommonModule,

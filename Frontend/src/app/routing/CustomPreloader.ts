@@ -10,7 +10,6 @@ export class CustomPreloader implements PreloadingStrategy {
             new Promise(res =>
               setTimeout(() => {
                 load();
-                console.log('delayed preload', route);
                 res();
               }, delay * 1000)
             )
