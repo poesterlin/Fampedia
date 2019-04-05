@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'main',
     loadChildren: '../main/main.module#MainModule',
-    data: { title: 'DASHBOARD', preload: true }
+    data: { title: 'MAIN', preload: true }
   },
   {
     path: 'event/:id',

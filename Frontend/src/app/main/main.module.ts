@@ -8,7 +8,7 @@ import { DirectivesModule } from '../directives/directives.module';
 import { MaterialModule } from '../material/material.module';
 import { TimelineElementComponent } from './timeline-element/timeline-element.component';
 const routes: Routes = [
-  { path: '**', component: MainComponent, data: { preload: true } }
+  { path: '**', component: MainComponent }
 ];
 
 @NgModule({
