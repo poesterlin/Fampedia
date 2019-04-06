@@ -31,23 +31,20 @@ export class MainComponent implements OnInit {
 
     this.events.sort(dateSort).forEach((event, idx) => {
       const sideIdx = idx % 2;
-      const height = 10;
+      const height = window.innerHeight / 4;
       const margin = 5;
-      const last = timeline[sideIdx][timeline[sideIdx].length - 1] || timeline[sideIdx][timeline[sideIdx].length - 1] || {
-        top: (height + margin) * -1
-      };
+      const last = timeline[sideIdx][timeline[sideIdx].length - 1] ||
+        timeline[sideIdx][timeline[sideIdx].length - 1] || {
+          top: -margin
+        };
 
-      let top = last.top + height + margin;
+      let top = last.top + margin;
       if (last.date) {
         top += Math.floor(
           // Math.min(
-            Math.max(
-              (event.date.getTime() - last.date.getTime()) /
-                1000 /
-                3600 /
-                24 /
-                2,
-              0
+          Math.max(
+            (event.date.getTime() - last.date.getTime()) / 1000 / 3600 / 24 / 2,
+            0
             // ),
             // 200
           )

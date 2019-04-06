@@ -18,6 +18,7 @@ export interface TimelineElement {
 })
 export class TimelineElementComponent implements OnInit {
   @Input() element!: TimelineElement;
+  public rand = Math.random();
 
   constructor(private sanitizer: DomSanitizer) {}
 
@@ -25,7 +26,7 @@ export class TimelineElementComponent implements OnInit {
 
   @HostBinding('style')
   public get style(): SafeStyle {
-    const style = `top: ${this.element.top}px; height:${this.element.height};`;
+    const style = `top: ${this.element.top}px; height:${this.element.height}px;`;
     return this.sanitizer.bypassSecurityTrustStyle(style);
   }
 }

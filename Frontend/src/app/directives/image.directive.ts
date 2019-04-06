@@ -1,47 +1,43 @@
-import { Directive, Input, ElementRef, HostListener, HostBinding, Output, EventEmitter, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  Directive,
+  Input,
+  ElementRef,
+  HostBinding,
+  Output,
+  EventEmitter,
+  AfterViewInit,
+  OnDestroy
+} from '@angular/core';
 
 @Directive({
   selector: '[famImage]',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
-    'type': 'img'
+    type: 'img'
   }
 })
-export class ImageDirective implements OnInit {
+export class ImageDirective implements AfterViewInit, OnDestroy {
   @Input() image!: string;
   @Output() visibilityChange = new EventEmitter<boolean>();
   @HostBinding('src') private source?: string;
 
-  constructor(private route: ActivatedRoute, private elRef: ElementRef) { }
+  private observer?: IntersectionObserver;
 
-  ngOnInit() {
-    this.route.params.subscribe(() => {
-      this.onVisibilityChange();
-    });
-  }
+  constructor(private elRef: ElementRef) {}
 
-  private isElementInViewport(el: HTMLElement) {
-    const rect = el.getBoundingClientRect();
-    const height = window.innerHeight * 0.5;
-    return (
-      rect.top >= -height &&
-      rect.left >= 0 &&
-      rect.bottom <= height * 2.5 &&
-      rect.right <= window.innerWidth * 1.4
+  ngAfterViewInit(): void {
+    this.observer = new IntersectionObserver(entries =>
+      this.onVisibilityChange(entries[0])
     );
+    // Start observing an element
+    this.observer.observe(this.elRef.nativeElement);
   }
 
-  @HostListener('window:DOMContentLoaded')
-  @HostListener('window:load')
-  @HostListener('window:scroll')
-  @HostListener('window:mousewheel')
-  // @HostListener('mousewheel')
-  @HostListener('window:resize')
-  public onVisibilityChange() {
-    if (this.isElementInViewport(this.elRef.nativeElement)) {
+  public onVisibilityChange(elementData: IntersectionObserverEntry) {
+    if (elementData.intersectionRatio > 0) {
       if (!this.source) {
         this.source = this.image;
+        this.destroy();
       }
       this.visibilityChange.emit(true);
     } else {
@@ -49,4 +45,15 @@ export class ImageDirective implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.destroy();
+  }
+
+  private destroy() {
+    if (this.observer) {
+      this.observer.unobserve(this.elRef.nativeElement);
+      this.observer.disconnect();
+      this.observer = undefined;
+    }
+  }
 }

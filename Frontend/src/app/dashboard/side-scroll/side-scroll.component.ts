@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./side-scroll.component.scss']
 })
 export class SideScrollComponent implements OnInit {
-
+  public rand = Math.random();
   constructor() { }
 
   ngOnInit() {
