@@ -7,18 +7,21 @@ $rad: 8px;
   width: 40vw;
   position: relative;
   display: inline-block;
-  background: #8BBDBD;
+  background: #8bbdbd;
   border-radius: $rad;
   div {
     direction: ltr;
     display: grid;
-    img {
-      @include constrainImage(95%, 50%, fill);
-      margin: auto;
-      height: unset;
-      z-index: 50;
-      overflow: hidden;
-      border-radius: $rad;
+    .imageContainer {
+      min-height: calc(25vh - 43px);
+      img {
+        @include constrainImage(95%, 50%, fill);
+        margin: auto;
+        height: unset;
+        z-index: 50;
+        overflow: hidden;
+        border-radius: $rad;
+      }
     }
   }
   i.line {
@@ -42,10 +45,10 @@ $rad: 8px;
     border: 1px solid rgb(97, 97, 97);
     z-index: 50;
     &.left {
-        transform: translate(calc(45vw - 4px), -54px);
+      transform: translate(calc(45vw - 4px), -54px);
     }
     &.right {
-        transform: translate(calc(-45vw + 5px), -54px);
+      transform: translate(calc(-45vw + 5px), -54px);
     }
   }
 }

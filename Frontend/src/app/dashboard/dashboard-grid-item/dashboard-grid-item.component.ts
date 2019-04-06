@@ -1,8 +1,4 @@
-import {
-  Component,
-  Input,
-  HostBinding,
-} from '@angular/core';
+import { Component, Input, HostBinding } from '@angular/core';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
@@ -14,12 +10,9 @@ import { Router } from '@angular/router';
 export class DashboardGridItemComponent {
   @Input() importance: number = 1;
   @Input() itemId!: string;
-  public visible = false;
+  public rand = Math.random();
 
-  constructor(
-    private sanitizer: DomSanitizer,
-    private router: Router,
-  ) { }
+  constructor(private sanitizer: DomSanitizer, private router: Router) {}
 
   @HostBinding('style')
   public get gridSize(): SafeStyle {
@@ -41,5 +34,4 @@ export class DashboardGridItemComponent {
   public goToEvent() {
     this.router.navigate(['/event/', this.itemId]);
   }
-
 }

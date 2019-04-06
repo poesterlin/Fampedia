@@ -1,7 +1,9 @@
 <div>
   <span>{{element.title}}</span>
   <span>{{element.desc}}</span>
-  <img [src]="element.img">
+  <div class="imageContainer">
+    <img famImage [image]="'https://source.unsplash.com/200x200/?water,' + rand">
+  </div>
 </div>
 <i class="line" [ngClass]="{'left': element.row == 'left', 'right': element.row == 'right'}"></i>
 <i class="bubble" [ngClass]="{'left': element.row == 'left', 'right': element.row == 'right'}"></i>
