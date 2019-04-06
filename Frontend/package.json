@@ -2,7 +2,7 @@
   "name": "fampedia",
   "version": "0.0.0",
   "scripts": {
-    "start": "ng serve --hmr",
+    "start": "ng serve --hmr --aot",
     "build": "ng build --aot --prod",
     "test": "ng test",
     "lint": "ng lint --fix",

@@ -1,0 +1,7 @@
+<div>
+  <span>{{element.title}}</span>
+  <span>{{element.desc}}</span>
+  <img [src]="element.img">
+</div>
+<i class="line" [ngClass]="{'left': element.row == 'left', 'right': element.row == 'right'}"></i>
+<i class="bubble" [ngClass]="{'left': element.row == 'left', 'right': element.row == 'right'}"></i>

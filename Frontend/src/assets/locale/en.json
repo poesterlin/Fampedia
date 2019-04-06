@@ -3,7 +3,8 @@
     "titles": {
         "undefined": "",
         "DASHBOARD": "Dashboard",
-        "RECIPES": "Recipes"
+        "RECIPES": "Recipes",
+        "MAIN": "Main"
     },
     "navbar":{
         "LANGUAGE_SWITCH": "Change language"

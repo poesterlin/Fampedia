@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomPreloader } from './CustomPreloader';
-// import { RecipesComponent } from '../recipes/recipes.component';
 
 const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: '../dashboard/dashboard.module#DashboardModule',
     data: { title: 'DASHBOARD', preload: true }
+  },
+  {
+    path: 'main',
+    loadChildren: '../main/main.module#MainModule',
+    data: { title: 'MAIN', preload: true }
   },
   {
     path: 'event/:id',

@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, HostListener, HostBinding, Output, EventEmitter } from '@angular/core';
+import { Directive, Input, ElementRef, HostListener, HostBinding, Output, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Directive({
@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
     'type': 'img'
   }
 })
-export class ImageDirective {
+export class ImageDirective implements OnInit {
   @Input() image!: string;
   @Output() visibilityChange = new EventEmitter<boolean>();
   @HostBinding('src') private source?: string;

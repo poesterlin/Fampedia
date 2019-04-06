@@ -4,7 +4,8 @@
         "undefined": "",
         "DASHBOARD": "Dashboard",
         "EVENT": "Event",
-        "RECIPES": "Rezepte"
+        "RECIPES": "Rezepte",
+        "MAIN": "Main"
     },
     "navbar":{
         "LANGUAGE_SWITCH": "Sprache wechseln"
