@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomPreloader } from './CustomPreloader';
-// import { RecipesComponent } from '../recipes/recipes.component';
 
 const routes: Routes = [
   {

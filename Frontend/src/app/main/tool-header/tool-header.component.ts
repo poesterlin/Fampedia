@@ -16,11 +16,6 @@ import {
   throttleTime
 } from 'rxjs/operators';
 
-enum VisibilityState {
-  Visible = 'visible',
-  Hidden = 'hidden',
-  Normal = 'normal'
-}
 
 enum Direction {
   Up = 'Up',
@@ -33,9 +28,9 @@ enum Direction {
   templateUrl: './tool-header.component.html',
   styleUrls: ['./tool-header.component.scss'],
   animations: [
-    trigger('toggle', [
+    trigger('mode', [
       state(
-        VisibilityState.Hidden,
+        'hidden',
         style({
           opacity: 0,
           transform: 'translateY(-100%)',
@@ -43,7 +38,7 @@ enum Direction {
         })
       ),
       state(
-        VisibilityState.Visible,
+        'visible',
         style({
           opacity: 1,
           transform: 'translateY(0)',
@@ -51,7 +46,7 @@ enum Direction {
         })
       ),
       state(
-        VisibilityState.Normal,
+        'normal',
         style({
           opacity: 1,
           transform: 'translateY(0)',
@@ -63,10 +58,10 @@ enum Direction {
   ]
 })
 export class ToolHeaderComponent implements AfterViewInit {
-  private state: VisibilityState = VisibilityState.Normal;
+  private state: 'normal' | 'visible' | 'hidden' = 'normal';
 
-  @HostBinding('@toggle')
-  get toggle(): VisibilityState {
+  @HostBinding('@mode')
+  get mode(): 'normal' | 'visible' | 'hidden' {
     return this.state;
   }
 
@@ -99,8 +94,8 @@ export class ToolHeaderComponent implements AfterViewInit {
       filter(direction => direction === Direction.Down)
     );
 
-    NotMoved$.subscribe(() => (this.state = VisibilityState.Normal));
-    goingUp$.subscribe(() => (this.state = VisibilityState.Visible));
-    goingDown$.subscribe(() => (this.state = VisibilityState.Hidden));
+    NotMoved$.subscribe(() => (this.state = 'normal'));
+    goingUp$.subscribe(() => (this.state = 'visible'));
+    goingDown$.subscribe(() => (this.state = 'hidden'));
   }
 }

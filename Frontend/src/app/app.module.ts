@@ -1,4 +1,4 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, Injectable } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -22,9 +22,9 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 import { NavbarComponent } from './navbar/navbar.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { EventModule } from './event/event.module';
 
 declare var Hammer: any;
+@Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
     /**
      * https://github.com/hammerjs/hammer.js/issues/1014#issuecomment-372513548
@@ -62,7 +62,6 @@ export class MyHammerConfig extends HammerGestureConfig {
         HttpClientModule,
         MaterialModule,
         RoutingModule,
-        EventModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
