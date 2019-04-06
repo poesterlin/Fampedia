@@ -9,6 +9,7 @@
 }
 
 mat-toolbar {
+    overflow: hidden;
     height: 55px;
     @media screen and (max-width: 599px) {
         height: 40px;
