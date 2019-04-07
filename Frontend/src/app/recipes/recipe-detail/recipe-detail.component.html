@@ -1,17 +1,19 @@
 <div class="row">
   <div class="col-xs-12" id="header" [ngStyle]="{'background': 'url(' + recipe.imagePath + ') 50%/ contain'}">
     <span contentEditable class="blur">{{ recipe.name }}</span>
-    <span contentEditable role='textbox' aria-multiline='true'>{{ recipe.name }}</span>
+    <span role='textbox' aria-multiline='true'>{{ recipe.name }}</span>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12" id="menu">
     <div class="btn-group" appDropdown>
-      <button type="button" class="btn btn-primary dropdown-toggle">
-        <a [routerLink]="['/recipes']">Recipe</a>
+      <button
+        type="button"
+        class="btn btn-primary dropdown-toggle">
+        Manage Recipe <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a style="cursor: pointer;" [routerLink]="['/recipes', id, 'edit']">Edit Recipe</a></li>
+        <li><a style="cursor: pointer;" (click)="onEditRecipe()">Edit Recipe</a></li>
         <li><a style="cursor: pointer;" (click)="onDeleteRecipe()">Delete Recipe</a></li>
       </ul>
     </div>
