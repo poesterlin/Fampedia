@@ -1,7 +1,6 @@
 <mat-toolbar *ngIf="showNavbar" [color]="mode.color" [ngClass]="{'sticky': mode.sticky}">
     <div fxLayout="row" fxLayoutAlign="start stretch">
-        <button mat-button id="logo" fxFlex="none" (click)="clickAction(mode.logo.onClick)">
-            
+        <button mat-button id="logo" fxFlex="none" (click)="clickAction({internalRoute: '/dashboard'})">
         </button>
         <button *ngFor="let button of mode.buttons" mat-button (click)="clickAction(button.onClick)"
             [matTooltip]="'navbar.' + button.tip | translate"
