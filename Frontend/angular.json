@@ -26,7 +26,11 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets", "src/manifest.json"],
-            "styles": ["src/styles.scss", "src/app/styles/theme.scss"],
+            "styles": [
+              "src/styles.scss", 
+              "src/app/styles/theme.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+            ],
             "scripts": [],
             "es5BrowserSupport": true
           },
