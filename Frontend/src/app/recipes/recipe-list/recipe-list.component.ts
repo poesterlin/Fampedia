@@ -6,7 +6,7 @@ import { RecipeService } from '../recipe.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-recipe-list',
+  selector: 'fampedia-app-recipe-list',
   templateUrl: './recipe-list.component.html',
   styleUrls: ['./recipe-list.component.scss']
 })
