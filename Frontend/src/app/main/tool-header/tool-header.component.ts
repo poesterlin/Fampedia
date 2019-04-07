@@ -1,20 +1,7 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger
-} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, Component, HostBinding } from '@angular/core';
 import { fromEvent } from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  pairwise,
-  share,
-  throttleTime
-} from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, pairwise, share, throttleTime } from 'rxjs/operators';
 
 
 enum Direction {
@@ -29,30 +16,9 @@ enum Direction {
   styleUrls: ['./tool-header.component.scss'],
   animations: [
     trigger('mode', [
-      state(
-        'hidden',
-        style({
-          opacity: 0,
-          transform: 'translateY(-100%)',
-          position: 'fixed',
-        })
-      ),
-      state(
-        'visible',
-        style({
-          opacity: 1,
-          transform: 'translateY(0)',
-          position: 'fixed',
-        })
-      ),
-      state(
-        'normal',
-        style({
-          opacity: 1,
-          transform: 'translateY(0)',
-          position: 'relative',
-        })
-      ),
+      state('hidden', style({ opacity: 0, transform: 'translateY(-100%)', position: 'fixed', })),
+      state('visible', style({ opacity: 1, transform: 'translateY(0)', position: 'fixed', })),
+      state('normal', style({ opacity: 1, transform: 'translateY(0)', position: 'relative', })),
       transition('* => *', animate('200ms ease-in'))
     ])
   ]
@@ -70,14 +36,7 @@ export class ToolHeaderComponent implements AfterViewInit {
       throttleTime(5),
       map(() => window.pageYOffset),
       pairwise(),
-      map(
-        ([y1, y2]): Direction =>
-          y2 < 200
-            ? Direction.Not_Moved
-            : y2 < y1
-            ? Direction.Up
-            : Direction.Down
-      ),
+      map(([y1, y2]): Direction => y2 < 200 ? Direction.Not_Moved : y2 < y1 ? Direction.Up : Direction.Down),
       distinctUntilChanged(),
       share()
     );

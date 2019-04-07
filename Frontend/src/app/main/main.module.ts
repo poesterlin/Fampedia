@@ -8,9 +8,7 @@ import { DirectivesModule } from '../directives/directives.module';
 import { MaterialModule } from '../material/material.module';
 import { TimelineElementComponent } from './timeline-element/timeline-element.component';
 
-const routes: Routes = [
-  { path: '**', component: MainComponent }
-];
+const routes: Routes = [{ path: '**', component: MainComponent }];
 
 @NgModule({
   declarations: [MainComponent, ToolHeaderComponent, TimelineElementComponent],
@@ -22,4 +20,4 @@ const routes: Routes = [
     MaterialModule
   ]
 })
-export class MainModule {}
+export class MainModule { }

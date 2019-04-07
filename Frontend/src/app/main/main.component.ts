@@ -33,22 +33,11 @@ export class MainComponent implements OnInit {
       const sideIdx = idx % 2;
       const height = window.innerHeight / 4;
       const margin = 5;
-      const last = timeline[sideIdx][timeline[sideIdx].length - 1] ||
-        timeline[sideIdx][timeline[sideIdx].length - 1] || {
-          top: -margin
-        };
+      const last = timeline[sideIdx][timeline[sideIdx].length - 1] || timeline[sideIdx][timeline[sideIdx].length - 1] || { top: - margin };
 
       let top = last.top + margin;
       if (last.date) {
-        top += Math.floor(
-          // Math.min(
-          Math.max(
-            (event.date.getTime() - last.date.getTime()) / 1000 / 3600 / 24 / 2,
-            0
-            // ),
-            // 200
-          )
-        );
+        top += Math.floor(Math.max((event.date.getTime() - last.date.getTime()) / 1000 / 3600 / 24 / 2, 0));
       }
 
       const element = {
@@ -80,5 +69,5 @@ export class MainComponent implements OnInit {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }
