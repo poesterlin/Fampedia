@@ -15,7 +15,7 @@ $rad: 8px;
     .imageContainer {
       min-height: calc(25vh - 43px);
       img {
-        @include constrainImage(95%, 50%, fill);
+        @include constrainImage(95%, 50%);
         margin: auto;
         height: unset;
         z-index: 50;

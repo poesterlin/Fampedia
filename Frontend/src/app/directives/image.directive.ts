@@ -3,11 +3,12 @@ import {
   Input,
   ElementRef,
   HostBinding,
-  Output,
-  EventEmitter,
   AfterViewInit,
-  OnDestroy
+  OnDestroy,
+  HostListener
 } from '@angular/core';
+
+const transparentGif = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
 @Directive({
   selector: '[famImage]',
@@ -18,14 +19,20 @@ import {
 })
 export class ImageDirective implements AfterViewInit, OnDestroy {
   @Input() image!: string;
-  @Output() visibilityChange = new EventEmitter<boolean>();
-  @HostBinding('src') private source?: string;
+  @HostBinding('src') private source = transparentGif;
 
   private observer?: IntersectionObserver;
+  private visible = false;
+  private parent?: HTMLElement | null;
+  private loadingClass = 'loadingImage';
 
-  constructor(private elRef: ElementRef) {}
+  constructor(private elRef: ElementRef) {
+
+  }
 
   ngAfterViewInit(): void {
+    this.parent = (this.elRef.nativeElement as HTMLImageElement).parentElement;
+    this.addLoadingClass();
     this.observer = new IntersectionObserver(entries =>
       this.onVisibilityChange(entries[0])
     );
@@ -34,14 +41,37 @@ export class ImageDirective implements AfterViewInit, OnDestroy {
   }
 
   public onVisibilityChange(elementData: IntersectionObserverEntry) {
-    if (elementData.intersectionRatio > 0) {
-      if (!this.source) {
-        this.source = this.image;
-        this.destroy();
-      }
-      this.visibilityChange.emit(true);
-    } else {
-      this.visibilityChange.emit(false);
+    if (elementData.intersectionRatio > 0 && this.source) {
+      this.source = this.image;
+      this.visible = true;
+      this.destroy();
+    }
+  }
+
+  addLoadingClass() {
+    if (this.parent && !this.parent.classList.contains(this.loadingClass)) {
+      this.parent.classList.add(this.loadingClass);
+    }
+  }
+
+  rmLoadingClass() {
+    if (this.parent && this.parent.classList.contains(this.loadingClass)) {
+      this.parent.classList.remove(this.loadingClass);
+    }
+  }
+
+  @HostListener('load')
+  loaded() {
+    if (this.visible) {
+      this.rmLoadingClass();
+    }
+  }
+
+  @HostListener('error')
+  failed() {
+    if (this.visible) {
+      this.source = transparentGif;
+      this.rmLoadingClass();
     }
   }
 
