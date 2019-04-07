@@ -1,33 +1,39 @@
-img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
+#header {
+    overflow: hidden;
+    height: 300px;
 
-#name {
-    color:  white;
-    mix-blend-mode: difference;
-    font-family: Roboto;
-    font-style: italic;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 0.7em;
-    height: 0.7em;
-    text-align: center;
-    vertical-align: middle;
-    margin-top: -0.72em;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-  }
+    span {
+        display: block;
+        position: relative;
+        text-align: center;
+        font-size: 300%;
+    }
+
+    span:not(.blur) {
+      color: white;
+      margin-top: -59px;
+      mix-blend-mode: difference;
+    }
+
+    span.blur {
+        background: inherit;
+        background-clip: border-box;
+        filter: blur(25px) grayscale(1) contrast(15);
+        color: transparent;
+        width: 814px;
+        margin: 250px auto 0;
+    }
+
+}
 
 #menu {
     margin-bottom: 15px;
 }
 
 #description {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .row {
     text-align: center;
-  }
+}

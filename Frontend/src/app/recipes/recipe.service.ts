@@ -12,7 +12,7 @@ export class RecipeService {
     new Recipe(
       'Tasty Burger',
       'A super-tasty burger - just awesome!',
-      'https://coverfiles.alphacoders.com/481/48117.jpg',
+      'http://www.f-covers.com/cover/strawberries-13-facebook-cover-timeline-banner-for-fb.jpg',
       [
         new Ingredient('Buns', 2),
         new Ingredient('Meat', 1),

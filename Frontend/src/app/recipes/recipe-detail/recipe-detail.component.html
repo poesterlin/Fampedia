@@ -1,26 +1,14 @@
 <div class="row">
-  <div class="col-xs-12">
-    <img
-      [src]="recipe.imagePath"
-      alt="{{ recipe.name }}"
-      class="img-responsive"
-      style="max-height: 200px;">
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12" id="name">
-    <p contentEditable role='textbox' aria-multiline='true'>{{ recipe.name }}</p>
+  <div class="col-xs-12" id="header" [ngStyle]="{'background': 'url(' + recipe.imagePath + ') 50%/ contain'}">
+    <span contentEditable class="blur">{{ recipe.name }}</span>
+    <span contentEditable role='textbox' aria-multiline='true'>{{ recipe.name }}</span>
   </div>
 </div>
 <div class="row">
   <div class="col-xs-12" id="menu">
-    <div
-      class="btn-group"
-      appDropdown>
-      <button
-        type="button"
-        class="btn btn-primary dropdown-toggle">
-        <a [routerLink]="['/recipes']">Recipe</a> 
+    <div class="btn-group" appDropdown>
+      <button type="button" class="btn btn-primary dropdown-toggle">
+        <a [routerLink]="['/recipes']">Recipe</a>
       </button>
       <ul class="dropdown-menu">
         <li><a style="cursor: pointer;" [routerLink]="['/recipes', id, 'edit']">Edit Recipe</a></li>
@@ -37,9 +25,7 @@
 <div class="row">
   <div class="col-xs-12">
     <ul class="list-group">
-      <li
-        class="list-group-item"
-        *ngFor="let ingredient of recipe.ingredients">
+      <li class="list-group-item" *ngFor="let ingredient of recipe.ingredients">
         {{ ingredient.name }} - {{ ingredient.amount }}
       </li>
     </ul>
