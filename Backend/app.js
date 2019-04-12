@@ -310,14 +310,9 @@ router.get("/delete/:ID", async (req, res) => {
         if (result.ok === 0) {
             errorhandlerFn(res, aId + " not found", 404);
         } else {
-            if (oldImages)
-                oldImages.forEach(async imageId => {
-                    let res = await ArticleDB.find({
-                        images: imageId
-                    });
-                    if (res.length === 0)
-                        ImageDB.findByIdAndRemove(imageId)
-                });
+            for (const imageId of oldImages) {
+                await ImageDB.findByIdAndRemove(imageId)
+            }
 
             res.status(200).send("OK");
             log("Artikel mit ID = " + aID + " geloescht");
@@ -471,7 +466,7 @@ router.post("/contact", async (req, res) => {
         if (!ip) throw 500;
         await saveAndBlockIp(ip);
 
-        if (process.env.NODE_ENV === "test") {
+        if (process.env.test === "true") {
             log("email from " + req.body.email + ":" + req.body.betreff);
             throw 200; //spam block
         }
@@ -561,7 +556,7 @@ async function auth(user, token) {
 }
 
 function log(text) {
-    if (process.env.NODE_ENV != "test") {
+    if (process.env.log != "quiet") {
         text = text + "";
         let d = new Date();
         const width = process.stdout.columns - 20;

@@ -10,8 +10,8 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "set NODE_ENV=test && mocha test/test.js --timeout 15000 --exit",
-    "allTest": "set NODE_ENV=allTest && mocha test/test.js --timeout 15000 --exit",
+    "test": "mocha test/test.js --exit",
+    "test-q": "set log=quiet&& mocha test/test.js --exit",
     "server": "pm2 start app.js",
     "stop": "pm2 stop all"
   },

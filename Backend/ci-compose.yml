@@ -15,7 +15,7 @@ services:
       - "db:db"
     depends_on:
       - db
-    command: npm run allTest
+    command: npm test
 
 
   db:

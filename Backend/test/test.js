@@ -1,9 +1,9 @@
 // @ts-check
 "use strict";
-var supertest = require("supertest");
-var chai = require("chai");
+let supertest = require("supertest");
+let chai = require("chai");
 chai.use(require('chai-fs'));
-var {
+let {
   server,
   testUser
 } = require("../app.js");
@@ -19,14 +19,16 @@ const title = "Automated Test Article";
 const body = "This is an automated article";
 const type = "leistungen"
 const edit = "--modified";
-const imageFile = "testImage"
+const imageFile = "./test/testImage.jpg"
 const description = "this is a test image"
 const tooBigImageFile = "big"
-const secondImageFile = "secondTestImage"
+const secondImageFile = "./test/testImage.jpg"
 const addr = "test@test.de";
 const betreff = "Automated Test Email";
 const name = "Herr Node von JS";
 const text = "I bims ein TEst";
+
+process.env.test = "true";
 
 describe("Task API Routes", function () {
   // This function will run before every test to clear database
@@ -242,10 +244,10 @@ describe("Task API Routes", function () {
     });
   });
 
-  describe.skip("POST /image/:id", function () {
+  describe("POST /image/:id", function () {
     it("create an article and add an image", async () => {
       let newArticle = await newArt(title, body, type, token, username);
-      await addImage(newArticle, 'test/' + imageFile + '.jpg', description, username, token);
+      await addImage(newArticle, imageFile, description, username, token);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -267,9 +269,9 @@ describe("Task API Routes", function () {
       expect(allArt[0].images).to.have.lengthOf(0);
     });
 
-    it("create an article and add a too big image", async () => {
+    it.skip("create an article and add a too big image", async () => {
       let newArticle = await newArt(title, body, type, token, username);
-      await addImage(newArticle, 'test/' + tooBigImageFile + '.jpg', description, username, token, 400);
+      await addImage(newArticle, tooBigImageFile, description, username, token, 400);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -281,8 +283,8 @@ describe("Task API Routes", function () {
 
     it("add second image files", async () => {
       let newArticle = await newArt(title, body, type, token, username);
-      await addImage(newArticle, 'test/' + imageFile + '.jpg', description, username, token);
-      await addImage(newArticle, 'test/' + secondImageFile + '.jpg', description, username, token);
+      await addImage(newArticle, imageFile, description, username, token);
+      await addImage(newArticle, secondImageFile, description, username, token);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -309,45 +311,39 @@ describe("Task API Routes", function () {
     });
   });
 
-  describe.skip("GET image", function () {
+  describe("GET image", function () {
     it("get thumnail", async () => {
       let newArticle = await newArt(title, body, type, token, username);
-      let images = await addImage(newArticle, 'test/' + imageFile + '.jpg', description, username, token);
+      let images = await addImage(newArticle, imageFile, description, username, token);
       let image = await getImage(images[0], 50);
-      expect(image.imgData).to.be.a("string");
-      expect(image.desc).to.be.a("string");
-      expect(image.desc).to.equal(description);
+      expect(image).to.be.instanceOf(Buffer);
     });
     it("get medium res", async () => {
       let newArticle = await newArt(title, body, type, token, username);
-      let images = await addImage(newArticle, 'test/' + imageFile + '.jpg', description, username, token);
+      let images = await addImage(newArticle, imageFile, description, username, token);
       let image = await getImage(images[0], 320);
-      expect(image.imgData).to.be.a("string");
-      expect(image.desc).to.be.a("string");
-      expect(image.desc).to.equal(description);
+      expect(image).to.be.instanceOf(Buffer);
     });
     it("get high res", async () => {
       let newArticle = await newArt(title, body, type, token, username);
-      let images = await addImage(newArticle, 'test/' + imageFile + '.jpg', description, username, token);
+      let images = await addImage(newArticle, imageFile, description, username, token);
       let image = await getImage(images[0], 640);
-      expect(image.imgData).to.be.a("string");
-      expect(image.desc).to.be.a("string");
-      expect(image.desc).to.equal(description);
+      expect(image).to.be.instanceof(Buffer)
     });
     it("compare size", async () => {
       let newArticle = await newArt(title, body, type, token, username);
-      let images = await addImage(newArticle, 'test/' + imageFile + '.jpg', description, username, token);
+      let images = await addImage(newArticle, imageFile, description, username, token);
       let image50 = await getImage(images[0], 50);
       let image320 = await getImage(images[0], 320);
       let image640 = await getImage(images[0], 640);
-      expect(image50.imgData.length < image320.imgData.length).to.be.true;
-      expect(image320.imgData.length <= image640.imgData.length).to.be.true;
+      expect(image50.length < image320.length).to.be.true;
+      expect(image320.length <= image640.length).to.be.true;
     });
   });
-  describe.skip("DELETE image", function () {
+  describe("DELETE image", function () {
     it("delete image and check on article", async () => {
       let newArticle = await newArt(title, body, type, token, username);
-      let images = await addImage(newArticle, 'test/' + imageFile + '.jpg', description, username, token);
+      let images = await addImage(newArticle, imageFile, description, username, token);
       await deleteImage(images[0], token, username)
       await getImage(images[0], 50, 404);
       await getImage(images[0], 320, 404);
@@ -355,22 +351,38 @@ describe("Task API Routes", function () {
       let articles = await getArt();
       expect(articles[0].images).to.have.lengthOf(0);
     });
+    it("delete article and check for images", async () => {
+      let newArticle = await newArt(title, body, type, token, username);
+      let images = await addImage(newArticle, imageFile, description, username, token);
+      await deleteArt(newArticle, username, token);
+      await getImage(images[0], 50, 404);
+      await getImage(images[0], 320, 404);
+      await getImage(images[0], 640, 404);
+    });
   });
 });
 
 /** @returns {Promise<{articleId: number, title: string, body: string, date: string, images: string[], type: string}[]>} */
 async function getArt(httpStatus = 200) {
-  var res = await request
+  let res = await request
     .get("/news")
     .expect(httpStatus)
   return res.body;
 }
 
-/** @returns {Promise<{imgData: string, desc: string}>} */
+/** @returns {Promise<Buffer>} */
 async function getImage(id, width, httpStatus = 200) {
-  var res = await request
-    .get("/image/" + width + "/" + id)
-    .expect(httpStatus)
+  let res;
+  if (httpStatus === 200) {
+    res = await request
+      .get("/image/" + width + "/" + id)
+      .expect(httpStatus)
+      .expect('Content-Type', /webp/)
+  } else {
+    res = await request
+      .get("/image/" + width + "/" + id)
+      .expect(httpStatus)
+  }
   return res.body;
 }
 
@@ -385,7 +397,7 @@ async function deleteImage(id, token, username, httpStatus = 200) {
 
 /** @returns {Promise<string>} */
 async function login(un, pw, httpStatus = 200) {
-  var res = await request
+  let res = await request
     .post("/login")
     .send({
       un,
@@ -403,9 +415,10 @@ async function deleteArt(id, username, token, httpStatus = 200) {
     .set("user", username)
     .expect(httpStatus)
 }
+
 /** @returns {Promise<string[]>} */
 async function addImage(id, image, desc, username, token, httpStatus = 201) {
-  var res;
+  let res;
   if (image) {
     res = await request
       .post("/image/" + id)
@@ -427,7 +440,7 @@ async function addImage(id, image, desc, username, token, httpStatus = 201) {
 
 /** @returns {Promise<number>} */
 async function newArt(title, body, type, token, username, httpStatus = 201) {
-  var res = await request
+  let res = await request
     .post("/neu")
     .send({
       title,
