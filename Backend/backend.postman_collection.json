@@ -9,6 +9,119 @@
 			"name": "mandatory",
 			"item": [
 				{
+					"name": "edit",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "77fc49f3-67c6-4b62-9f70-2fd5de24d3cc",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"url\") + \"/login\",",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({un: pm.globals.get(\"username\"), pw: pm.globals.get(\"passwort\")})",
+									"    }",
+									"    }, function (err, response) {",
+									"            console.log(response.json().token);",
+									"            pm.environment.set(\"token\", response.json().token);",
+									"});",
+									"",
+									"pm.sendRequest(pm.environment.get(\"url\") + \"/news\", function (err, response) {",
+									"    if(!response.json().some(a=> a.articleId === pm.environment.get(\"id\"))){",
+									"        pm.environment.set(\"id\", response.json().reverse()[0].articleId); ",
+									"        console.log(\"set id\", pm.environment.get(\"id\"));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user",
+								"value": "{{username}}"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"modified\",\n  \"body\": \"modifiedalksdfjalksdjflaksjd\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/edit/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"edit",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "image",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2aa7d5ec-f138-4574-a002-523c3a0bec62",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ed499a8-5930-429a-ab44-81f7be077047",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/image/640/5caf1276af1f184154f99906",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"image",
+								"640",
+								"5caf1276af1f184154f99906"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "abrufen",
 					"event": [
 						{
@@ -106,157 +219,6 @@
 					"response": []
 				},
 				{
-					"name": "image",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "2aa7d5ec-f138-4574-a002-523c3a0bec62",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "8ed499a8-5930-429a-ab44-81f7be077047",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{url}}/image/340/5caef2d938c9d84ee4722255",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"image",
-								"340",
-								"5caef2d938c9d84ee4722255"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "login",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "69f14b29-c128-47dc-95f4-9190c08178a5",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"un\": \"TESTuser\", \"pw\": \"TESTpassword\"}"
-						},
-						"url": {
-							"raw": "{{url}}/login",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "edit",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "77fc49f3-67c6-4b62-9f70-2fd5de24d3cc",
-								"exec": [
-									"pm.sendRequest({",
-									"    url: pm.environment.get(\"url\") + \"/login\",",
-									"    method: 'POST',",
-									"    header: 'Content-Type:application/json',",
-									"    body: {",
-									"        mode: 'raw',",
-									"        raw: JSON.stringify({un: pm.globals.get(\"username\"), pw: pm.globals.get(\"passwort\")})",
-									"    }",
-									"    }, function (err, response) {",
-									"            console.log(response.json().token);",
-									"            pm.environment.set(\"token\", response.json().token);",
-									"});",
-									"",
-									"pm.sendRequest(pm.environment.get(\"url\") + \"/news\", function (err, response) {",
-									"    if(!response.json().some(a=> a.articleId === pm.environment.get(\"id\"))){",
-									"        pm.environment.set(\"id\", response.json().reverse()[0].articleId); ",
-									"        console.log(\"set id\", pm.environment.get(\"id\"));",
-									"    }",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "user",
-								"value": "{{username}}"
-							},
-							{
-								"key": "token",
-								"value": "{{token}}"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"title\": \"modified\",\n  \"body\": \"modifiedalksdfjalksdjflaksjd\"\n}"
-						},
-						"url": {
-							"raw": "{{url}}/edit/{{id}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"edit",
-								"{{id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "neuer Eintrag",
 					"event": [
 						{
@@ -347,6 +309,44 @@
 					"response": []
 				},
 				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "69f14b29-c128-47dc-95f4-9190c08178a5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"un\": \"TESTuser\", \"pw\": \"TESTpassword\"}"
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "löschen",
 					"event": [
 						{
@@ -410,47 +410,6 @@
 			]
 		},
 		{
-			"name": "contact",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "c8aaa704-d510-4add-bdd6-455f00e1e043",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"email\": \"email@server.de\",\n  \"betreff\": \"sehr wichtiger Betreff\",\n  \"name\": \"Max Musterman\",\n  \"text\": \"Ich möchte mit ihnen über Gott reden\"\n}"
-				},
-				"url": {
-					"raw": "{{url}}/contact",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"contact"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "delete image",
 			"event": [
 				{
@@ -499,14 +458,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/image/{{id}}/340",
+					"raw": "{{url}}/deleteimage/5cb039c71d31b70aa0d8bb5a",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
-						"image",
-						"{{id}}",
-						"340"
+						"deleteimage",
+						"5cb039c71d31b70aa0d8bb5a"
 					]
 				}
 			},
@@ -590,6 +548,47 @@
 					"path": [
 						"image",
 						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "contact",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c8aaa704-d510-4add-bdd6-455f00e1e043",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"email@server.de\",\n  \"betreff\": \"sehr wichtiger Betreff\",\n  \"name\": \"Max Musterman\",\n  \"text\": \"Ich möchte mit ihnen über Gott reden\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/contact",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"contact"
 					]
 				}
 			},
