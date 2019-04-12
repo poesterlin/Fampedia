@@ -12,8 +12,8 @@
     "start": "nodemon app.js",
     "test": "mocha test/test.js --exit",
     "test-q": "set log=quiet&& mocha test/test.js --exit",
-    "server": "pm2 start app.js -i max --merge-logs",
-    "stop": "pm2 stop all"
+    "server": "pm2 start ecosystem.config.js",
+    "stop": "pm2 delete ecosystem.config.js"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
