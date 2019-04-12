@@ -57,7 +57,7 @@ backend:
     changes:
       - Backend/*
   before_script:
-    - apk add --update nodejs nodejs-npm
+    - apk add --update nodejs
   script:
       # install docker compose
       - apk add --no-cache python py2-pip git
