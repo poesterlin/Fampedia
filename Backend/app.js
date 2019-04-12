@@ -222,31 +222,18 @@ router.post("/image/:ID", upload.single("image"), async (req, res) => {
         log("Bild hochgeladen");
     } catch (error) {
         handle(res, error);
-    } finally {
-        resetFolder("temp");
     }
 });
 
 async function toBuffer(image, name, imgWidth, option) {
     return await sharp(image)
-        .resize(imgWidth - 10, imgWidth - 10)
-        .jpeg({
-            quality: option
-        })
+        .resize(imgWidth - 10)
+        .webp({ quality: option })
+        .sharpen()
         .toBuffer();
-    // .sharpen()
     // .background('white')
     // .embed()
 }
-
-async function convertToImage(buffer) {
-    return sharp(buffer)
-    // .webp({ lossless: true })
-    .jpeg()
-    .toBuffer();
-}
-
-
 
 //get image with number ImageNr
 router.get("/image/:width/:ID", async (req, res, next) => {
@@ -280,8 +267,8 @@ router.get("/image/:width/:ID", async (req, res, next) => {
 
         res.setHeader('description', image.desc);
         res.setHeader('Content-Transfer-Encoding', 'binary');
-        res.setHeader('Content-Type', 'image/jpeg');
-        res.send(await convertToImage(data));
+        res.setHeader('Content-Type', 'image/webp');
+        res.send(data);
 
         log("Bild gesendet");
     } catch (error) {
@@ -577,18 +564,11 @@ function log(text) {
     if (process.env.NODE_ENV != "test") {
         text = text + "";
         let d = new Date();
-        let equalizer = " ".repeat(process.stdout.rows - 15 || 70);
+        const width = process.stdout.columns - 20;
+        let equalizer = " ".repeat(width > 0 ? width : 70);
         equalizer = equalizer.slice(text.length);
-        console.log(
-            text + equalizer,
-            d.getHours(),
-            ":",
-            d.getMinutes() > 9 ? d.getMinutes() : "0" + d.getMinutes(),
-            ":",
-            d.getSeconds() > 9 ? d.getSeconds() : "0" + d.getSeconds(),
-            "-",
-            d.getMilliseconds()
-        );
+        console.log(text + equalizer, d.getHours(), ":", d.getMinutes() > 9 ? d.getMinutes() : "0" + d.getMinutes(),
+            ":", d.getSeconds() > 9 ? d.getSeconds() : "0" + d.getSeconds(), "-", d.getMilliseconds());
     }
 }
 

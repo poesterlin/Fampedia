@@ -13,8 +13,8 @@ let expect = chai.expect;
 let request = supertest(server);
 
 let token = "";
-const username = "TESTuser";
-const password = "TESTpassword";
+const username = "fampedia";
+const password = "fampedia";
 const title = "Automated Test Article";
 const body = "This is an automated article";
 const type = "leistungen"
