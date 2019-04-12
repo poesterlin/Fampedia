@@ -108,14 +108,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/image/640/5caf1276af1f184154f99906",
+							"raw": "{{url}}/image/640/5cb03be9fc4e55367c18ef75",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"image",
 								"640",
-								"5caf1276af1f184154f99906"
+								"5cb03be9fc4e55367c18ef75"
 							]
 						}
 					},
@@ -127,8 +127,21 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "2aa7d5ec-f138-4574-a002-523c3a0bec62",
+								"id": "e74f2c08-7fa3-4796-80d2-c8b3a77c1274",
 								"exec": [
+									"/* ",
+									"",
+									"var i = setInterval(()=>",
+									"    pm.sendRequest(pm.environment.get(\"url\") + \"/news\", function (err, response) {",
+									"    if(!response.json().some(a=> a.articleId === pm.environment.get(\"id\"))){",
+									"        pm.environment.set(\"id\", response.json().reverse()[0].articleId); ",
+									"        console.log(\"set id\", pm.environment.get(\"id\"));",
+									"    }",
+									"}),10)",
+									"",
+									"setTimeout(()=>clearInterval(i), 10000)",
+									"",
+									"*/",
 									""
 								],
 								"type": "text/javascript"
@@ -137,7 +150,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "8ed499a8-5930-429a-ab44-81f7be077047",
+								"id": "c2af7088-c25a-4f16-a6ab-0db70246fdb7",
 								"exec": [
 									"pm.test(\"response is ok\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
@@ -224,7 +237,7 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"id": "a54aa578-37f5-4809-ac33-8bfd78ea5a6b",
+								"id": "61215142-480a-4d46-9d0f-66478c5a7e79",
 								"exec": [
 									"pm.sendRequest({",
 									"    url: pm.environment.get(\"url\") + \"/login\",",
@@ -232,13 +245,12 @@
 									"    header: 'Content-Type:application/json',",
 									"    body: {",
 									"        mode: 'raw',",
-									"        raw: JSON.stringify({un: pm.globals.get(\"username\"), pw: pm.globals.get(\"passwort\")})",
+									"        raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"passwort\")})",
 									"    }",
 									"    }, function (err, response) {",
 									"            console.log(response.json().token);",
 									"            pm.environment.set(\"token\", response.json().token);",
-									"});",
-									""
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -246,7 +258,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "50cfa2dc-17a3-4166-99c2-4d5dcb91b7af",
+								"id": "98584a1f-cab5-4536-b879-e80e013dd50d",
 								"exec": [
 									"pm.test(\"response is ok\", function () {\r",
 									"    pm.response.to.have.status(201);\r",
@@ -458,13 +470,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{url}}/deleteimage/5cb039c71d31b70aa0d8bb5a",
+					"raw": "{{url}}/deleteimage/5cb03b35db3fef12e4415b87",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"deleteimage",
-						"5cb039c71d31b70aa0d8bb5a"
+						"5cb03b35db3fef12e4415b87"
 					]
 				}
 			},

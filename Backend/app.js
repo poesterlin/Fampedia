@@ -1,5 +1,6 @@
 "use strict";
 const fs = require('fs');
+const crypto = require("crypto");
 const cors = require("cors");
 const express = require("express");
 const router = express.Router();
@@ -89,10 +90,6 @@ let token = mongoose.Schema({
     date: String
 });
 
-let count = mongoose.Schema({
-    counter: Number
-});
-
 let image = mongoose.Schema({
     data50: Buffer,
     data320: Buffer,
@@ -101,7 +98,6 @@ let image = mongoose.Schema({
 });
 
 //database models
-let CounterDB = mongoose.model("counter", count);
 let ImageDB = mongoose.model("image", image);
 let ArticleDB = mongoose.model("news", art);
 let UserDB = mongoose.model("user", us);
@@ -125,21 +121,9 @@ router.post("/neu", async (req, res) => {
     try {
         if (!req.body.body || !req.body.title) throw 400;
         await auth(req.headers.user, req.headers.token).catch(authFail);
-
-        let count = 0;
-        let dbCounter = await CounterDB.findOne();
-
-        if (!dbCounter) {
-            let newCount = new CounterDB({
-                counter: Math.floor(Math.random() * 1000 + 10)
-            });
-            await newCount.save();
-        } else {
-            count = dbCounter.counter + 1;
-            dbCounter.counter = count;
-            await dbCounter.save();
-            log(count);
-        }
+        
+        //random integer
+        const count = crypto.randomBytes(64).readUIntBE(0, 3);
 
         let newArt = new ArticleDB({
             articleId: count,
@@ -179,7 +163,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
     storage,
     limits: {
-        fileSize: 1024 * 1024 * 10
+        fileSize: 1024 * 1024 * 20
     },
     fileFilter: fileFilter
 });
@@ -612,6 +596,11 @@ async function testUser(user, password, keep) {
         await newUser.save();
     }
 }
+
+process.on('SIGINT', async () => {
+    await mongoose.disconnect();
+    log("shutdown");
+});
 
 module.exports = {
     server,
