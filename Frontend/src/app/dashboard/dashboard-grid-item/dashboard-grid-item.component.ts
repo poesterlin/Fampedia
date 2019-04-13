@@ -32,6 +32,6 @@ export class DashboardGridItemComponent {
   }
 
   public goToEvent() {
-    this.router.navigate(['/event/', this.itemId]);
+    this.router.navigate(['/moment/', this.itemId]);
   }
 }

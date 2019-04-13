@@ -14,8 +14,8 @@ const routes: Routes = [
     data: { title: 'MAIN', preload: true }
   },
   {
-    path: 'event/:id',
-    loadChildren: '../event/event.module#EventModule',
+    path: 'moment/:id',
+    loadChildren: '../moment/moment.module#MomentModule',
     data: { title: 'EVENT', preload: true, delay: 5 }
   },
   {
