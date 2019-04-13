@@ -1,0 +1,933 @@
+{
+	"info": {
+		"_postman_id": "af476ec7-4648-4473-af19-6252cf6ce964",
+		"name": "backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "administration",
+			"item": [
+				{
+					"name": "createAccount",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "69f14b29-c128-47dc-95f4-9190c08178a5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"TESTuser\", \"password\": \"TESTpassword\", \"mail\": \"test@mail.de\", \"familyname\": \"testfamily\"}"
+						},
+						"url": {
+							"raw": "{{url}}/createAccount",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"createAccount"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Account positive example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"username\": \"TESTuser\", \"password\": \"TESTpassword\", \"mail\": \"test@mail.de\", \"familyname\": \"testfamily\"}"
+								},
+								"url": {
+									"raw": "{{url}}/createAccount",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"createAccount"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n  \"response\": \"created succesfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "69f14b29-c128-47dc-95f4-9190c08178a5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"TESTuser\", \"password\": \"TESTpassword\"}"
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login positive example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"username\": \"TESTuser\", \"password\": \"TESTpassword\"}"
+								},
+								"url": {
+									"raw": "{{url}}/login",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\n  familyID: \"abc\"\n}"
+						}
+					]
+				},
+				{
+					"name": "newPassword",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "69f14b29-c128-47dc-95f4-9190c08178a5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"TESTuser\", \"password-old\": \"TESTpassword\", \"password-new\": \"TESTpassword\"}"
+						},
+						"url": {
+							"raw": "{{url}}/newPassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"newPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgotPassword",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "69f14b29-c128-47dc-95f4-9190c08178a5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\": \"TESTuser\", \"mail\": \"test@mail.de\"}"
+						},
+						"url": {
+							"raw": "{{url}}/newPassword",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"newPassword"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "All user related endpoints"
+		},
+		{
+			"name": "News",
+			"item": [
+				{
+					"name": "news",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2aa7d5ec-f138-4574-a002-523c3a0bec62",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ed499a8-5930-429a-ab44-81f7be077047",
+								"exec": [
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"var Ajv = require('ajv');\r",
+									"var validator = new Ajv({logger: console});\r",
+									"var schema = {\r",
+									"     \"type\": \"array\",\r",
+									"    \"items\": {\r",
+									"            \"properties\":{\r",
+									"                \"images\": {\r",
+									"                   \"type\": \"array\",\r",
+									"                    \"items\": {\r",
+									"                        \"type\": \"string\",\r",
+									"                    }\r",
+									"                },\r",
+									"                \"_id\": {\r",
+									"                   \"type\": \"string\",\r",
+									"                },\r",
+									"                \"articleId\": {\r",
+									"                   \"type\": \"number\",\r",
+									"                },\r",
+									"                \"title\": {\r",
+									"                   \"type\": \"string\",\r",
+									"                },\r",
+									"                \"body\": {\r",
+									"                   \"type\": \"string\",\r",
+									"                },\r",
+									"                \"date\": {\r",
+									"                   \"type\": \"string\",\r",
+									"                },\r",
+									"                \"type\":{\r",
+									"                   \"type\": \"string\",\r",
+									"                },\r",
+									"                \"__v\": {\r",
+									"                   \"type\": \"number\",\r",
+									"                }\r",
+									"            }\r",
+									"        }\r",
+									"    };\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"        pm.expect(validator.validate(schema, pm.response.json())).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test('set last id', function() {\r",
+									"    pm.environment.set(\"id\", pm.response.json().reverse()[0].articleId); \r",
+									"    console.log(pm.environment.get(\"id\"));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/news",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Positive Example For News",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/news",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"news"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n  \"moments\": [\"momentID1\", \"momentID2\"]\n}"
+						}
+					]
+				}
+			],
+			"description": "All endpoints related to getting \"News\" --> New Moments"
+		},
+		{
+			"name": "Timeline",
+			"item": [
+				{
+					"name": "getAllMoments",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2aa7d5ec-f138-4574-a002-523c3a0bec62",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ed499a8-5930-429a-ab44-81f7be077047",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "familyID",
+								"value": "text/plain",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/getAllMoments/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"getAllMoments",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getAllMoments",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "familyID",
+										"value": "text/plain",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/getAllMoments/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"getAllMoments",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n  \"moments\": [\n    { \n    \"momentiD\": \"momentDI1\",\n    \"momenttitle\": \"title\",\n    \"momentdescription\": \"text\",\n    \"Images\": {\n        \"description\": \"string\",\n        \"imageID\": \"string\",\n        \"timestamp\": \"timestamp\"\n    }\n    \n    },\n       { \n    \"momentiD\": \"momentDI2\",\n    \"momenttitle\": \"title\",\n    \"momentdescription\": \"text\",\n    \"Images\": {\n        \"description\": \"string\",\n        \"imageID\": \"string\",\n        \"timestamp\": \"timestamp\"\n    }\n    \n    }\n    \n    \n    ]\n    \n    \n}"
+						}
+					]
+				}
+			],
+			"description": "All endpoints related to the main functionality: The timeline"
+		},
+		{
+			"name": "Moments",
+			"item": [
+				{
+					"name": "addMoment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a54aa578-37f5-4809-ac33-8bfd78ea5a6b",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"url\") + \"/login\",",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({un: pm.globals.get(\"username\"), pw: pm.globals.get(\"passwort\")})",
+									"    }",
+									"    }, function (err, response) {",
+									"            console.log(response.json().token);",
+									"            pm.environment.set(\"token\", response.json().token);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "50cfa2dc-17a3-4166-99c2-4d5dcb91b7af",
+								"exec": [
+									"pm.test(\"response is ok\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"var Ajv = require('ajv'),\r",
+									"    ajv = new Ajv({logger: console}),\r",
+									"    schema = {\r",
+									"        \"aritcleId\": {\r",
+									"            \"type\": \"number\"\r",
+									"        }\r",
+									"    };\r",
+									"\r",
+									"pm.test('Schema is valid', function() {\r",
+									"    pm.expect(ajv.validate(schema, pm.response.json())).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.test('set id', function (err, response) {\r",
+									"    pm.environment.set(\"id\", pm.response.json().articleId); \r",
+									"    console.log(\"set id\", pm.environment.get(\"id\"));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "user",
+								"value": "{{username}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"New Moment\",\n  \"description\": \"Description of moment\",\n  \"familyID\": \"abc\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/addMoment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"addMoment"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "addMoment positive example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "token",
+										"value": "{{token}}"
+									},
+									{
+										"key": "user",
+										"value": "{{username}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"title\": \"New Moment\",\n  \"description\": \"Description of moment\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}/addMoment",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"addMoment"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\n  \"momentID\": \"abc\"\n}"
+						}
+					]
+				},
+				{
+					"name": "delete Moment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c8a71b02-276b-4230-892e-8381559d4f81",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"url\") + \"/login\",",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({un: pm.globals.get(\"username\"), pw: pm.globals.get(\"passwort\")})",
+									"    }",
+									"    }, function (err, response) {",
+									"            console.log(response.json().token);",
+									"            pm.environment.set(\"token\", response.json().token);",
+									"});",
+									"",
+									"pm.sendRequest(pm.environment.get(\"url\") + \"/news\", function (err, response) {",
+									"    if(!response.json().some(a=> a.articleId === pm.environment.get(\"id\"))){",
+									"        pm.environment.set(\"id\", response.json().reverse()[0].articleId); ",
+									"        console.log(\"set id\", pm.environment.get(\"id\"));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "user",
+								"value": "{{username}}"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/deleteImage/{{MomentID}}/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"deleteImage",
+								"{{MomentID}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMoment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2aa7d5ec-f138-4574-a002-523c3a0bec62",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ed499a8-5930-429a-ab44-81f7be077047",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "momentID",
+								"type": "text",
+								"value": "text/plain"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/getMoment/{{MomentID}}/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"getMoment",
+								"{{MomentID}}",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getMoment",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "momentID",
+										"type": "text",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/getMoment/{{MomentID}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"getMoment",
+										"{{MomentID}}",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n  \"moments\":\n    { \n    \"momentiD\": \"momentDI1\",\n    \"momenttitle\": \"title\",\n    \"momentdescription\": \"text\",\n    \"Images\": {\n        \"description\": \"string\",\n        \"imageID\": \"string\",\n        \"timestamp\": \"timestamp\"\n    }\n    \n    }\n}"
+						}
+					]
+				}
+			],
+			"description": "Everything direcetly related to moments"
+		},
+		{
+			"name": "MomentImages",
+			"item": [
+				{
+					"name": "delete image",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c8a71b02-276b-4230-892e-8381559d4f81",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"url\") + \"/login\",",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({un: pm.globals.get(\"username\"), pw: pm.globals.get(\"passwort\")})",
+									"    }",
+									"    }, function (err, response) {",
+									"            console.log(response.json().token);",
+									"            pm.environment.set(\"token\", response.json().token);",
+									"});",
+									"",
+									"pm.sendRequest(pm.environment.get(\"url\") + \"/news\", function (err, response) {",
+									"    if(!response.json().some(a=> a.articleId === pm.environment.get(\"id\"))){",
+									"        pm.environment.set(\"id\", response.json().reverse()[0].articleId); ",
+									"        console.log(\"set id\", pm.environment.get(\"id\"));",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "user",
+								"value": "{{username}}"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/deleteImage/{{id}}/340",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"deleteImage",
+								"{{id}}",
+								"340"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getMomentImage",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2aa7d5ec-f138-4574-a002-523c3a0bec62",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ed499a8-5930-429a-ab44-81f7be077047",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/getMomentImage/340/5caef2d938c9d84ee4722255",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"getMomentImage",
+								"340",
+								"5caef2d938c9d84ee4722255"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addMomemtImage",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "57783840-1f23-49a4-9704-09b29a516ea7",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"url\") + \"/login\",",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({un: pm.globals.get(\"username\"), pw: pm.globals.get(\"passwort\")})",
+									"    }",
+									"    }, function (err, response) {",
+									"            console.log(response.json().token);",
+									"            pm.environment.set(\"token\", response.json().token);",
+									"});",
+									"",
+									"pm.sendRequest(pm.environment.get(\"url\") + \"/news\", function (err, response) {",
+									"    if(!response.json().some(a=> a.articleId === pm.environment.get(\"id\"))){",
+									"        pm.environment.set(\"id\", response.json().reverse()[0].articleId); ",
+									"        console.log(\"set id\", pm.environment.get(\"id\"));",
+									"    }",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "user",
+								"value": "{{username}}"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}"
+							},
+							{
+								"key": "desc",
+								"value": "test"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "momentID",
+								"value": "text/plain",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": ""
+								},
+								{
+									"key": "description",
+									"value": "test",
+									"description": "plain text",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/addMomentImage/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"addMomentImage",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Everything related to images of each moment"
+		}
+	]
+}
