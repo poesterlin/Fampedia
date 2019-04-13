@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DirectivesModule } from '../directives/directives.module';
 import { MaterialModule } from '../material/material.module';
 import { TimelineElementComponent } from './timeline-element/timeline-element.component';
+import { MainService } from './main.service';
 
 const routes: Routes = [{ path: '**', component: MainComponent }];
 
@@ -18,6 +19,8 @@ const routes: Routes = [{ path: '**', component: MainComponent }];
     RouterModule.forChild(routes),
     DirectivesModule,
     MaterialModule
-  ]
+  ],
+  providers: [MainService]
+
 })
 export class MainModule { }

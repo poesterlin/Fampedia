@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Moment } from './Entitys/Moment';
 import { environment } from 'src/environments/environment';
+import { tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 interface HttpOptions {
   authorization?: boolean
@@ -16,15 +18,20 @@ export class CoreService {
 
 
   public updateMoment(moment: Moment) {
-    // TODO: Implement
-    // dont forget to subscribe somewhere
-    return this.post("momenturl", moment)
+    if (!moment.dirtyFlag) { return of(false) }
+
+    // TODO: Implement errorhandling
+    // dont forget to subscribe to return value somewhere
+    return this.post("momenturl", moment).pipe(
+      tap(() => moment.dirtyFlag = false)
+    )
   }
-  
-  
+
+
   public getMoments() {
-    // TODO: Implement
-    // dont forget to subscribe somewhere
+    // TODO: Implement json to moment object conversion
+    // TODO: Implement errorhandling
+    // dont forget to subscribe to return value somewhere
     return this.get("momenturl")
   }
 
