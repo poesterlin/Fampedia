@@ -6,7 +6,7 @@ chai.use(require('chai-fs'));
 let {
   server,
   testUser
-} = require("../app.js");
+} = require("../src/app.js");
 
 let accountSetup = testUser;
 let expect = chai.expect;
