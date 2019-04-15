@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const mongoUrl = process.env.mongoUrl || "mongodb://127.0.0.1:27017/news";
 
-const { log, testUser } = require("./app");
+const { log } = require("./app");
 mongoose.connect(mongoUrl);
 // Try to connect to the database
 let db = mongoose.connection;
@@ -43,6 +43,22 @@ let image = mongoose.Schema({
     data640: Buffer,
     desc: String
 });
+
+async function testUser(user, password, keep) {
+    let allUsers = await UserDB.find({
+        user
+    });
+
+    if (allUsers.length === 0 && !keep) {
+        mongoose.connection.db.dropDatabase();
+        let newUser = new UserDB({
+            user,
+            hash: passwordHash.generate(password)
+        });
+        await newUser.save();
+    }
+}
+
 //database models
 let ImageDB = mongoose.model("image", image);
 exports.ImageDB = ImageDB;

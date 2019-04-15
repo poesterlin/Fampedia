@@ -4,7 +4,6 @@
 
 "use strict";
 
-
 //const fs = require('fs');
 //const crypto = require("crypto");
 const cors = require("cors");
@@ -22,7 +21,6 @@ const sharp = require('sharp');
 sharp.cache({
     files: 0
 });
-
 
 // const settings = require("./settings.json");
 // let Mailjet = require("node-mailjet").connect(
@@ -58,7 +56,7 @@ const server = app.listen(port, function () {
 const mongoose = require("mongoose");
 
 exports.server = server;
-exports.testUser = testUser;
+//exports.testUser = testUser;
 exports.router = router;
 exports.auth = auth;
 exports.authFail = authFail;
@@ -102,8 +100,6 @@ async function auth(user, token) {
     }
 }
 
-
-
 function authFail() {
     throw 401;
 }
@@ -144,21 +140,6 @@ function log(text) {
         equalizer = equalizer.slice(text.length);
         console.log(text + equalizer, d.getHours(), ":", d.getMinutes() > 9 ? d.getMinutes() : "0" + d.getMinutes(),
             ":", d.getSeconds() > 9 ? d.getSeconds() : "0" + d.getSeconds(), "-", d.getMilliseconds());
-    }
-}
-
-async function testUser(user, password, keep) {
-    let allUsers = await UserDB.find({
-        user
-    });
-
-    if (allUsers.length === 0 && !keep) {
-        mongoose.connection.db.dropDatabase();
-        let newUser = new UserDB({
-            user,
-            hash: passwordHash.generate(password)
-        });
-        await newUser.save();
     }
 }
 
