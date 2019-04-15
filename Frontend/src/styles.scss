@@ -1,14 +1,38 @@
 @import "src/app/styles/theme";
 @import "~@angular/material/theming";
+@import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
 
 // $primary: map-get($theme, primary);
 // $accent: map-get($theme, accent);
 
 body {
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
-  margin: 0;
-  // color: $font;
-  // background: mat-color($primary);
-  //   border: 1px solid mat-color($accent);
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 110%;
+    margin: 0;
+    // color: $font;
+    // background: mat-color($primary);
+    //   border: 1px solid mat-color($accent);
 }
 
+mat-tab-group {
+    z-index: -1;
+    margin-top: -46px;
+
+    .mat-tab-label {
+        color: transparent;
+    }
+
+    div.mat-tab-header-pagination {
+        display: none !important;
+    }
+
+    .mat-tab-label:not(.mat-tab-label-active) {
+        border-bottom: 2px solid gray;
+        margin: 0 5px;
+    }
+
+    mat-tab-body {
+        max-height: calc(100vh - 125px);
+        overflow: auto;
+    }
+}

@@ -16,10 +16,11 @@ interface OnClickOptions {
     emit?: string;
 }
 export interface HeaderMode {
-    color?: string;
+    color: string;
     sticky?: boolean;
     buttons: HeaderButton[];
     helpers: { key: helperKeys }[];
+    headline?: string;
 }
 
 @Component({
@@ -29,13 +30,7 @@ export interface HeaderMode {
 })
 export class NavbarComponent implements OnInit {
     @Output() buttonEvent = new EventEmitter<string>();
-    @Input() config: HeaderMode = {
-        color: 'accent',
-        buttons: [],
-        helpers: [
-            { key: 'translate' },
-        ]
-    };
+    @Input() config!: HeaderMode;
 
     public readonly cognitiveCreatorUrl: string = '/gui.html';
     public readonly androidInstallationUrl: string = '/android.html';
@@ -72,9 +67,5 @@ export class NavbarComponent implements OnInit {
             this.goToExternalPage(option.externalRoute);
             return;
         }
-    }
-
-    get mode() {
-        return this.config;
     }
 }

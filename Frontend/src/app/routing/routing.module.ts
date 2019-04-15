@@ -23,7 +23,12 @@ const routes: Routes = [
     loadChildren: '../recipes/recipes.module#RecipesModule',
     data: { title: 'RECIPES', preload: true, delay: 5 }
   },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  {
+    path: 'new',
+    loadChildren: '../new-moment/new-moment.module#NewMomentModule',
+    data: { preload: false, delay: 5 }
+  },
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
   // wildcard for invalid urls
   {
     path: '**',
@@ -36,7 +41,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       useHash: true,
-      enableTracing: true,
       preloadingStrategy: CustomPreloader
     })
   ],

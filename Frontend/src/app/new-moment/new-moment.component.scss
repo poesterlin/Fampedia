@@ -1,0 +1,25 @@
+@import "~styles.scss";
+@import "../styles/helperMixins.scss";
+@import "../styles/theme.scss";
+
+button {
+    @include clickable(){
+        background: gray;
+    }
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: lightgray;
+    font-size: 180%;
+    border: none;
+    width: 300px;
+    max-width: 90vw;
+    height: 50px;
+    text-align: center;
+}
+
+button:focus {
+    outline: none;
+}

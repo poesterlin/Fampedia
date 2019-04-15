@@ -1,0 +1,16 @@
+<fampedia-navbar [config]="navConf"></fampedia-navbar>
+
+<mat-tab-group mat-align-tabs="center" [(selectedIndex)]="index" [disableRipple]="true">
+    <mat-tab label="----------------">
+        <fampedia-new-moment-data></fampedia-new-moment-data>
+    </mat-tab>
+    <mat-tab label="----------------">
+        <fampedia-new-moment-images-web></fampedia-new-moment-images-web>
+    </mat-tab>
+    <mat-tab label="----------------">
+        <fampedia-new-moment-access></fampedia-new-moment-access>
+    </mat-tab>
+</mat-tab-group>
+
+<button (click)="next()" *ngIf="index < 2">NEXT</button>
+<button (click)="upload()" *ngIf="index == 2">UPLOAD</button>

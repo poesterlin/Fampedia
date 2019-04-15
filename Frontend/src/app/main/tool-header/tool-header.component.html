@@ -1,25 +1,24 @@
 <div fxLayout="row" fxLayoutAlign="space-around start" fxLayoutGap="10px">
   <div fxFlex="35" fxFlex.gt-sm="14" class="block bigBlock" fxLayout="column" fxLayoutAlign="center center">
-    <span>+</span>
+    <img src="../assets/images/susi.png" alt="">
   </div>
-  <div fxFlex="60" id="right" fxLayout="row break" fxLayout.gt-sm="row"  fxLayoutAlign="space-between start">
-    <div fxFlex="30" fxFlex.gt-sm="16" class="block" fxLayoutAlign="center center">
-      <mat-icon>photo_camera</mat-icon>
+  <div fxFlex="60" id="right" fxLayout="row break" fxLayout.gt-sm="row" fxLayoutAlign="space-between start"
+    fxLayoutGap="4px">
+    <div fxFlex="calc(50% - 5px)" fxFlex.gt-sm="16" class="block" fxLayoutAlign="center center" fxLayout="row break" (click)="goTo('/new')">
+      <mat-icon fxFlex="100">photo_camera</mat-icon>
+      <span fxFlex="100">add moment</span>
     </div>
-    <div fxFlex="30" fxFlex.gt-sm="16" class="block" fxLayoutAlign="center center">
-      <mat-icon>photo_camera</mat-icon>
+    <div fxFlex="calc(50% - 5px)" fxFlex.gt-sm="16" class="block" fxLayoutAlign="center center" fxLayout="row break" (click)="goTo('')">
+      <mat-icon fxFlex="100">photo_camera</mat-icon>
+      <span fxFlex="100">add media</span>
     </div>
-    <div fxFlex="30" fxFlex.gt-sm="16" class="block" fxLayoutAlign="center center">
-      <mat-icon>photo_camera</mat-icon>
+    <div fxFlex="calc(50% - 9px)" fxFlex.gt-sm="16" class="block" fxLayoutAlign="center center" fxLayout="row break" (click)="goTo('')">
+      <mat-icon fxFlex="100">photo_camera</mat-icon>
+      <span fxFlex="100">add recipe</span>
     </div>
-    <div fxFlex="30" fxFlex.gt-sm="16" class="block" fxLayoutAlign="center center">
-      <mat-icon>photo_camera</mat-icon>
-    </div>
-    <div fxFlex="30" fxFlex.gt-sm="16" class="block" fxLayoutAlign="center center">
-      <mat-icon>photo_camera</mat-icon>
-    </div>
-    <div fxFlex="30" fxFlex.gt-sm="16" class="block" fxLayoutAlign="center center">
-      <mat-icon>photo_camera</mat-icon>
+    <div fxFlex="calc(50% - 10px)" fxFlex.gt-sm="16" class="block" fxLayoutAlign="center center"  fxLayout="row break" (click)="goTo('')">
+      <mat-icon fxFlex="100">photo_camera</mat-icon>
+      <span fxFlex="100">add story</span>
     </div>
   </div>
 </div>

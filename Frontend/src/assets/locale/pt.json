@@ -7,6 +7,7 @@
         "MAIN": "Main"
     },
     "navbar":{
-        "LANGUAGE_SWITCH": "Change language"
+        "LANGUAGE_SWITCH": "Change language",
+        "NONE": ""
     }
 }

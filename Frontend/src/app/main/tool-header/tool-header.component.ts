@@ -2,6 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { AfterViewInit, Component, HostBinding } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { distinctUntilChanged, filter, map, pairwise, share, throttleTime } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 
 enum Direction {
@@ -19,12 +20,15 @@ enum Direction {
       state('hidden', style({ opacity: 0, transform: 'translateY(-100%)', position: 'fixed', })),
       state('visible', style({ opacity: 1, transform: 'translateY(0)', position: 'fixed', })),
       state('normal', style({ opacity: 1, transform: 'translateY(0)', position: 'relative', })),
-      transition('* => *', animate('200ms ease-in'))
+      transition('hidden => visible', animate('200ms ease-in')),
+      transition('visible => hidden', animate('200ms ease-in'))
     ])
   ]
 })
 export class ToolHeaderComponent implements AfterViewInit {
   private state: 'normal' | 'visible' | 'hidden' = 'normal';
+
+  constructor(private router: Router) { }
 
   @HostBinding('@mode')
   get mode(): 'normal' | 'visible' | 'hidden' {
@@ -56,5 +60,9 @@ export class ToolHeaderComponent implements AfterViewInit {
     NotMoved$.subscribe(() => (this.state = 'normal'));
     goingUp$.subscribe(() => (this.state = 'visible'));
     goingDown$.subscribe(() => (this.state = 'hidden'));
+  }
+
+  public goTo(s: string) {
+    this.router.navigate(s.split('/'));
   }
 }
