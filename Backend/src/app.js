@@ -68,6 +68,10 @@ const { IP, UserDB, } = require("./app-db");
 
 app.use("/moment", require('./app-moment')); // Route to app-moment-js
 app.use("/image", require('./app-image')); // Route to app-moment-js
+///////////////////
+// Required global functions
+//////////////////
+
 
 /**
  * verify token
