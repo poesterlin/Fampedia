@@ -4,9 +4,6 @@
 
 "use strict";
 
-
-//const fs = require('fs');
-//const crypto = require("crypto");
 const cors = require("cors");
 const express = require("express");
 const router = express.Router();
@@ -23,12 +20,6 @@ sharp.cache({
     files: 0
 });
 
-
-// const settings = require("./settings.json");
-// let Mailjet = require("node-mailjet").connect(
-//     settings.APIKEY_PUBLIC,
-//     settings.APIKEY_PRIVATE
-// );
 const port = process.env.PORT || 3000;
 
 let noAuth = false;
@@ -66,143 +57,11 @@ exports.log = log;
 exports.handle = handle;
 exports.getIp = getIp;
 
-const { IP, UserDB, TokenDB } = require("./app-db");
+const { UserDB, TokenDB } = require("./app-db");
 
 app.use("/moment", require('./app-moment')); // Route to app-moment-js
-app.use("/image", require('./app-image')); // Route to app-moment-js
+app.use("/image", require('./app-image')); // Route to app-image-js
 
-/*
-
-let recursive = (remain, i, j) => {
-    if (!i || !j) {
-        return recursive(remain, 1, 1);
-    }
-    if (remain > 0) {
-        let newI = j;
-        let newJ = i + j;
-        remain -= 1;
-        return recursive(remain, newI, newJ);
-    } else {
-        return j;
-    }
-};
-async function saveAndBlockIp(ip) {
-    let delay = 1000 * 30; //30 Seconds
-    let expireDate = new Date();
-    expireDate.setTime(expireDate.getTime() + delay);
-
-    let result = await IP.findOne({
-        ip
-    });
-    //user known?
-    if (result) {
-        //new email allowed?
-        if (new Date() < Date.parse(result.date)) {
-            //still blocked
-            result.state = result.state >= 26 ? 26 : result.state + 1;
-            let multi = recursive(result.state);
-            expireDate.setTime(expireDate.getTime() + delay * multi / 10);
-            result.date = expireDate.toUTCString();
-            await result.save();
-            log(
-                "blocked until " + expireDate.toDateString() + ", stage:" + result.state
-            );
-            throw 429;
-        } else {
-            //you are a nice guy again
-            result.date = expireDate.toUTCString();
-            if (result.state >= 12) {
-                //permenently marked
-                result.state = 12;
-            } else {
-                result.state = 0;
-            }
-            await result.save();
-        }
-    } else {
-        //save unique ip
-        await IP.findOneAndUpdate({
-            ip
-        }, {
-                ip,
-                date: expireDate.toUTCString(),
-                state: 0
-            }, {
-                upsert: true
-            });
-    }
-}
-
-
-async function sendEmail(data) {
-    try {
-        let emailData = {
-            // From
-            FromEmail: settings.emailReciever,
-            FromName: "Website Kontakt",
-            // To
-            Recipients: [{
-                Email: settings.emailReciever
-            }],
-            // Subject
-            Subject: data.betreff,
-            // Body
-            "Html-part": "<b>Kontakt Formular:</b>" +
-                " <ul><li><b>Name: </b>" +
-                data.name +
-                "</li><li><b>Betreff: </b>" +
-                data.betreff +
-                "</li><li><b>Email: </b>" +
-                data.email +
-                "</li> </ul>" +
-                "<br>" +
-                "<h2>Mitteilung</h2><pre>" +
-                data.text +
-                "</pre>"
-        };
-
-        let sendEmail = Mailjet.post("send");
-
-        sendEmail.request(emailData).catch(err => {
-            throw err;
-        });
-    } catch (error) {
-        throw 409;
-    }
-}
-router.post("/contact", async (req, res) => {
-    try {
-        if (!req.body.email ||
-            !req.body.betreff ||
-            !req.body.name ||
-            !req.body.text
-        )
-            throw 400;
-
-        let ip =
-            req.headers["x-forwarded-for"] ||
-            req.connection.remoteAddress ||
-            req.socket.remoteAddress ||
-            req.connection.socket.remoteAddress;
-        if (!ip) throw 500;
-        await saveAndBlockIp(ip);
-
-        if (process.env.test === "true") {
-            log("email from " + req.body.email + ":" + req.body.betreff);
-            throw 200; //spam block
-        }
-
-        await sendEmail(req.body).catch((err) => {
-            throw err
-        });
-        log("new email from " + req.body.email + ":" + req.body.betreff);
-
-        res.status(200).send("OK");
-    } catch (error) {
-        handle(res, error);
-    }
-});
-*/
 router.post("/login", async (req, res) => {
     try {
         if (!req.body.pw || !req.body.un) throw 403;
