@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'fampedia-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.scss']
+  templateUrl: './moment.component.html',
+  styleUrls: ['./moment.component.scss']
 })
-export class EventComponent implements OnInit {
+export class MomentComponent implements OnInit {
   public id: string = '';
 
   constructor(private route: ActivatedRoute) {}
