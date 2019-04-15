@@ -1,3 +1,7 @@
+/////////////////////////////
+///// Setup - Loading Modules
+/////////////////////////////
+
 "use strict";
 const fs = require('fs');
 const crypto = require("crypto");
@@ -63,14 +67,17 @@ db.once("open", async function () {
     }
 });
 
-//mongoose database schemata
-let art = mongoose.Schema({
-    articleId: Number,
-    title: String,
-    body: String,
+/////////////////////////////
+///// mongoose database schemata
+/////////////////////////////
+
+// moment
+let mom = mongoose.Schema({
+    momentId: Number,
+    momenttitle: String,
+    momentdescription: String,
     date: String,
-    images: [String],
-    type: String
+    images: [String], // contains the id's of all images added to that moment
 });
 
 let ip = mongoose.Schema({
@@ -99,46 +106,38 @@ let image = mongoose.Schema({
 
 //database models
 let ImageDB = mongoose.model("image", image);
-let ArticleDB = mongoose.model("news", art);
+let MomentDB = mongoose.model("Moment", mom);
 let UserDB = mongoose.model("user", us);
 let TokenDB = mongoose.model("token", token);
 let IP = mongoose.model("ip", ip);
 
-router.get("/news", async (_req, res) => {
-    let allArt = await ArticleDB.find();
-    if (allArt) {
-        res.status(200).json(allArt.map(art => {
-            art.date = moment(art.date).fromNow();
-            return art;
-        }));
-    } else {
-        errorhandlerFn(res, err);
-    }
-    log("got news:" + allArt.length);
-});
+/////////////////////////////
+///// Server - Paths
+/////////////////////////////
 
-router.post("/neu", async (req, res) => {
+// Add a new Moment
+router.post("/moment/new", async (req, res) => {
     try {
         if (!req.body.body || !req.body.title) throw 400;
         await auth(req.headers.user, req.headers.token).catch(authFail);
         
-        //random integer
+        //random integer // penis
         const count = crypto.randomBytes(64).readUIntBE(0, 3);
-
-        let newArt = new ArticleDB({
-            articleId: count,
-            title: req.body.title,
-            body: req.body.body,
+        
+        let newMoment = new MomentDB({
+            momentID: count,
+            momenttitle: req.body.title,
+            momentdescription: req.body.momentdescription,
             date: new Date().toUTCString(),
-            type: req.body.type,
+            // type: req.body.type, idk what type would be needed fpr
             images: []
         });
 
-        await newArt.save();
+        await newMoment.save();
 
-        log("Added 1 ArticleDB into Collection");
+        log("Added 1 moment into collection");
         return res.status(201).json({
-            articleId: count
+            momentID: count
         });
     } catch (error) {
         handle(res, error);
@@ -168,6 +167,20 @@ const upload = multer({
     fileFilter: fileFilter
 });
 
+// news
+router.get("/moment/all", async (_req, res) => {
+    let allMoments = await MomentDB.find();
+    if (allMoments) {
+        res.status(200).json(allMoments.map(mom => {
+            mom.date = moment(mom.date).fromNow();
+            return mom;
+        }));
+    } else {
+        errorhandlerFn(res, err);
+    }
+    log("got news:" + allMoments.length);
+});
+
 //Image upload
 router.post("/image/:ID", upload.single("image"), async (req, res) => {
     try {
@@ -175,7 +188,7 @@ router.post("/image/:ID", upload.single("image"), async (req, res) => {
         if (!req.file) throw 400;
 
         let aID = parseInt(req.params.ID);
-        let modArt = await ArticleDB.findOne({
+        let modArt = await MomentDB.findOne({
             articleId: aID
         });
         if (!modArt) throw 404;
@@ -267,7 +280,7 @@ router.get("/deleteimage/:ID", async (req, res) => {
         const id = req.params.ID;
         await auth(req.headers.user, req.headers.token).catch(authFail);
         await ImageDB.findByIdAndRemove(id);
-        let affectedArt = await ArticleDB.findOne({ images: id });
+        let affectedArt = await MomentDB.findOne({ images: id });
         if (!affectedArt) throw 404;
         affectedArt.images.splice(affectedArt.images.indexOf(id));
         await affectedArt.save();
@@ -284,7 +297,7 @@ router.get("/delete/:ID", async (req, res) => {
         await auth(req.headers.user, req.headers.token).catch(authFail);
         let aID = parseInt(req.params.ID);
 
-        let result = await ArticleDB.findOne({
+        let result = await MomentDB.findOne({
             articleId: aID
         });
         if (!result) throw 404;
@@ -314,7 +327,7 @@ router.post("/edit/:ID", async (req, res) => {
         let title = req.body.title;
         let body = req.body.body;
         let aID = parseInt(req.params.ID);
-        let newArt = await ArticleDB.findOne({
+        let newArt = await MomentDB.findOne({
             articleId: aID
         });
         if (!newArt) throw 404;
