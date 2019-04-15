@@ -5,16 +5,20 @@ export class Moment implements IMoment {
     public title = "test Moment";
     public description = "test descriptiontest descriptiontest descriptiontest description";
     public momentID = 1;
+    public oldImages: IMomentImage[] = [];
 
 
     constructor(private json: IMoment) { 
         // TODO: remove
         this.images = [];
-        this.images.push({imageID: "", description: "image description"})
+        this.images = [{imageID: "", description: "image description"}]
+        this.oldImages = this.images;
+        setInterval(()=>this.compare(this.oldImages, this.images), 1000);
     }
 
 
     // TODO: implement more property getter/setter with change detection
+
 
     public get images() {
         return this.json.images;
