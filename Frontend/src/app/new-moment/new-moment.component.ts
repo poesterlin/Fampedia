@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HeaderMode } from '../navbar/navbar.component';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'fampedia-new-moment',
@@ -29,6 +30,10 @@ export class NewMomentComponent {
 
   public upload() {
     this.router.navigate(['/main']);
+  }
+
+  public get native(){
+    return environment.isNative;
   }
 
 }
