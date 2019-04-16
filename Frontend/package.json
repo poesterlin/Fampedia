@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve --hmr --aot",
-    "build": "ng build fampedia",
-    "build-native": "ng build native",
+    "build": "ng build --configuration=production",
+    "build-native": "ng build --configuration=native",
     "test": "ng test",
     "lint": "ng lint --fix",
     "e2e": "ng e2e",
