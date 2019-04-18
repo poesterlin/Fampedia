@@ -5,8 +5,9 @@
         <fampedia-new-moment-data></fampedia-new-moment-data>
     </mat-tab>
     <mat-tab label="----------------">
-        <fampedia-new-moment-images-web *ngIf="!native"></fampedia-new-moment-images-web>
-        <fampedia-moment-image-native *ngIf="native"></fampedia-moment-image-native>
+        <!-- <fampedia-new-moment-images-web *ngIf="!native"></fampedia-new-moment-images-web>
+        <fampedia-moment-image-native *ngIf="native"></fampedia-moment-image-native> -->
+        <fampedia-moment-camera *ngIf="index === 1"></fampedia-moment-camera>
     </mat-tab>
     <mat-tab label="----------------">
         <fampedia-new-moment-access></fampedia-new-moment-access>
