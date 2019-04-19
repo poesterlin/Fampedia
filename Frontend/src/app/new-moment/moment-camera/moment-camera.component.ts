@@ -15,83 +15,77 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
   public width = 480;
   public height = 640;
   public allowed = true;
-  private streaming = false;
+  public cameraSelect = false;
+  public frontCam = false;
   private stream?: MediaStream;
   private images: string[] = [];
 
-  constructor() { }
+  constructor() {
+    navigator.mediaDevices.enumerateDevices()
+      .then(devices => this.cameraSelect = devices.filter(dev => dev.kind === 'videoinput').length > 1);
+  }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     if (this.video && this.video.nativeElement) {
       const vid = this.video.nativeElement as HTMLVideoElement;
       vid.pause();
       vid.srcObject = null;
       if (this.stream) {
-        for (const track of this.stream.getTracks()) {
-          this.stream.removeTrack(track);
+        const track = this.stream.getTracks()[0];
+        this.stream.removeTrack(track);
+        if (track.stop) {
+          track.stop();
         }
+        // this.stream = undefined;
       }
     }
   }
 
   ngAfterViewInit() {
     this.clearPhoto();
-    this.initStream();
-  }
-
-  public initCanvas() {
-    if (!this.video) { return; }
-    if (!this.streaming) {
-      this.streaming = true;
-    }
   }
 
   public initStream() {
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false }).then(stream => {
-      if (!this.video) { return; }
-      this.video.nativeElement.srcObject = stream;
-      this.video.nativeElement.play();
-      this.stream = stream;
+    try {
+      navigator.mediaDevices.getUserMedia({ video: this.frontCam ? true : { facingMode: 'environment' }, audio: false }).then(stream => {
+        if (!this.video || (this.stream && this.stream.active)) { return; }
+        this.video.nativeElement.srcObject = stream;
+        this.video.nativeElement.play();
+        this.stream = stream;
 
-      const { width, height } = this.stream.getTracks()[0].getSettings();
-      if (width && height) {
-        this.width = width;
-        this.height = height;
-      }
-    }).catch(() => this.allowed = false);
+        const { width, height } = this.stream.getTracks()[0].getSettings();
+        if (width && height) {
+          this.width = width;
+          this.height = height;
+        }
+      })
+      // .catch(() => this.allowed = false);
+    } catch (e) {
+      this.allowed = false;
+    }
   }
 
   public takePicture() {
     if (!this.video) { return; }
     if (!this.canvas) { return; }
-    if (!this.stream) { return; }
 
     const context = this.canvas.nativeElement.getContext('2d');
-    if (this.width && this.height && context) {
-      context.drawImage(this.video.nativeElement, 0, 0, this.width, this.height);
+    if (!context) { return; }
 
-      const data = this.canvas.nativeElement.toDataURL('image/png');
-      this.pic.nativeElement.setAttribute('src', data);
-      this.mode = "display";
-      this.streaming = false;
-    } else {
-      this.clearPhoto();
-    }
+    context.drawImage(this.video.nativeElement, 0, 0, this.width, this.height);
+
+    const data = this.canvas.nativeElement.toDataURL('image/png');
+    this.pic.nativeElement.setAttribute('src', data);
+    this.mode = "display";
   }
 
   public clearPhoto() {
     if (!this.canvas) { return; }
-    if (!this.pic) { return; }
-    this.streaming = false;
-    this.initCanvas();
     const context = (this.canvas.nativeElement as HTMLCanvasElement).getContext('2d');
-    if (context) {
-      context.clearRect(0, 0, this.width, this.height);
-    }
+    if (!context) { return; }
+    context.clearRect(0, 0, this.width, this.height);
     this.mode = "capture";
-    this.initCanvas();
     this.initStream();
-
   }
 
   public returnImages() {
@@ -105,5 +99,11 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
     const data: string = this.canvas.nativeElement.toDataURL('image/png');
     this.images.push(data);
     this.clearPhoto();
+  }
+
+  public flipCamera() {
+    this.frontCam = !this.frontCam;
+    this.ngOnDestroy();
+    this.ngAfterViewInit();
   }
 }
