@@ -33,8 +33,8 @@ router.post("/new", async (req, res) => {
         handle(res, error);
     }
 });
-// news
-router.get("/moment/all", async (req, res) => {
+// Get all moments
+router.get("/all", async (req, res) => {
 
     let allMoments = await MomentDB.find({familyID : req.body.familyID});
     if (allMoments) {
@@ -46,36 +46,40 @@ router.get("/moment/all", async (req, res) => {
     else {
         errorhandlerFn(res, err);
     }
-    log("got news:" + allMoments.length);
+    log("got moments:" + allMoments.length);
 });
 
-//delete article
-router.get("/delete/:ID", async (req, res) => {
+// Delete one moment
+router.delete("/delete", async (req, res) => {
     try {
         await auth(req.headers.user, req.headers.token).catch(authFail);
-        let aID = parseInt(req.params.ID);
+
+        //let aID = parseInt(req.params.ID);
         let result = await MomentDB.findOne({
-            articleId: aID
+            momentId: req.body.momentID,
+            familyID : req.body.familyID
         });
-        if (!result)
+        if (!result){
             throw 404;
-        let oldImages = result.images;
+        }
+        //let oldMoment = result.mom;
         await result.remove();
         if (result.ok === 0) {
-            errorhandlerFn(res, aId + " not found", 404);
+              errorhandlerFn(res, req.body.momentID + " not found", 404);
         }
         else {
-            for (const imageId of oldImages) {
-                await ImageDB.findByIdAndRemove(imageId);
-            }
+            //for (const momentId of oldMoment) {
+                await MomentDB.findByIdAndRemove(req.body.momentID);
+           // }
             res.status(200).send("OK");
-            log("Artikel mit ID = " + aID + " geloescht");
+           log("Moment mit ID = " + req.body.momentID + " geloescht");
         }
     }
     catch (error) {
         handle(res, error);
     }
 });
+
 router.post("/edit/:ID", async (req, res) => {
     try {
         if (!req.body.body || !req.body.title)
