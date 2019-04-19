@@ -5,7 +5,7 @@ const {MomentDB, ImageDB} = require("./app-db")
 /////////////////////////////
 ///// Server - Paths
 /////////////////////////////
-// Add a new Moment
+// Add a new Moment 
 router.post("/new", async (req, res) => {
     try {
         if (!req.body.title || !req.body.description || !req.body.familyID)   {
@@ -34,8 +34,9 @@ router.post("/new", async (req, res) => {
     }
 });
 // news
-router.get("/moment/all", async (_req, res) => {
-    let allMoments = await MomentDB.find();
+router.get("/moment/all", async (req, res) => {
+
+    let allMoments = await MomentDB.find({familyID : req.body.familyID});
     if (allMoments) {
         res.status(200).json(allMoments.map(mom => {
             mom.date = moment(mom.date).fromNow();
@@ -47,6 +48,7 @@ router.get("/moment/all", async (_req, res) => {
     }
     log("got news:" + allMoments.length);
 });
+
 //delete article
 router.get("/delete/:ID", async (req, res) => {
     try {
