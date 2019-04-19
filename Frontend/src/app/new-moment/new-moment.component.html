@@ -1,18 +1,24 @@
-<fampedia-navbar [config]="navConf"></fampedia-navbar>
+<mat-toolbar>
+    <div fxLayout="row" fxFlex="100" fxLayoutAlign="start stretch">
+        <button mat-button routerLink="/main" fxFlex="10">
+            <mat-icon>keyboard_backspace</mat-icon>
+        </button>
+        <div fxFlex="90" id="headline">NEW MOMENT</div>
+    </div>
+</mat-toolbar>
 
-<mat-tab-group mat-align-tabs="center" [(selectedIndex)]="index" [disableRipple]="true">
-    <mat-tab label="----------------">
-        <fampedia-new-moment-data></fampedia-new-moment-data>
-    </mat-tab>
-    <mat-tab label="----------------">
-        <!-- <fampedia-new-moment-images-web *ngIf="!native"></fampedia-new-moment-images-web>
-        <fampedia-moment-image-native *ngIf="native"></fampedia-moment-image-native> -->
-        <fampedia-moment-camera *ngIf="index === 1"></fampedia-moment-camera>
-    </mat-tab>
-    <mat-tab label="----------------">
-        <fampedia-new-moment-access></fampedia-new-moment-access>
-    </mat-tab>
-</mat-tab-group>
+<div class="progress" fxLayout="row" fxLayoutGap="5px">
+    <div fxFlex="33" (click)="index = 0" class="line"></div>
+    <div fxFlex="33" (click)="index = 1" class="line"></div>
+    <div fxFlex="33" (click)="index = 2" class="line"></div>
+</div>
+<div class="bar" [ngStyle]="{'left': 'calc(' + (33 * index) + '% + ' + (index * 5) + 'px)'}"></div>
 
-<button (click)="next()" *ngIf="index < 2">NEXT</button>
-<button (click)="upload()" *ngIf="index == 2">UPLOAD</button>
+<fampedia-new-moment-data *ngIf="index === 0"></fampedia-new-moment-data>
+
+<fampedia-moment-camera *ngIf="index === 1"></fampedia-moment-camera>
+
+<fampedia-new-moment-access *ngIf="index === 2"></fampedia-new-moment-access>
+
+<button (click)="next()" class="nextBtn" *ngIf="index < 2">NEXT</button>
+<button (click)="upload()" class="nextBtn" *ngIf="index == 2">UPLOAD</button>
