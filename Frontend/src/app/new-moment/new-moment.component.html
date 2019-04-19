@@ -7,12 +7,14 @@
     </div>
 </mat-toolbar>
 
-<div class="progress" fxLayout="row" fxLayoutGap="5px">
-    <div fxFlex="33" (click)="index = 0" class="line"></div>
-    <div fxFlex="33" (click)="index = 1" class="line"></div>
-    <div fxFlex="33" (click)="index = 2" class="line"></div>
+<div class="status">
+    <div class="progress" fxLayout="row" fxLayoutGap="5px">
+        <div fxFlex="33%" (click)="index = 0" class="line"></div>
+        <div fxFlex="33%" (click)="index = 1" class="line"></div>
+        <div fxFlex="33%" (click)="index = 2" class="line"></div>
+    </div>
+    <div class="bar" [ngStyle]="{'left': 'calc(' + (32.5 * index) + '% + ' + (index * 5) + 'px)'}"></div>
 </div>
-<div class="bar" [ngStyle]="{'left': 'calc(' + (33 * index) + '% + ' + (index * 5) + 'px)'}"></div>
 
 <fampedia-new-moment-data *ngIf="index === 0"></fampedia-new-moment-data>
 

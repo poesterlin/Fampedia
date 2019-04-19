@@ -1,11 +1,11 @@
-import { Component, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'fampedia-moment-camera',
   templateUrl: './moment-camera.component.html',
   styleUrls: ['./moment-camera.component.scss']
 })
-export class MomentCameraComponent implements AfterViewInit {
+export class MomentCameraComponent implements AfterViewInit, OnDestroy {
   @ViewChild('video') private video?: ElementRef;
   @ViewChild('pic') private pic!: ElementRef;
   @ViewChild('canvas') private canvas?: ElementRef;
@@ -13,9 +13,24 @@ export class MomentCameraComponent implements AfterViewInit {
   public mode: 'capture' | 'display' = 'capture';
   public width = 480;
   public height = 640;
+  public allowed = true;
   private streaming = false;
+  private stream?: MediaStream;
 
   constructor() { }
+
+  ngOnDestroy(): void {
+    if (this.video && this.video.nativeElement) {
+      const vid = this.video.nativeElement as HTMLVideoElement;
+      vid.pause();
+      vid.srcObject = null;
+      if(this.stream){
+        for (const track of this.stream.getTracks()) {
+          this.stream.removeTrack(track);
+        }
+      }
+    }
+  }
 
   ngAfterViewInit() {
     this.clearphoto();
@@ -40,7 +55,8 @@ export class MomentCameraComponent implements AfterViewInit {
       if (!this.video) { return; }
       this.video.nativeElement.srcObject = stream;
       this.video.nativeElement.play();
-    });
+      this.stream = stream;
+    }).catch(() => this.allowed = false);
   }
 
   public takePicture() {
