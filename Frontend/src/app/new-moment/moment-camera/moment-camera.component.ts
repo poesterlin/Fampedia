@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, ElementRef, OnDestroy } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, ElementRef, OnDestroy, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'fampedia-moment-camera',
@@ -9,6 +9,7 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
   @ViewChild('video') private video?: ElementRef;
   @ViewChild('pic') private pic!: ElementRef;
   @ViewChild('canvas') private canvas?: ElementRef;
+  @Output() output = new EventEmitter<string[]>();
 
   public mode: 'capture' | 'display' = 'capture';
   public width = 480;
@@ -16,6 +17,7 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
   public allowed = true;
   private streaming = false;
   private stream?: MediaStream;
+  private images: string[] = [];
 
   constructor() { }
 
@@ -24,7 +26,7 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
       const vid = this.video.nativeElement as HTMLVideoElement;
       vid.pause();
       vid.srcObject = null;
-      if(this.stream){
+      if (this.stream) {
         for (const track of this.stream.getTracks()) {
           this.stream.removeTrack(track);
         }
@@ -33,19 +35,13 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.clearphoto();
+    this.clearPhoto();
     this.initStream();
   }
 
   public initCanvas() {
     if (!this.video) { return; }
     if (!this.streaming) {
-      this.height = this.video.nativeElement.videoHeight / (this.video.nativeElement.videoWidth / this.width);
-
-      if (isNaN(this.height)) {
-        this.height = this.width / (4 / 3);
-      }
-
       this.streaming = true;
     }
   }
@@ -56,40 +52,58 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
       this.video.nativeElement.srcObject = stream;
       this.video.nativeElement.play();
       this.stream = stream;
+
+      const { width, height } = this.stream.getTracks()[0].getSettings();
+      if (width && height) {
+        this.width = width;
+        this.height = height;
+      }
     }).catch(() => this.allowed = false);
   }
 
   public takePicture() {
     if (!this.video) { return; }
     if (!this.canvas) { return; }
+    if (!this.stream) { return; }
 
     const context = this.canvas.nativeElement.getContext('2d');
     if (this.width && this.height && context) {
-      this.canvas.nativeElement.width = this.width;
-      this.canvas.nativeElement.height = this.height;
       context.drawImage(this.video.nativeElement, 0, 0, this.width, this.height);
 
       const data = this.canvas.nativeElement.toDataURL('image/png');
       this.pic.nativeElement.setAttribute('src', data);
       this.mode = "display";
+      this.streaming = false;
     } else {
-      this.clearphoto();
+      this.clearPhoto();
     }
   }
 
-  public clearphoto() {
+  public clearPhoto() {
     if (!this.canvas) { return; }
     if (!this.pic) { return; }
-
-    const context = this.canvas.nativeElement.getContext('2d');
-    if (!context) { return; }
-    context.fillStyle = "#AAA";
-    context.fillRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-
-    const data = this.canvas.nativeElement.toDataURL('image/png');
-    this.pic.nativeElement.setAttribute('src', data);
+    this.streaming = false;
+    this.initCanvas();
+    const context = (this.canvas.nativeElement as HTMLCanvasElement).getContext('2d');
+    if (context) {
+      context.clearRect(0, 0, this.width, this.height);
+    }
     this.mode = "capture";
+    this.initCanvas();
     this.initStream();
+
   }
 
+  public returnImages() {
+    this.addImage();
+    this.output.emit(this.images);
+  }
+
+  public addImage() {
+    if (!this.canvas) { return; }
+
+    const data: string = this.canvas.nativeElement.toDataURL('image/png');
+    this.images.push(data);
+    this.clearPhoto();
+  }
 }
