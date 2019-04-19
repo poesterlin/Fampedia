@@ -9,7 +9,7 @@
   "license": "UNLICENSED",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "nodemon -w ./src ./src/app.js",
     "test": "mocha test/test.js --exit",
     "test-q": "set log=quiet&& mocha test/test.js --exit",
     "server": "pm2 start ecosystem.config.js",
