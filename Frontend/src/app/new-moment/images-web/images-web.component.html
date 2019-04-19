@@ -1,4 +1,18 @@
 <p>
   Would you like to add some media to help you remeber this moment?
 </p>
-<input type="file" accept="image/*" capture="environment">
+<!-- <input type="file" accept="image/*" capture="environment"> -->
+
+<div id="openCamera">
+  <button (click)="takePicture = !takePicture">
+    <mat-icon>photo_camera</mat-icon>
+    Take Pic
+  </button>
+  <fampedia-moment-camera *ngIf="takePicture"></fampedia-moment-camera>
+</div>
+
+<div class="fotogrid" *ngIf="!takePicture" fxLayout="row break" fxLayoutAlign="space-around start" fxLayoutGap="3px">
+  <div class="imageContainer" *ngFor="let i of images" fxFlex="calc(25% - 3px)">
+    <img famImage [image]="'https://source.unsplash.com/100x100/?water,' + i">
+  </div>
+</div>
