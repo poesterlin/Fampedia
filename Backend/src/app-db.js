@@ -22,6 +22,7 @@ let mom = mongoose.Schema({
     momentdescription: String,
     date: String,
     images: [String],
+    familyID: String
 });
 let ip = mongoose.Schema({
     ip: String,

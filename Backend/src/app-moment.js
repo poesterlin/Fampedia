@@ -20,7 +20,8 @@ router.post("/new", async (req, res) => {
             momentdescription: req.body.momentdescription,
             date: new Date().toUTCString(),
             // type: req.body.type, idk what type would be needed fpr
-            images: []
+            images: [],
+            familyID: req.body.familyID
         });
         await newMoment.save();
         log("Added 1 moment into collection");
