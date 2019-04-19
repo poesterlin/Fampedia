@@ -1,17 +1,29 @@
 <div class="camera" *ngIf="mode === 'capture'">
-  <video [width]="width" [height]="height" *ngIf="allowed" #video>Video stream not
+  <video [width]="width" [height]="height" *ngIf="allowed" #video>Video stdeam not
     available.</video>
 
-  <div class="buttons" fxLayout="row" fxLayoutAlign="center center">
-    <button fxFlex="50" class="flipIcon" (click)="flipCamera()" *ngIf="frontCam && cameraSelect">
-      <mat-icon>camera_front</mat-icon>
-    </button>
-    <button fxFlex="50" class="flipIcon" (click)="flipCamera()" *ngIf="!frontCam && cameraSelect">
-      <mat-icon>camera_rear</mat-icon>
-    </button>
+  <table class="buttons" *ngIf="allowed">
+    <tr>
+      <td>
+        <button class="flipIcon" (click)="flipCamera()" *ngIf="frontCam && cameraSelect">
+          <mat-icon>camera_rear</mat-icon>
+        </button>
+        <button class="flipIcon" (click)="flipCamera()" *ngIf="!frontCam && cameraSelect" >
+          <mat-icon>camera_front</mat-icon>
+        </button>
+      </td>
 
-    <button fxFlex="50" (click)="takePicture()" *ngIf="allowed"></button>
-  </div>
+      <td>
+        <button (click)="takePicture()"></button>
+      </td>
+
+      <td>
+        <button class="flipIcon" (click)="flash()" *ngIf="!frontCam && cameraSelect">
+          <mat-icon>flash_on</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </table>
 
   <h1 *ngIf="!allowed">You need a camera for this.</h1>
 

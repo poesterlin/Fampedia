@@ -19,6 +19,7 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
   public frontCam = false;
   private stream?: MediaStream;
   private images: string[] = [];
+  private torch = false;
 
   constructor() {
     navigator.mediaDevices.enumerateDevices()
@@ -46,23 +47,18 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
   }
 
   public initStream() {
-    try {
-      navigator.mediaDevices.getUserMedia({ video: this.frontCam ? true : { facingMode: 'environment' }, audio: false }).then(stream => {
-        if (!this.video || (this.stream && this.stream.active)) { return; }
-        this.video.nativeElement.srcObject = stream;
-        this.video.nativeElement.play();
-        this.stream = stream;
+    navigator.mediaDevices.getUserMedia({ video: this.frontCam ? true : { facingMode: 'environment' }, audio: false }).then(stream => {
+      if (!this.video || (this.stream && this.stream.active)) { return; }
+      this.video.nativeElement.srcObject = stream;
+      this.video.nativeElement.play();
+      this.stream = stream;
 
-        const { width, height } = this.stream.getTracks()[0].getSettings();
-        if (width && height) {
-          this.width = width;
-          this.height = height;
-        }
-      })
-      // .catch(() => this.allowed = false);
-    } catch (e) {
-      this.allowed = false;
-    }
+      const { width, height } = this.stream.getTracks()[0].getSettings();
+      if (width && height) {
+        this.width = width;
+        this.height = height;
+      }
+    }).catch(() => this.allowed = false);
   }
 
   public takePicture() {
@@ -106,4 +102,17 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
     this.ngOnDestroy();
     this.ngAfterViewInit();
   }
+
+  public flash() {
+    if (this.stream) {
+      this.torch = !this.torch;
+      this.stream.getTracks()[0].applyConstraints({
+        advanced: [{ torch: this.torch } as any]
+      })
+        .catch(e => console.log(e));
+    }
+  }
+  // track.applyConstraints({
+  //   advanced: [{zoom: capabilities.zoom.max}]
+  // })
 }

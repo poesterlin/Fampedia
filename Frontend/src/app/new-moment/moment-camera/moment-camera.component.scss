@@ -17,13 +17,16 @@ img {
   .buttons {
     margin: auto;
     transform: translateY(-75px);
-    width: 104px;
+    width: 200px;
+    td {
+      min-width: 60px;
+    }
     button {
       @include clickable() {
         border: 1px solid gray;
         box-shadow: none;
       }
-      margin: 0 2px;
+      margin-left: 18px;
       width: 48px;
       height: 48px;
       border-radius: 50%;
