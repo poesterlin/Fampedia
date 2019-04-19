@@ -8,7 +8,9 @@ const {MomentDB, ImageDB} = require("./app-db")
 // Add a new Moment
 router.post("/new", async (req, res) => {
     try {
-        if (!req.body.body || !req.body.title)            throw 400;
+        if (!req.body.title || !req.body.description || !req.body.familyID)   {
+            throw 400;
+        }
         await auth(req.headers.user, req.headers.token).catch(authFail);
         //random integer 
         const count = crypto.randomBytes(64).readUIntBE(0, 3);

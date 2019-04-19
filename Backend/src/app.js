@@ -29,7 +29,7 @@ sharp.cache({
 // );
 const port = process.env.PORT || 3000;
 
-let noAuth = false;
+let noAuth = true;
 if (process.argv[2] === "noAuth") {
     console.error("warning: no auth mode")
     noAuth = true;
