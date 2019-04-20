@@ -37,7 +37,7 @@ describe("Task API Routes", function () {
     token = await login(username, password);
     let articles = await getArt();
     for (let i = 0; i < articles.length; i++) {
-      await deleteArt(articles[i].articleId, username, token);
+      await deleteMom(articles[i].articleId, username, token);
     }
   });
 
@@ -56,7 +56,7 @@ describe("Task API Routes", function () {
 
   describe("GET /neu", function () {
     it("insert one article and test for its existence", async () => {
-      await newArt(title, body, type, token, username);
+      await newMom(title, body, type, token, username);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -66,38 +66,38 @@ describe("Task API Routes", function () {
     });
 
     it("missing title", async () => {
-      await newArt(null, body, type, token, username, 400);
+      await newMom(null, body, type, token, username, 400);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(0);
     });
 
     it("missing body", async () => {
-      await newArt(title, null, type, token, username, 400);
+      await newMom(title, null, type, token, username, 400);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(0);
     });
     it("no data", async () => {
-      await newArt(null, null, type, token, username, 400);
+      await newMom(null, null, type, token, username, 400);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(0);
     });
     it("no token", async () => {
-      await newArt(title, body, type, null, username, 401);
+      await newMom(title, body, type, null, username, 401);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(0);
     });
     it("no user", async () => {
-      await newArt(title, body, type, token, null, 401);
+      await newMom(title, body, type, token, null, 401);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(0);
     });
     it("wrong token", async () => {
-      await newArt(title, body, type, token + "wrooong", username, 401);
+      await newMom(title, body, type, token + "wrooong", username, 401);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(0);
     });
     it("wrong user", async () => {
-      await newArt(title, body, type, token, username + "wrooong", 401);
+      await newMom(title, body, type, token, username + "wrooong", 401);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(0);
     });
@@ -128,50 +128,50 @@ describe("Task API Routes", function () {
 
   describe("GET /delete/:id", function () {
     it("create an article and delete it", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await deleteArt(newArticle, username, token);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await deleteMom(newMomicle, username, token);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(0);
     });
 
     it("delete with wrong id", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await deleteArt(newArticle + 1, username, token, 404);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await deleteMom(newMomicle + 1, username, token, 404);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
     });
 
     it("try delete without credetials", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await deleteArt(newArticle, null, null, 401);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await deleteMom(newMomicle, null, null, 401);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
     });
 
     it("delete without token", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await deleteArt(newArticle, username, null, 401);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await deleteMom(newMomicle, username, null, 401);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
     });
 
     it("delete without user", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await deleteArt(newArticle, null, token, 401);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await deleteMom(newMomicle, null, token, 401);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
     });
 
     it("delete with wrong token", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await deleteArt(newArticle, username, token + "wrongASDFA", 401);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await deleteMom(newMomicle, username, token + "wrongASDFA", 401);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
     });
 
     it("delete with wrong user", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await deleteArt(newArticle, username + "wrongASDFA", token, 401);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await deleteMom(newMomicle, username + "wrongASDFA", token, 401);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
     });
@@ -179,8 +179,8 @@ describe("Task API Routes", function () {
 
   describe("POST /edit/:id", function () {
     it("create an article and edit it", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await editArt(newArticle, title + edit, body + edit, username, token);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await editMom(newMomicle, title + edit, body + edit, username, token);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -190,8 +190,8 @@ describe("Task API Routes", function () {
     });
 
     it("delete title by editing", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await editArt(newArticle, null, body + edit, username, token, 400);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await editMom(newMomicle, null, body + edit, username, token, 400);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -200,8 +200,8 @@ describe("Task API Routes", function () {
       expect(allArt[0].body).to.equal(body);
     });
     it("delete body by editing", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await editArt(newArticle, title + edit, null, username, token, 400);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await editMom(newMomicle, title + edit, null, username, token, 400);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -211,8 +211,8 @@ describe("Task API Routes", function () {
     });
 
     it("try edit without credentials", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await editArt(newArticle, title + edit, body + edit, null, null, 401);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await editMom(newMomicle, title + edit, body + edit, null, null, 401);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -222,8 +222,8 @@ describe("Task API Routes", function () {
     });
 
     it("try edit without token", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await editArt(newArticle, title + edit, body + edit, username, null, 401);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await editMom(newMomicle, title + edit, body + edit, username, null, 401);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -233,8 +233,8 @@ describe("Task API Routes", function () {
     });
 
     it("try edit without user", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await editArt(newArticle, title + edit, body + edit, null, token, 401);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await editMom(newMomicle, title + edit, body + edit, null, token, 401);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -246,8 +246,8 @@ describe("Task API Routes", function () {
 
   describe("POST /image/:id", function () {
     it("create an article and add an image", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await addImage(newArticle, imageFile, description, username, token);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await addImage(newMomicle, imageFile, description, username, token);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -258,8 +258,8 @@ describe("Task API Routes", function () {
     });
 
     it("create an article and add no image", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await addImage(newArticle, null, description, username, token, 400);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await addImage(newMomicle, null, description, username, token, 400);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -270,8 +270,8 @@ describe("Task API Routes", function () {
     });
 
     it.skip("create an article and add a too big image", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await addImage(newArticle, tooBigImageFile, description, username, token, 400);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await addImage(newMomicle, tooBigImageFile, description, username, token, 400);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -282,9 +282,9 @@ describe("Task API Routes", function () {
     });
 
     it("add second image files", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      await addImage(newArticle, imageFile, description, username, token);
-      await addImage(newArticle, secondImageFile, description, username, token);
+      let newMomicle = await newMom(title, body, type, token, username);
+      await addImage(newMomicle, imageFile, description, username, token);
+      await addImage(newMomicle, secondImageFile, description, username, token);
       let allArt = await getArt();
       expect(allArt).to.have.lengthOf(1);
       expect(allArt[0].title).to.be.a("string");
@@ -313,26 +313,26 @@ describe("Task API Routes", function () {
 
   describe("GET image", function () {
     it("get thumnail", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      let images = await addImage(newArticle, imageFile, description, username, token);
+      let newMomicle = await newMom(title, body, type, token, username);
+      let images = await addImage(newMomicle, imageFile, description, username, token);
       let image = await getImage(images[0], 50);
       expect(image).to.be.instanceOf(Buffer);
     });
     it("get medium res", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      let images = await addImage(newArticle, imageFile, description, username, token);
+      let newMomicle = await newMom(title, body, type, token, username);
+      let images = await addImage(newMomicle, imageFile, description, username, token);
       let image = await getImage(images[0], 320);
       expect(image).to.be.instanceOf(Buffer);
     });
     it("get high res", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      let images = await addImage(newArticle, imageFile, description, username, token);
+      let newMomicle = await newMom(title, body, type, token, username);
+      let images = await addImage(newMomicle, imageFile, description, username, token);
       let image = await getImage(images[0], 640);
       expect(image).to.be.instanceof(Buffer)
     });
     it("compare size", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      let images = await addImage(newArticle, imageFile, description, username, token);
+      let newMomicle = await newMom(title, body, type, token, username);
+      let images = await addImage(newMomicle, imageFile, description, username, token);
       let image50 = await getImage(images[0], 50);
       let image320 = await getImage(images[0], 320);
       let image640 = await getImage(images[0], 640);
@@ -342,8 +342,8 @@ describe("Task API Routes", function () {
   });
   describe("DELETE image", function () {
     it("delete image and check on article", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      let images = await addImage(newArticle, imageFile, description, username, token);
+      let newMomicle = await newMom(title, body, type, token, username);
+      let images = await addImage(newMomicle, imageFile, description, username, token);
       await deleteImage(images[0], token, username)
       await getImage(images[0], 50, 404);
       await getImage(images[0], 320, 404);
@@ -352,9 +352,9 @@ describe("Task API Routes", function () {
       expect(articles[0].images).to.have.lengthOf(0);
     });
     it("delete article and check for images", async () => {
-      let newArticle = await newArt(title, body, type, token, username);
-      let images = await addImage(newArticle, imageFile, description, username, token);
-      await deleteArt(newArticle, username, token);
+      let newMomicle = await newMom(title, body, type, token, username);
+      let images = await addImage(newMomicle, imageFile, description, username, token);
+      await deleteMom(newMomicle, username, token);
       await getImage(images[0], 50, 404);
       await getImage(images[0], 320, 404);
       await getImage(images[0], 640, 404);
@@ -365,7 +365,7 @@ describe("Task API Routes", function () {
 /** @returns {Promise<{articleId: number, title: string, body: string, date: string, images: string[], type: string}[]>} */
 async function getArt(httpStatus = 200) {
   let res = await request
-    .get("/news")
+    .get("/moment/all")
     .expect(httpStatus)
   return res.body;
 }
@@ -408,9 +408,9 @@ async function login(un, pw, httpStatus = 200) {
 }
 
 /** @returns {Promise<void>} */
-async function deleteArt(id, username, token, httpStatus = 200) {
+async function deleteMom(id, username, token, httpStatus = 200) {
   await request
-    .get("/delete/" + id)
+    .get("/moment/delete/" + id)
     .set("token", token)
     .set("user", username)
     .expect(httpStatus)
@@ -439,9 +439,9 @@ async function addImage(id, image, desc, username, token, httpStatus = 201) {
 }
 
 /** @returns {Promise<number>} */
-async function newArt(title, body, type, token, username, httpStatus = 201) {
+async function newMom(title, body, type, token, username, httpStatus = 201) {
   let res = await request
-    .post("/neu")
+    .post("/moment/neu")
     .send({
       title,
       body,
@@ -455,9 +455,9 @@ async function newArt(title, body, type, token, username, httpStatus = 201) {
 }
 
 /** @returns {Promise<void>} */
-async function editArt(id, title, body, username, token, httpStatus = 200) {
+async function editMom(id, title, body, username, token, httpStatus = 200) {
   await request
-    .post("/edit/" + id)
+    .post("/moment/edit/" + id)
     .send({
       title: title,
       body: body
