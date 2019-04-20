@@ -59,6 +59,7 @@ async function testUser(user, password, keep) {
         await newUser.save();
     }
 }
+exports.testUser = testUser;
 
 //database models
 let ImageDB = mongoose.model("image", image);

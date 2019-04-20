@@ -64,7 +64,8 @@ exports.log = log;
 exports.handle = handle;
 exports.getIp = getIp;
 
-const { IP, UserDB, } = require("./app-db");
+const { IP, UserDB,testUser } = require("./app-db");
+exports.testUser = testUser;
 
 app.use("/moment", require('./app-moment')); // Route to app-moment-js
 app.use("/image", require('./app-image')); // Route to app-moment-js
