@@ -8,7 +8,7 @@ const {MomentDB, ImageDB} = require("./app-db")
 // Add a new Moment 
 router.post("/new", async (req, res) => {
     try {
-        if (!req.body.title || !req.body.description || !req.body.familyID)   {
+        if (!req.body.title || !req.body.momentdescription || !req.body.familyID)   {
             throw 400;
         }
         await auth(req.headers.user, req.headers.token).catch(authFail);
@@ -49,17 +49,22 @@ router.get("/all", async (req, res) => {
 });
 // Get one moment
 router.get("/oneMoment", async (req, res) => {
-
-    let result = await MomentDB.findOne({
-        momentID: req.body.momentID,
-        familyID : req.body.familyID
-    });
-
-    if(result){
-        return result;
-    }
+    try {
+        let result =  MomentDB.findOne({
+            momentID: req.body.momentID,
+            familyID : req.body.familyID
+        });
     
-    log("got moment");
+        if(result){
+            res.status(200).json(await result)
+        }else{
+            res.status(404);
+        }
+        
+        log("returned moment");
+    } catch(error){
+        handle(res, error);
+    }
 });
 
 // Delete one moment
@@ -67,15 +72,14 @@ router.delete("/delete", async (req, res) => {
     try {
         await auth(req.headers.user, req.headers.token).catch(authFail);
 
-        //let aID = parseInt(req.params.ID);
         let result = await MomentDB.findOne({
             momentID: req.body.momentID,
             familyID : req.body.familyID
         });
+        log(result);
         if (!result){
             throw 404;
         }
-        //let oldMoment = result.mom;
         await result.remove();
         if (result.ok === 0) {
               errorhandlerFn(res, req.body.momentID + " not found", 404);
