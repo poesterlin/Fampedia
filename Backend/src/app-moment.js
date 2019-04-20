@@ -94,37 +94,23 @@ router.delete("/delete", async (req, res) => {
     }
 });
 
-router.post("/edit/:ID", async (req, res) => {
-    try {
-        if (!req.body.body || !req.body.title)
-            throw 400;
-        await auth(req.headers.user, req.headers.token).catch(authFail);
-        let title = req.body.title;
-        let body = req.body.body;
-        let aID = parseInt(req.params.ID);
-        let newArt = await MomentDB.findOne({
-            articleId: aID
-        });
-        if (!newArt)
-            throw 404;
-        let prevArt = Object.assign({}, newArt);
-        newArt.set({
-            title,
-            body
-        });
-        await newArt.save();
-        if (newArt.title === prevArt._doc.title && newArt.body === prevArt._doc.body) {
-            res.status(200).send("not changed");
-            log("Artikel mit ID = " + aID + " nicht geändert");
-        }
-        else {
+// Edit one moment
+router.post("/edit", async (req, res) => {
+
+    if (!req.body.title || !req.body.momentdescription || !req.body.momentID || !req.body.familyID )   {
+        res.status(400).send("Incomplete body");
+    }
+
+    var myquery = { momentID: req.body.momentID, familyID: req.body.familyID };
+    var newvalues = { $set: {momenttitle: req.body.title , momentdescription: req.body.momentdescription } };
+    MomentDB.updateOne(myquery, newvalues, function(err) {
+        if (err) {
+            res.status(404).send("not found");
+        }else{
+            console.log("1 moment updated");
             res.status(200).send("OK");
-            log("Artikel mit ID = " + aID + " geändert");
         }
-    }
-    catch (error) {
-        handle(res, error);
-    }
+      });
 });
 
 module.exports = router;
