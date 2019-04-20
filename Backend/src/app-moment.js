@@ -19,7 +19,6 @@ router.post("/new", async (req, res) => {
             momenttitle: req.body.title,
             momentdescription: req.body.momentdescription,
             date: new Date().toUTCString(),
-            // type: req.body.type, idk what type would be needed fpr
             images: [],
             familyID: req.body.familyID
         });
@@ -48,6 +47,20 @@ router.get("/all", async (req, res) => {
     }
     log("got moments:" + allMoments.length);
 });
+// Get one moment
+router.get("/oneMoment", async (req, res) => {
+
+    let result = await MomentDB.findOne({
+        momentID: req.body.momentID,
+        familyID : req.body.familyID
+    });
+
+    if(result){
+        return result;
+    }
+    
+    log("got moment");
+});
 
 // Delete one moment
 router.delete("/delete", async (req, res) => {
@@ -56,7 +69,7 @@ router.delete("/delete", async (req, res) => {
 
         //let aID = parseInt(req.params.ID);
         let result = await MomentDB.findOne({
-            momentId: req.body.momentID,
+            momentID: req.body.momentID,
             familyID : req.body.familyID
         });
         if (!result){
@@ -68,9 +81,6 @@ router.delete("/delete", async (req, res) => {
               errorhandlerFn(res, req.body.momentID + " not found", 404);
         }
         else {
-            //for (const momentId of oldMoment) {
-                await MomentDB.findByIdAndRemove(req.body.momentID);
-           // }
             res.status(200).send("OK");
            log("Moment mit ID = " + req.body.momentID + " geloescht");
         }

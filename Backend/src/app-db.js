@@ -17,7 +17,7 @@ db.once("open", async function () {
 /////////////////////////////
 // moment
 let mom = mongoose.Schema({
-    momentId: Number,
+    momentID: Number,
     momenttitle: String,
     momentdescription: String,
     date: String,
