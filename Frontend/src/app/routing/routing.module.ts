@@ -4,11 +4,6 @@ import { CustomPreloader } from './CustomPreloader';
 
 const routes: Routes = [
   {
-    path: 'dashboard',
-    loadChildren: '../dashboard/dashboard.module#DashboardModule',
-    data: { title: 'DASHBOARD', preload: true }
-  },
-  {
     path: 'main',
     loadChildren: '../main/main.module#MainModule',
     data: { title: 'MAIN', preload: true }
