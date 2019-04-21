@@ -1,3 +1,21 @@
-<p>
-  news works!
-</p>
+
+<div class="news" *ngFor="let item of news">
+  <div class="comment" *ngIf="item.type === 'Comment'" fxLayout="row" fxLayoutAlign="center center">
+    <div class="wrapper" fxFlex="100px" fxLayoutAlign="center center">
+      <img [src]="item.user.img" alt="item.user.name">
+    </div>
+    <div class="data" fxFlex="calc(100% - 100px)" fxLayout="row break">
+      <span fxFlex="100">{{item.user.name}} commented:</span>
+      <span class="desc" fxFlex="100">{{item.data.desc}}</span>
+      <span class="date" fxFlex="100">{{item.date}}</span>
+    </div>
+  </div> 
+  <div class="image" *ngIf="item.type === 'Image'" fxLayout="row" fxLayoutAlign="center center" >
+    <img [src]="item.data.img" fxFlex="100px">
+    <div class="data" fxFlex="calc(100% - 100px)" fxLayout="row break">
+      <span fxFlex="100">{{item.user.name}} added image</span>
+      <span class="desc" *ngIf="item.data.desc" fxFlex="100">{{item.data.desc}}</span>
+      <span class="date" fxFlex="100">{{item.date}}</span>
+    </div>
+  </div>
+</div>

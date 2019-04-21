@@ -23,6 +23,10 @@ button {
   max-width: 95vw;
   .imageContainer {
     margin-bottom: 3px;
+    div{
+      width: 100%;
+      height: 100%;
+    }
     img {
       @include constrainImage(100%, 100%, cover);
       border-radius: 5px;

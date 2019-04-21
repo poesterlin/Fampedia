@@ -11,6 +11,6 @@ export class MainService {
   public readonly comp$: BehaviorSubject<EComponent> = new BehaviorSubject<EComponent>(EComponent.Timeline);
 
   constructor(private core: CoreService) {
-    this.core.getMoments().subscribe();
+    this.core.getMoments() //.subscribe();
   }
 }

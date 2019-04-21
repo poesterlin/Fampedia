@@ -5,7 +5,7 @@
 </div>
 
 <menu fxLayout="row">
-  <a fxFlex="25" [ngClass]="{'selected': comp === 'forYou'}" (click)="setComp('timeline')"> For You </a>
+  <a fxFlex="25" (click)="setComp('timeline')"> For You </a>
   <a fxFlex="25" [ngClass]="{'selected': comp === 'timeline'}" (click)="setComp('timeline')"> Timeline </a>
   <a fxFlex="25" [ngClass]="{'selected': comp === 'news'}" (click)="setComp('news')"> News </a>
   <a fxFlex="25" [ngClass]="{'selected': comp === 'archive'}" (click)="setComp('archive')"> Archive </a>

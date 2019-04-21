@@ -13,7 +13,9 @@
 
 <div class="fotogrid" *ngIf="!takePicture" fxLayout="row break" fxLayoutAlign="space-around start" fxLayoutGap="3px">
   <div class="imageContainer" *ngFor="let im of images" fxFlex="calc(25% - 3px)">
-    <img famImage *ngIf="!im.data" [image]="'https://source.unsplash.com/100x100/?water,' + im.i">
+    <div *ngIf="!im.data">
+      <img famImage [image]="'https://source.unsplash.com/100x100/?water,' + im.i">
+    </div>
     <img *ngIf="im.data" [src]="im.data">
   </div>
 </div>
