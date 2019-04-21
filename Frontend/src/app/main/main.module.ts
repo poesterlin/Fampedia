@@ -8,6 +8,7 @@ import { DirectivesModule } from '../helpers/directives.module';
 import { MaterialModule } from '../material/material.module';
 import { TimelineElementComponent } from './timeline-element/timeline-element.component';
 import { MainService } from './main.service';
+import { NavbarModule } from '../navbar/navbar.module';
 
 const routes: Routes = [{ path: '**', component: MainComponent }];
 
@@ -18,6 +19,7 @@ const routes: Routes = [{ path: '**', component: MainComponent }];
     CommonModule,
     RouterModule.forChild(routes),
     DirectivesModule,
+    NavbarModule,
     MaterialModule
   ],
   providers: [MainService]

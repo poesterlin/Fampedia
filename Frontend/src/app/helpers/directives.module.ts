@@ -12,7 +12,8 @@ import { ProfilePicComponent } from './profile-pic/profile-pic.component';
     CommonModule
   ],
   exports: [
-    ImageDirective
+    ImageDirective,
+    ProfilePicComponent
   ]
 })
 export class DirectivesModule { }

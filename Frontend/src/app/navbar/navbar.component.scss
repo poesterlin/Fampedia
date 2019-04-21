@@ -1,39 +1,32 @@
-.sticky {
-    position: sticky;
-    top: 0px;
-    z-index: 2;
-}
+@import "../styles/helperMixins.scss";
+@import "../styles/theme.scss";
 
-mat-toolbar {
-    z-index: 10000;
-    overflow: hidden;
-    height: 55px;
-    background-color: white;
-    color: black;
-    padding-top: 12px;
-
-    @media screen and (max-width: 599px) {
-        height: 40px;
+header {
+  background: white;
+  margin: 3px 7px 0;
+  height: 52px;
+  .search {
+    display: inline-block;
+    border-radius: 25px;
+    box-shadow: 0px 3px 12px #0000002e;
+    width: calc(94% - 35px);
+    margin: 7px 3% 0;
+    height: 37px;
+    mat-icon {
+      opacity: 0.8;
+      transform: translateY(6px) scale(0.8);
+      margin: 0 15px;
     }
-
-    &>div {
-        height: 100%;
-        width: 100%;
-
-        #headline {
-            text-align: center;
-            margin-left: -38px;
-        }
-
-        button {
-            z-index: 10000;
-            margin-top: -5px;
-            height: 100%;
-            min-width: 0px;
-
-            @media screen and (max-width: 599px) {
-                padding: 0 5px;
-            }
-        }
+    input {
+      width: calc(100% - 100px);
+      border: none;
+      height: 30px;
+      outline: none;
     }
+    img {
+      margin: 5px;
+      width: 30px;
+      float: right;
+    }
+  }
 }

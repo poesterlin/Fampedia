@@ -1,0 +1,7 @@
+@import "../../styles/helperMixins.scss";
+@import "../../styles/theme.scss";
+
+img {
+  @include constrainImage(35px, 35px);
+  border-radius: 50%;
+}

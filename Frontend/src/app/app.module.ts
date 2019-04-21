@@ -21,6 +21,7 @@ export function createTranslateLoader(http: HttpClient) {
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { DirectivesModule } from './helpers/directives.module';
 
 declare var Hammer: any;
 @Injectable()
@@ -61,6 +62,7 @@ export class MyHammerConfig extends HammerGestureConfig {
         HttpClientModule,
         MaterialModule,
         RoutingModule,
+        DirectivesModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
