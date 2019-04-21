@@ -9,7 +9,7 @@ import { ImagesWebComponent } from './images-web/images-web.component';
 import { AccessComponent } from './access/access.component';
 import { PeopleSelectComponent } from './people-select/people-select.component';
 import { MomentCameraComponent } from './moment-camera/moment-camera.component';
-import { DirectivesModule } from '../directives/directives.module';
+import { DirectivesModule } from '../helpers/directives.module';
 import { FormsModule } from '@angular/forms';
 import { NewMomentServiceService } from './new-moment-service.service';
 

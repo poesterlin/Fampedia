@@ -1,12 +1,4 @@
-import {
-  Directive,
-  Input,
-  ElementRef,
-  HostBinding,
-  AfterViewInit,
-  OnDestroy,
-  HostListener
-} from '@angular/core';
+import { Directive, Input, ElementRef, HostBinding, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 
 const transparentGif = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
