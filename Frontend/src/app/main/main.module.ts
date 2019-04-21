@@ -9,11 +9,14 @@ import { MaterialModule } from '../material/material.module';
 import { TimelineElementComponent } from './timeline-element/timeline-element.component';
 import { MainService } from './main.service';
 import { NavbarModule } from '../navbar/navbar.module';
+import { TimelineComponent } from './timeline/timeline.component';
+import { NewsComponent } from './news/news.component';
+import { ArchiveComponent } from './archive/archive.component';
 
 const routes: Routes = [{ path: '**', component: MainComponent }];
 
 @NgModule({
-  declarations: [MainComponent, ToolHeaderComponent, TimelineElementComponent],
+  declarations: [MainComponent, ToolHeaderComponent, TimelineElementComponent, TimelineComponent, NewsComponent, ArchiveComponent],
   imports: [
     TranslateModule,
     CommonModule,

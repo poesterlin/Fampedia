@@ -1,0 +1,15 @@
+<div class="timeline" *ngIf="timeline.length === 2" fxLayout="row">
+  <div id="left" fxFlex="49">
+    <fampedia-timeline-element
+      *ngFor="let el of timeline[0]"
+      [element]="el"
+    ></fampedia-timeline-element>
+  </div>
+  <div id="line" fxFlex="2"></div>
+  <div id="right" fxFlex="49">
+    <fampedia-timeline-element
+      *ngFor="let el of timeline[1]"
+      [element]="el"
+    ></fampedia-timeline-element>
+  </div>
+</div>

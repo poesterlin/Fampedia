@@ -4,9 +4,10 @@ import { CustomPreloader } from './CustomPreloader';
 
 const routes: Routes = [
   {
-    path: 'main',
+    path: '',
     loadChildren: '../main/main.module#MainModule',
-    data: { title: 'MAIN', preload: true }
+    data: { title: 'MAIN', preload: true },
+    pathMatch: 'full'
   },
   {
     path: 'moment/:id',
@@ -23,7 +24,6 @@ const routes: Routes = [
     loadChildren: '../new-moment/new-moment.module#NewMomentModule',
     data: { preload: false, delay: 5 }
   },
-  { path: '', redirectTo: '/main', pathMatch: 'full' },
   // wildcard for invalid urls
   {
     path: '**',
@@ -36,6 +36,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       useHash: true,
+      enableTracing: true,
       preloadingStrategy: CustomPreloader
     })
   ],

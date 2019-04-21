@@ -3,51 +3,36 @@
 @import "../styles/theme.scss";
 
 .headerContainer {
-    height: 146px;
-    width: 100%;
-    background: white;
+  height: 146px;
+  width: 100%;
+  background: white;
 
-    @include forType(gt-md) {
-        height: 108px;
-    }
+  @include forType(gt-md) {
+    height: 108px;
+  }
 }
 
 menu {
-    padding: 12px 0;
-    margin: 0 15px;
-    background: white;
+  padding: 12px 0;
+  margin: 0 15px;
+  background: white;
 
-    a {
-        @include clickable() {
-            border-bottom: 2px solid cA(300);
-            color: fA(100);
-        }
-
-        text-decoration: none;
-        color: inherit;
-        padding: 5px 0;
-        margin: 0 3px;
-        text-align: center;
-        border-bottom: 2px solid gray;
-    }
-}
-
-.timeline {
-    width: 90vw;
-    margin: auto;
-
-    #left,
-    #right {
-        display: block;
+  a {
+    @include clickable() {
+      border-bottom: 2px solid black;
+      color: fA(100);
     }
 
-    #right {
-        direction: rtl;
-    }
+    text-decoration: none;
+    color: inherit;
+    padding: 5px 0;
+    margin: 0 3px;
+    text-align: center;
+    border-bottom: 2px solid gray;
+  }
 
-    #line {
-        border-right: 1px solid #acacac;
-        transform: translateX(-44%) scaleY(3);
-        z-index: -1;
-    }
+  a.selected {
+    border-bottom: 2px solid cA(300);
+    color: fA(100);
+  }
 }
