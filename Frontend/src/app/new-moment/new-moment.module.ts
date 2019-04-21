@@ -10,6 +10,8 @@ import { AccessComponent } from './access/access.component';
 import { PeopleSelectComponent } from './people-select/people-select.component';
 import { MomentCameraComponent } from './moment-camera/moment-camera.component';
 import { DirectivesModule } from '../directives/directives.module';
+import { FormsModule } from '@angular/forms';
+import { NewMomentServiceService } from './new-moment-service.service';
 
 const routes: Routes = [{ path: '**', component: NewMomentComponent }];
 
@@ -20,7 +22,9 @@ const routes: Routes = [{ path: '**', component: NewMomentComponent }];
     RouterModule.forChild(routes),
     NavbarModule,
     MaterialModule,
-    DirectivesModule
-  ]
+    DirectivesModule,
+    FormsModule
+  ],
+  providers: [NewMomentServiceService]
 })
 export class NewMomentModule { }
