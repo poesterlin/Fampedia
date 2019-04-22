@@ -51,10 +51,10 @@ $rad: 19px;
     position: absolute;
     z-index: -10;
     &.left {
-      transform: translate(38vw, 26px);
+      transform: translate(39vw, 25px)
     }
     &.right {
-      transform: translate(-38vw, 26px);
+      transform: translate(-39vw, 25px)
     }
   }
   i.bubble {
@@ -64,9 +64,9 @@ $rad: 19px;
     position: absolute;
     border-radius: 50%;
     z-index: 50;
-    box-shadow: 0 0 0 1px white, 0 0 0 2px black;
+    box-shadow: inset 0 0 0 1px white, 0 0 0 1px black;
     &.left {
-      transform: translate(calc(45vw - 4px), 22px);
+      transform: translate(calc(45vw - 3px), 22px);
     }
     &.right {
       transform: translate(calc(-45vw + 4px), 22px);
