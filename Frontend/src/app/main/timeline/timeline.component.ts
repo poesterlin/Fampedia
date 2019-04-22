@@ -6,6 +6,7 @@ interface Event {
   desc: string;
   img: string;
   date: Date;
+  id: number;
 }
 
 @Component({
@@ -41,7 +42,7 @@ export class TimelineComponent {
         row: (sideIdx === 0 ? 'left' : 'right') as any,
         top,
         height: Math.random() * height + height,
-        ...event
+        ...event,
       };
 
       timeline[sideIdx].push(element);
@@ -54,7 +55,8 @@ export class TimelineComponent {
       title: 'test ' + idx,
       desc: 'test description',
       img: 'https://picsum.photos/50/50/?random',
-      date: this.randomDate()
+      date: this.randomDate(),
+      id: idx
     }));
   }
 

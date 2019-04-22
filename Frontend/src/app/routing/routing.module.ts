@@ -10,9 +10,9 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'moment/:id',
+    path: 'moment',
     loadChildren: '../moment/moment.module#MomentModule',
-    data: { title: 'EVENT', preload: true, delay: 5 }
+    data: { title: 'MOMENT', preload: true, delay: 5 }
   },
   {
     path: 'recipes',

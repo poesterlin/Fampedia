@@ -1,0 +1,31 @@
+@import "../../styles/helperMixins.scss";
+@import "../../styles/theme.scss";
+
+$gap: 12px;
+:host {
+  @include clickable() {
+    box-shadow: 3px 3px 17px 1px #00000060;
+    .image {
+      background: #ffffff21;
+      img {
+        mix-blend-mode: color;
+      }
+    }
+  }
+
+  scroll-snap-align: start;
+  div.item {
+    color: fP(50);
+    height: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    .image {
+      height: 100%;
+      img {
+        @include constrainImage(100%, 100%, cover);
+        overflow: hidden;
+        z-index: 2;
+      }
+    }
+  }
+}

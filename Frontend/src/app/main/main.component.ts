@@ -9,6 +9,7 @@ import { EComponent, MainService } from './main.service';
 export class MainComponent {
   public comp!: EComponent;
 
+
   constructor(private service: MainService) {
     this.service.comp$.subscribe(comp => this.comp = comp);
   }
@@ -21,4 +22,6 @@ export class MainComponent {
       case EComponent.News: this.service.comp$.next(EComponent.News); break;
     }
   }
+
+  
 }

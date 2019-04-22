@@ -1,4 +1,4 @@
-<div>
+<div (click)="goToEvent()">
   <div class="data" [ngClass]="{'left': element.row == 'left', 'right': element.row == 'right'}">
     <span>{{element.title}}</span>
     <span class="desc">{{element.desc}}</span>
