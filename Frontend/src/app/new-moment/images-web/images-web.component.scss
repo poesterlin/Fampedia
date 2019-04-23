@@ -1,0 +1,36 @@
+@import "../../styles/helperMixins.scss";
+@import "../../styles/theme.scss";
+
+p {
+  margin: 15px auto;
+  width: 800px;
+  font-size: 110%;
+  text-align: center;
+  max-width: 90vw;
+}
+
+button {
+  margin: 5px 5px 5px 30px;
+  background: white;
+  border: 1px solid gray;
+  border-radius: 4px;
+  width: 70px;
+}
+
+.fotogrid {
+  width: 800px;
+  margin: auto;
+  max-width: 95vw;
+  .imageContainer {
+    margin-bottom: 3px;
+    div{
+      width: 100%;
+      height: 100%;
+    }
+    img {
+      @include constrainImage(100%, 100%, cover);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+  }
+}

@@ -2,5 +2,6 @@
   "appId": "de.squad.fampedia",
   "appName": "Fampedia",
   "bundledWebRuntime": false,
-  "webDir": "www"
+  "webDir": "www",
+  "windowsAndroidStudioPath": "C:\\Users\\phili\\AppData\\Local\\JetBrains\\Toolbox\\apps\\AndroidStudio\\ch-0\\182.5314842\\bin\\studio64.exe"
 }

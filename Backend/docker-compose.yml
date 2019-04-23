@@ -7,6 +7,8 @@ services:
       - mongoUrl=mongodb://db:27017/news
       - user=Fampedia
       - password=Fampedia
+    volumes:
+      - /root/.pm2
     ports:
       - "3000:3000"
     networks: 

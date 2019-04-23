@@ -1,27 +1,8 @@
-<mat-toolbar *ngIf="showNavbar" [color]="mode.color" [ngClass]="{'sticky': mode.sticky}">
-    <div fxLayout="row" fxLayoutAlign="start stretch">
-        <button mat-button id="logo" fxFlex="none" (click)="clickAction({internalRoute: '/dashboard'})">
-        </button>
-        <button *ngFor="let button of mode.buttons" mat-button (click)="clickAction(button.onClick)"
-            [matTooltip]="'navbar.' + button.tip | translate"
-            matTooltipShowDelay="700">{{'navbar.' + button.key| translate}}
-            <mat-icon *ngIf="button.icon">{{button.icon}}</mat-icon>
-        </button>
-        <div fxFlex>
-        </div>
-        <div fxFlex="none">
-            <div *ngFor="let helper of mode.helpers" fxFlex="100">
-                <button mat-button *ngIf="helper.key === 'translate'" [matMenuTriggerFor]="languageMenu"
-                    [matTooltip]="'navbar.LANGUAGE_SWITCH' | translate" matTooltipShowDelay="700">
-                    <mat-icon>language</mat-icon>
-                </button>
-                <mat-menu xPosition="before" overlapTrigger="false" #languageMenu="matMenu">
-                    <button mat-menu-item [disabled]="language==='en'" (click)="changeLanguage('en')">English</button>
-                    <button mat-menu-item [disabled]="language==='de'" (click)="changeLanguage('de')">Deutsch</button>
-                    <button mat-menu-item [disabled]="language==='pt'"
-                        (click)="changeLanguage('pt')">Portuguese</button>
-                </mat-menu>
-            </div>
-        </div>
+<header>
+    <fampedia-profile-pic [src]="image"></fampedia-profile-pic>
+    <div class="search">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="Find something">
+        <img src="../assets/images/susi.png" alt="">
     </div>
-</mat-toolbar>
+</header>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 export interface TimelineElement {
   top: number;
@@ -9,6 +10,7 @@ export interface TimelineElement {
   img: string;
   row: 'left' | 'right';
   date: Date;
+  id: number;
 }
 
 @Component({
@@ -20,7 +22,7 @@ export class TimelineElementComponent implements OnInit {
   @Input() element!: TimelineElement;
   public rand = Math.random();
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer, private router: Router) {}
 
   ngOnInit() {}
 
@@ -28,5 +30,10 @@ export class TimelineElementComponent implements OnInit {
   public get style(): SafeStyle {
     const style = `top: ${this.element.top}px; height:${this.element.height}px;`;
     return this.sanitizer.bypassSecurityTrustStyle(style);
+  }
+
+
+  public goToEvent() {
+    this.router.navigate(['/moment/', this.element.id]);
   }
 }

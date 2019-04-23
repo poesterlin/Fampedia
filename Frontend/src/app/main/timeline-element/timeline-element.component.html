@@ -1,7 +1,9 @@
-<div>
-  <span>{{element.title}}</span>
-  <span>{{element.desc}}</span>
-  <div class="imageContainer">
+<div (click)="goToEvent()">
+  <div class="data" [ngClass]="{'left': element.row == 'left', 'right': element.row == 'right'}">
+    <span>{{element.title}}</span>
+    <span class="desc">{{element.desc}}</span>
+  </div>
+  <div class="imageWrapper">
     <img famImage [image]="'https://source.unsplash.com/200x200/?water,' + rand">
   </div>
 </div>

@@ -1,54 +1,75 @@
 @import "../../styles/helperMixins.scss";
 @import "../../styles/theme.scss";
 
-$rad: 8px;
+$rad: 19px;
 
 :host {
   width: 40vw;
   position: relative;
   display: inline-block;
-  background: #8bbdbd;
   border-radius: $rad;
+  box-shadow: 0px 4px 6px #0000002e;
+
   div {
-    direction: ltr;
-    display: grid;
-    .imageContainer {
-      min-height: calc(25vh - 43px);
-      img {
-        @include constrainImage(95%, 50%);
-        margin: auto;
-        height: unset;
-        z-index: 50;
-        overflow: hidden;
-        border-radius: $rad;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    img {
+      @include constrainImage(100%, 100%, cover);
+      z-index: -1;
+      overflow: hidden;
+      border-radius: $rad;
+      background: #d4d3d3;
+    }
+    .left {
+      direction: rtl;
+    }
+    .right {
+      direction: ltr;
+    }
+    .data {
+      color: white;
+      position: absolute;
+      margin: 10px -15px 0px;
+      text-shadow: 0 0 4px #00000047;
+      z-index: 1;
+      span {
+        display: inline-block;
+        width: 85%;
+        font-weight: bold;
+        font-size: 12px;
+      }
+      .desc {
+        font-size: 8px;
       }
     }
   }
   i.line {
     background: rgb(97, 97, 97);
-    width: 5vw;
+    width: 6vw;
     height: 1px;
     position: absolute;
+    z-index: -10;
     &.left {
-      transform: translate(40vw, -50px);
+      transform: translate(39vw, 25px)
     }
     &.right {
-      transform: translate(-40vw, -50px);
+      transform: translate(-39vw, 25px)
     }
   }
   i.bubble {
     width: 7px;
     height: 7px;
-    background: rgb(97, 97, 97);
+    background: black;
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgb(97, 97, 97);
     z-index: 50;
+    box-shadow: inset 0 0 0 1px white, 0 0 0 1px black;
     &.left {
-      transform: translate(calc(45vw - 4px), -54px);
+      transform: translate(calc(45vw - 3px), 22px);
     }
     &.right {
-      transform: translate(calc(-45vw + 5px), -54px);
+      transform: translate(calc(-45vw + 4px), 22px);
     }
   }
 }

@@ -1,5 +1,70 @@
+@import "~styles.scss";
+@import "../styles/helperMixins.scss";
+@import "../styles/theme.scss";
+
 mat-card {
   width: 600px;
   margin: 20px auto;
   max-width: 90vw;
+}
+
+menu {
+  padding: 0;
+  margin-top: 50px;
+  overflow-x: auto;
+  display: flex;
+  align-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+  a {
+    @include clickable() {
+      background: cA(100);
+      color: fA(100);
+    }
+    text-decoration: none;
+    color: inherit;
+    border-radius: 5px;
+    padding: 5px 0;
+    text-align: center;
+    width: 25%;
+    min-width: 90px;
+  }
+}
+
+$gap: 5px;
+.dash {
+  display: grid;
+
+  grid-template-columns: repeat(4, calc(25vmin - 5px));
+  grid-template-rows: repeat(100, calc(25vmin - 5px));
+
+  grid-gap: $gap;
+  padding: 0;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 50vh;
+  scroll-snap-type: y mandatory;
+  span {
+    margin: 0 auto;
+    height: 50px;
+  }
+}
+
+.fresh {
+  margin-left: 10px;
+}
+.side {
+  scroll-snap-type: x mandatory;
+  overflow: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  row-gap: 10px;
+  flex-direction: row;
+  .placeholder {
+    opacity: 0;
+    scroll-snap-align: start;
+    user-select: none;
+    width: 30vw;
+    height: 180px;
+  }
 }

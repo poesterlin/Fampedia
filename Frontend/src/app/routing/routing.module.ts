@@ -4,26 +4,26 @@ import { CustomPreloader } from './CustomPreloader';
 
 const routes: Routes = [
   {
-    path: 'dashboard',
-    loadChildren: '../dashboard/dashboard.module#DashboardModule',
-    data: { title: 'DASHBOARD', preload: true }
-  },
-  {
-    path: 'main',
+    path: '',
     loadChildren: '../main/main.module#MainModule',
-    data: { title: 'MAIN', preload: true }
+    data: { title: 'MAIN', preload: true },
+    pathMatch: 'full'
   },
   {
-    path: 'moment/:id',
+    path: 'moment',
     loadChildren: '../moment/moment.module#MomentModule',
-    data: { title: 'EVENT', preload: true, delay: 5 }
+    data: { title: 'MOMENT', preload: true, delay: 5 }
   },
   {
     path: 'recipes',
     loadChildren: '../recipes/recipes.module#RecipesModule',
     data: { title: 'RECIPES', preload: true, delay: 5 }
   },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  {
+    path: 'new',
+    loadChildren: '../new-moment/new-moment.module#NewMomentModule',
+    data: { preload: false, delay: 5 }
+  },
   // wildcard for invalid urls
   {
     path: '**',
@@ -36,7 +36,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       useHash: true,
-      enableTracing: true,
       preloadingStrategy: CustomPreloader
     })
   ],

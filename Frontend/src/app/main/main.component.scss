@@ -6,6 +6,7 @@
   height: 146px;
   width: 100%;
   background: white;
+
   @include forType(gt-md) {
     height: 108px;
   }
@@ -13,36 +14,25 @@
 
 menu {
   padding: 12px 0;
-  margin: 0 5px;
+  margin: 0 15px;
   background: white;
+
   a {
     @include clickable() {
-      background: cA(100);
+      border-bottom: 2px solid black;
       color: fA(100);
     }
+
     text-decoration: none;
     color: inherit;
     padding: 5px 0;
     margin: 0 3px;
     text-align: center;
-    background: lightgray;
+    border-bottom: 2px solid gray;
+  }
+
+  a.selected {
+    border-bottom: 2px solid cA(300);
+    color: fA(100);
   }
 }
-
-.timeline {
-  width: 90vw;
-  margin: auto;
-  #left,
-  #right {
-    display: block;
-  }
-  #right {
-    direction: rtl;
-  }
-  #line {
-    border-right: 1px solid #acacac;
-    transform: translateX(-44%) scaleY(3);
-    z-index: -1;
-  }
-}
-
