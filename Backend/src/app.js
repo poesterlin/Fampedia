@@ -68,7 +68,7 @@ const { IP, UserDB,testUser } = require("./app-db");
 exports.testUser = testUser;
 
 app.use("/moment", require('./app-moment')); // Route to app-moment-js
-app.use("/image", require('./app-image')); // Route to app-moment-js
+app.use("/momentimage", require('./app-image')); // Route to app-moment-js
 ///////////////////
 // Required global functions
 //////////////////

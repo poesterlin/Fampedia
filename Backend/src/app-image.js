@@ -23,14 +23,14 @@ const upload = multer({
     fileFilter: fileFilter
 });
 //Image upload
-router.post("/image/:ID", upload.single("image"), async (req, res) => {
+router.post("/addimage/:ID", upload.single("image"), async (req, res) => {
     try {
         await auth(req.headers.user, req.headers.token).catch(authFail);
         if (!req.file)
             throw 400;
         let aID = parseInt(req.params.ID);
         let modArt = await MomentDB.findOne({
-            articleId: aID
+            momentID: aID
         });
         if (!modArt)
             throw 404;
@@ -68,7 +68,7 @@ async function toBuffer(image, name, imgWidth, option) {
     // .embed()
 }
 //get image with number ImageNr
-router.get("/image/:width/:ID", async (req, res, next) => {
+router.get("/getImage/:width/:ID", async (req, res, next) => {
     try {
         let imgID = req.params.ID;
         let width = parseInt(req.params.width);
@@ -102,16 +102,22 @@ router.get("/image/:width/:ID", async (req, res, next) => {
     }
 });
 //delete image with id
-router.get("/deleteimage/:ID", async (req, res) => {
+router.delete("/deleteImage/:ID", async (req, res) => {
+    // also update moment: need to add image to string array
+
     try {
         const id = req.params.ID;
         await auth(req.headers.user, req.headers.token).catch(authFail);
         await ImageDB.findByIdAndRemove(id);
-        let affectedArt = await MomentDB.findOne({ images: id });
-        if (!affectedArt)
+
+        let affectedMoment = await MomentDB.findOne({ images: id });
+        if (!affectedMoment)
             throw 404;
-        affectedArt.images.splice(affectedArt.images.indexOf(id));
-        await affectedArt.save();
+        log(affectedMoment.images);
+        pointToDelete = affectedMoment.images.indexOf(id);
+        affectedMoment.images.splice(pointToDelete, 1);
+        await affectedMoment.save();
+        log(affectedMoment.images);
         res.status(200).send("OK");
         log("Bild gelöscht");
     }
