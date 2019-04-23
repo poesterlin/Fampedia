@@ -5,14 +5,14 @@
 </div>
 
 <menu fxLayout="row">
-  <a fxFlex="25" (click)="setComp('timeline')"> For You </a>
-  <a fxFlex="25" [ngClass]="{'selected': comp === 'timeline'}" (click)="setComp('timeline')"> Timeline </a>
-  <a fxFlex="25" [ngClass]="{'selected': comp === 'news'}" (click)="setComp('news')"> News </a>
-  <a fxFlex="25" [ngClass]="{'selected': comp === 'archive'}" (click)="setComp('archive')"> Archive </a>
+  <a fxFlex="25" (click)="setComp(0)"> For You </a>
+  <a fxFlex="25" [ngClass]="{'selected': comp === 0}" (click)="setComp(0)"> Timeline </a>
+  <a fxFlex="25" [ngClass]="{'selected': comp === 1}" (click)="setComp(1)"> News </a>
+  <a fxFlex="25" [ngClass]="{'selected': comp === 2}" (click)="setComp(2)"> Archive </a>
 </menu>
 
-<div [ngSwitch]="comp">
-  <fampedia-timeline *ngSwitchCase="'timeline'"></fampedia-timeline>
-  <fampedia-news *ngSwitchCase="'news'"></fampedia-news>
-  <fampedia-archive *ngSwitchCase="'archive'"></fampedia-archive>
+<div [ngSwitch]="comp" (swipeleft)="left()" (swiperight)="right()">
+  <fampedia-timeline (swipeleft)="left()" (swiperight)="right()" *ngSwitchCase="0"></fampedia-timeline>
+  <fampedia-news (swipeleft)="left()" (swiperight)="right()" *ngSwitchCase="1"></fampedia-news>
+  <fampedia-archive (swipeleft)="left()" (swiperight)="right()" *ngSwitchCase="2"></fampedia-archive>
 </div>

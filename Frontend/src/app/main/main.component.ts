@@ -14,8 +14,7 @@ export class MainComponent {
     this.service.comp$.subscribe(comp => this.comp = comp);
   }
 
-  public setComp(comp: string) {
-
+  public setComp(comp: number) {
     switch (comp) {
       case EComponent.Archive: this.service.comp$.next(EComponent.Archive); break;
       case EComponent.Timeline: this.service.comp$.next(EComponent.Timeline); break;
@@ -23,5 +22,16 @@ export class MainComponent {
     }
   }
 
-  
+  public left() {
+    if (this.comp < 2) {
+      this.setComp(this.comp + 1);
+    }
+  }
+
+  public right() {
+    if (this.comp > 0) {
+      this.setComp(this.comp - 1);
+    }
+  }
+
 }

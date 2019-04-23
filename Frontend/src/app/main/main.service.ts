@@ -3,7 +3,7 @@ import { CoreService } from '../core/core.service';
 import { BehaviorSubject } from 'rxjs';
 
 export enum EComponent {
-  Timeline = 'timeline', News = 'news', Archive = 'archive'
+  Timeline = 0, News = 1, Archive = 2
 }
 
 @Injectable()
