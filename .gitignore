@@ -1,3 +1,5 @@
 /node_modules
 
 Backend/data/
+
+Frontend/\.nyc_output/

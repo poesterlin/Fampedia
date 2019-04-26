@@ -1,3 +1,4 @@
+// @ts-check
 const passwordHash = require("password-hash");
 const jwt = require('jsonwebtoken');
 const randtoken = require("rand-token");
@@ -43,3 +44,5 @@ router.post("/login", async (req, res) => {
         handle(res, error, "Nutzer konnte nicht autentifiziert werden.");
     }
 });
+
+module.exports = router;

@@ -1,3 +1,4 @@
+// @ts-check
 const multer = require("multer");
 const sharp = require('sharp');
 const { MomentDB, ImageDB } = require("./app-db");
@@ -26,22 +27,19 @@ const upload = multer({
 router.post("/addimage/:ID", upload.single("image"), async (req, res) => {
     try {
         await auth(req.headers.user, req.headers.token).catch(authFail);
-        if (!req.file)
-            throw 400;
+        if (!req.file) throw 400;
         let aID = parseInt(req.params.ID);
         let modArt = await MomentDB.findOne({
             momentID: aID
         });
-        if (!modArt)
-            throw 404;
-        const name = req.file.filename;
+        if (!modArt) throw 404;
         const buffer = req.file.buffer;
-        const data50 = await toBuffer(buffer, name, 50, 20);
-        const data320 = await toBuffer(buffer, name, 320, 65);
-        const data640 = await toBuffer(buffer, name, 1000, 100);
+        const data50 = await prepareImage(buffer, 50, 20);
+        const data320 = await prepareImage(buffer, 320, 65);
+        const data640 = await prepareImage(buffer, 1000, 100);
         log("Bilder konvertiert");
         let img = new ImageDB({
-            desc: req.body.desc || req.headers.desc,
+            desc: req.headers.desc,
             data50,
             data320,
             data640,
@@ -58,8 +56,9 @@ router.post("/addimage/:ID", upload.single("image"), async (req, res) => {
         handle(res, error);
     }
 });
-async function toBuffer(image, name, imgWidth, option) {
-    return await sharp(image)
+
+async function prepareImage(image, imgWidth, option) {
+    return sharp(image)
         .resize(imgWidth - 10)
         .webp({ quality: option })
         .sharpen()
@@ -111,10 +110,10 @@ router.delete("/deleteImage/:ID", async (req, res) => {
         await ImageDB.findByIdAndRemove(id);
 
         let affectedMoment = await MomentDB.findOne({ images: id });
-        if (!affectedMoment)
-            throw 404;
+        if (!affectedMoment) throw 404;
+        
         log(affectedMoment.images);
-        pointToDelete = affectedMoment.images.indexOf(id);
+        const pointToDelete = affectedMoment.images.indexOf(id);
         affectedMoment.images.splice(pointToDelete, 1);
         await affectedMoment.save();
         log(affectedMoment.images);

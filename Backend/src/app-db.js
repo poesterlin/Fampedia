@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const mongoUrl = process.env.mongoUrl || "mongodb://127.0.0.1:27017/news";
+const mongoUrl = process.env.mongoUrl || "mongodb://127.0.0.1:27017/fampedia";
+const passwordHash = require("password-hash");
 
 const { log } = require("./app");
 mongoose.connect(mongoUrl);
@@ -31,7 +32,8 @@ let ip = mongoose.Schema({
 });
 let us = mongoose.Schema({
     user: String,
-    hash: String
+    hash: String,
+    familyID: String
 });
 let token = mongoose.Schema({
     user: String,
@@ -44,17 +46,22 @@ let image = mongoose.Schema({
     data640: Buffer,
     desc: String
 });
+let family = mongoose.Schema({
+    name: String,
+});
 
-async function testUser(user, password, keep) {
+async function testUser(user, password, keep = true) {
     let allUsers = await UserDB.find({
         user
     });
 
-    if (allUsers.length === 0 && !keep) {
+    if (allUsers.length === 0 || !keep) {
         mongoose.connection.db.dropDatabase();
+        const fam = await new FamilyDB({name: 'Test Family'}).save();
         let newUser = new UserDB({
             user,
-            hash: passwordHash.generate(password)
+            hash: passwordHash.generate(password),
+            familyID: fam.id,
         });
         await newUser.save();
     }
@@ -68,6 +75,8 @@ let MomentDB = mongoose.model("Moment", mom);
 exports.MomentDB = MomentDB;
 let UserDB = mongoose.model("user", us);
 exports.UserDB = UserDB;
+let FamilyDB = mongoose.model("family", family);
+exports.FamilyDB = FamilyDB;
 let TokenDB = mongoose.model("token", token);
 exports.TokenDB = TokenDB;
 let IP = mongoose.model("ip", ip);

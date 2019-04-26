@@ -1,19 +1,15 @@
+// @ts-check
 /////////////////////////////
 ///// Setup - Loading Modules
 /////////////////////////////
 
 "use strict";
 
-//const fs = require('fs');
-//const crypto = require("crypto");
 const cors = require("cors");
 const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
-const passwordHash = require("password-hash");
-const multer = require("multer");
 const jwt = require('jsonwebtoken');
-//const = require("rand-token");
 const moment = require("moment");
 moment.locale("de");
 
@@ -22,18 +18,7 @@ sharp.cache({
     files: 0
 });
 
-// const settings = require("./settings.json");
-// let Mailjet = require("node-mailjet").connect(
-//     settings.APIKEY_PUBLIC,
-//     settings.APIKEY_PRIVATE
-// );
 const port = process.env.PORT || 3000;
-
-let noAuth = true;
-if (process.argv[2] === "noAuth") {
-    console.error("warning: no auth mode")
-    noAuth = true;
-}
 
 const app = express();
 app.use(bodyParser.json());
@@ -56,7 +41,6 @@ const server = app.listen(port, function () {
 const mongoose = require("mongoose");
 
 exports.server = server;
-//exports.testUser = testUser;
 exports.router = router;
 exports.auth = auth;
 exports.authFail = authFail;
@@ -64,11 +48,14 @@ exports.log = log;
 exports.handle = handle;
 exports.getIp = getIp;
 
-const { IP, UserDB,testUser } = require("./app-db");
+const { UserDB, testUser } = require("./app-db");
 exports.testUser = testUser;
 
 app.use("/moment", require('./app-moment')); // Route to app-moment-js
 app.use("/momentimage", require('./app-image')); // Route to app-moment-js
+app.use("/user", require('./app-login')); // Route to app-moment-js
+
+
 ///////////////////
 // Required global functions
 //////////////////
@@ -76,12 +63,11 @@ app.use("/momentimage", require('./app-image')); // Route to app-moment-js
 
 /**
  * verify token
- * @param {string} user 
- * @param {string} token 
+ * @param {string | string[]} user 
+ * @param {string | string[]} token 
  */
 async function auth(user, token) {
-    if (noAuth) { return true; }
-    if (!user || !token) {
+    if (!user || !token || Array.isArray(user) || Array.isArray(token)) {
         throw 400;
     }
     try {
@@ -92,12 +78,12 @@ async function auth(user, token) {
         let result = jwt.verify(token, findUser.hash, {
             issuer: getIp()
         });
+        // @ts-ignore
         if (!result || result.user !== user)
             throw "cant verify token";
 
         log(user + " authorized");
-        return true;
-
+        return findUser;
     } catch (err) {
         log(err)
         log(user + " unauthorized")
