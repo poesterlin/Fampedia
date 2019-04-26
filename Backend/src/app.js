@@ -9,14 +9,6 @@ const cors = require("cors");
 const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
-const jwt = require('jsonwebtoken');
-const moment = require("moment");
-moment.locale("de");
-
-const sharp = require('sharp');
-sharp.cache({
-    files: 0
-});
 
 const port = process.env.PORT || 3000;
 
@@ -34,62 +26,43 @@ app.use(function (err, _req, res, _next) {
     }
 });
 
-const server = app.listen(port, function () {
-    log("The Backend Server ist running on Port " + port);
-});
 
-const mongoose = require("mongoose");
+const server = app.listen(port, () => {
+    log("The Server ist running on Port " + port);
+});
 
 exports.server = server;
 exports.router = router;
-exports.auth = auth;
 exports.authFail = authFail;
 exports.log = log;
 exports.handle = handle;
-exports.getIp = getIp;
+exports.sanitize = sanitize;
 
-const { UserDB, testUser } = require("./app-db");
+const { auth, router: userRoutes } = require('./app-login');
+exports.auth = auth;
+
+const { testUser } = require("./app-db");
 exports.testUser = testUser;
 
-app.use("/moment", require('./app-moment')); // Route to app-moment-js
-app.use("/momentimage", require('./app-image')); // Route to app-moment-js
-app.use("/user", require('./app-login')); // Route to app-moment-js
+/**
+ *  moment routes
+ */
+app.use("/moment", require('./app-moment'));
+
+/**
+ *  image routes
+ */
+app.use("/momentimage", require('./app-image'));
+
+/**
+ *  user management routes
+ */
+app.use("/user", userRoutes);
 
 
 ///////////////////
 // Required global functions
 //////////////////
-
-
-/**
- * verify token
- * @param {string | string[]} user 
- * @param {string | string[]} token 
- */
-async function auth(user, token) {
-    if (!user || !token || Array.isArray(user) || Array.isArray(token)) {
-        throw 400;
-    }
-    try {
-        let findUser = await UserDB.findOne({
-            user
-        });
-        if (!findUser) throw "unknown user";
-        let result = jwt.verify(token, findUser.hash, {
-            issuer: getIp()
-        });
-        // @ts-ignore
-        if (!result || result.user !== user)
-            throw "cant verify token";
-
-        log(user + " authorized");
-        return findUser;
-    } catch (err) {
-        log(err)
-        log(user + " unauthorized")
-        throw 401;
-    }
-}
 
 function authFail() {
     throw 401;
@@ -110,17 +83,21 @@ function handle(res, err, desc) {
     }
 }
 
-function getIp() {
-    try {
-        var os = require('os');
-        var ifaces = os.networkInterfaces();
-        let ifname = Object.keys(ifaces)[0];
-        let iface = ifaces[ifname][0];
-        return iface.address;
-    } catch (error) {
-        return "127.0.0.1"
+function sanitize(obj) {
+    const forbiddenField = ['_id', '__v'];
+    if (Array.isArray(obj)) {
+        obj = obj.map(sanitize);
+    } else if (typeof obj === 'object') {
+        obj = JSON.parse(JSON.stringify(obj));
+        for (const field of Object.keys(obj)) {
+            if (forbiddenField.includes(field)) {
+                obj[field] = undefined;
+            }
+        }
     }
+    return obj;
 }
+
 
 function log(text) {
     if (process.env.log != "quiet") {
@@ -133,8 +110,3 @@ function log(text) {
             ":", d.getSeconds() > 9 ? d.getSeconds() : "0" + d.getSeconds(), "-", d.getMilliseconds());
     }
 }
-
-process.on('SIGINT', async () => {
-    await mongoose.disconnect();
-    log("shutdown");
-});

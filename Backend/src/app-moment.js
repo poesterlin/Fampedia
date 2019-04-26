@@ -1,8 +1,11 @@
 // @ts-check
 const crypto = require("crypto");
 const moment = require("moment");
-const { router, auth, authFail, log, handle } = require("./app");
+const { router, auth, authFail, log, handle, sanitize } = require("./app");
 const { MomentDB, ImageDB } = require("./app-db")
+
+moment.locale("de");
+
 /////////////////////////////
 ///// Server - Paths
 /////////////////////////////
@@ -39,10 +42,10 @@ router.get("/all", async (req, res) => {
         const user = await auth(req.headers.user, req.headers.token).catch(authFail);
         const allMoments = await MomentDB.find({ familyID: user.familyID });
         if (allMoments) {
-            res.status(200).json(allMoments.map(mom => {
+            res.status(200).json(sanitize(allMoments.map(mom => {
                 mom.date = moment(mom.date).fromNow();
                 return mom;
-            }));
+            })));
         } else {
             throw 404;
         }
@@ -54,13 +57,13 @@ router.get("/all", async (req, res) => {
 // Get one moment
 router.get("/oneMoment", async (req, res) => {
     try {
-        const result = MomentDB.findOne({
+        const result = await MomentDB.findOne({
             momentID: req.body.momentID,
             familyID: req.body.familyID
         });
 
         if (result) {
-            res.status(200).json(await result)
+            res.status(200).json(sanitize(result));
         } else {
             res.status(404);
         }
@@ -74,10 +77,11 @@ router.get("/oneMoment", async (req, res) => {
 // Delete one moment
 router.delete("/delete", async (req, res) => {
     try {
-        await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
 
         const result = await MomentDB.findOne({
             momentID: req.body.momentID,
+            familyID: user.familyID
         });
         log("deleted moment");
         if (!result) {
@@ -99,12 +103,12 @@ router.delete("/delete", async (req, res) => {
 // Edit one moment
 router.post("/edit", async (req, res) => {
     try {
-        await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
         if (!req.body.title || !req.body.momentdescription || !req.body.momentID) {
             throw 400;
         }
 
-        const query = { momentID: req.body.momentID };
+        const query = { momentID: req.body.momentID, familyID: user.familyID };
         var newvalues = { $set: { momenttitle: req.body.title, momentdescription: req.body.momentdescription } };
         MomentDB.updateOne(query, newvalues, function (err) {
             if (err) {

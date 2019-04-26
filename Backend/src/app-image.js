@@ -1,11 +1,15 @@
 // @ts-check
 const multer = require("multer");
-const sharp = require('sharp');
 const { MomentDB, ImageDB } = require("./app-db");
 const { router, auth, authFail, log, handle } = require("./app");
+
+const sharp = require('sharp');
+sharp.cache(false);
+
+
 // IMAGES
 const storage = multer.memoryStorage();
-const fileFilter = (req, file, cb) => {
+const fileFilter = (_req, file, cb) => {
     // reject a file
     if (file.mimetype === "image/jpg" ||
         file.mimetype === "image/jpeg" ||
@@ -66,6 +70,7 @@ async function prepareImage(image, imgWidth, option) {
     // .background('white')
     // .embed()
 }
+
 //get image with number ImageNr
 router.get("/getImage/:width/:ID", async (req, res, next) => {
     try {
@@ -100,6 +105,7 @@ router.get("/getImage/:width/:ID", async (req, res, next) => {
         handle(res, error);
     }
 });
+
 //delete image with id
 router.delete("/deleteImage/:ID", async (req, res) => {
     // also update moment: need to add image to string array

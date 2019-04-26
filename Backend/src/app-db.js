@@ -13,6 +13,13 @@ db.once("open", async function () {
         await testUser(process.env.user, process.env.password, true);
     }
 });
+
+process.on('SIGINT', async () => {
+    await mongoose.disconnect();
+    log("shutdown");
+});
+
+
 /////////////////////////////
 ///// mongoose database schemata
 /////////////////////////////

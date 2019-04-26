@@ -4,25 +4,15 @@
     // ONLY "node" and "mono" are supported, change "type" to switch. 
     "configurations": [
         {
-            // Name of configuration; appears in the launch configuration drop down menu. 
-            "name": "Run app.js",
-            // Type of configuration. Possible values: "node", "mono". 
             "type": "node",
-            // Workspace relative or absolute path to the program. 
-            "program": "src/app.js",
-            // Automatically stop program after launch. 
-            "stopOnEntry": false,
-            // Command line arguments passed to the program. 
-            "args": [],
-            // Workspace relative or absolute path to the working directory of the program being debugged. Default is the current workspace. 
-            "cwd": ".",
-            // Workspace relative or absolute path to the runtime executable to be used. Default is the runtime executable on the PATH. 
-            "runtimeExecutable": null,
+            "request": "launch",
+            "name": "Start Server",
+            "program": "${workspaceFolder}\\src\\app.js",
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "Mocha All",
+            "name": "Test all",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [
                 "--timeout",
