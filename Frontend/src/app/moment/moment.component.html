@@ -29,6 +29,7 @@
 </menu>
 
 <div class="dash">
-  <fampedia-grid-item [importance]="i" [itemId]="idx + 'id'" *ngFor="let i of importances; let idx = index">
+  <fampedia-grid-item [importance]="i" [itemId]="idx + 'id'" *ngFor="let i of importances; let idx = index" (click)="fullscreen(i)">
   </fampedia-grid-item>
 </div>
+

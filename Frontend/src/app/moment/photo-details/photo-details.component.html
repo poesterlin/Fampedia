@@ -1,0 +1,20 @@
+<mat-toolbar>
+  <div fxLayout="row" fxFlex="100" fxLayoutAlign="start stretch">
+    <button mat-button routerLink="/moment/5" fxFlex="10">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<div class="imageContainer">
+  <img famImage image="https://source.unsplash.com/600x600/?water">
+</div>
+
+<div class="comment" *ngFor="let comment of comments" fxLayout="row break" fxLayoutAlign="space-between start"
+  fxLayoutGap="10px">
+  <img [src]="comment.user.image" fxFlex="40px">
+  <div fxFlex="calc(100% - 100px)" fxLayout="row break">
+    <span class="title" fxFlex="100">{{comment.user.name}}</span>
+    <span fxFlex="100" *ngFor="let str of comment.lines"> {{str}} <br> </span>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'fampedia-event',
@@ -10,7 +10,7 @@ export class MomentComponent implements OnInit {
   public id: string = '';
   public importances: number[] = [];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -29,6 +29,10 @@ export class MomentComponent implements OnInit {
     const top = t.getClientRects()[0].top;
     image.style.height = 250 + top + "px";
     image.style.marginTop = -top + "px";
+  }
+
+  fullscreen(){
+    this.router.navigate(['/moment/image/5']);
   }
 
 }
