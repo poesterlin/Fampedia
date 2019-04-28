@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { StorageService } from './storage/storage.service';
-import { Router, RouterState, ActivatedRoute } from '@angular/router';
+import { Router, RouterState, ActivatedRoute, Scroll } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { filter } from 'rxjs/operators';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
     selector: 'fampedia-root',
@@ -11,7 +13,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class AppComponent {
     constructor(private translate: TranslateService, private router: Router, private titleService: Title,
-        storage: StorageService) {
+        storage: StorageService, viewportScroller: ViewportScroller) {
         console.log('%cfampedia', 'font-size:40px');
 
         this.updateTitle();
@@ -41,6 +43,22 @@ export class AppComponent {
         router.events.subscribe(() => {
             this.updateTitle();
         });
+
+        router.events
+            .pipe(filter((e) => e instanceof Scroll))
+            .subscribe((e: any) => {
+                const resetRoutes = /(moment\/(image\/\d+|\d+)|new)/
+                // should match:
+                //   /moment/5
+                //   /new
+                //   /moment/image/5
+                
+                if (resetRoutes.test(e.routerEvent.url)) {
+                    viewportScroller.scrollToPosition([0, 0]);
+                } else {
+                    viewportScroller.scrollToPosition(e.position || [0, 0]);
+                }
+            });
     }
 
     private async updateTitle() {

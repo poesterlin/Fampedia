@@ -4,7 +4,8 @@
         "undefined": "",
         "DASHBOARD": "Dashboard",
         "RECIPES": "Recipes",
-        "MAIN": "Main"
+        "MAIN": "Main",
+        "MOMENT": "Moment"
     },
     "navbar":{
         "LANGUAGE_SWITCH": "Change language",

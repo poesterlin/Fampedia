@@ -3,9 +3,9 @@
     "titles": {
         "undefined": "",
         "DASHBOARD": "Dashboard",
-        "EVENT": "Event",
         "RECIPES": "Rezepte",
-        "MAIN": "Main"
+        "MAIN": "Main",
+        "MOMENT": "Moment"
     },
     "navbar":{
         "LANGUAGE_SWITCH": "Sprache wechseln",
