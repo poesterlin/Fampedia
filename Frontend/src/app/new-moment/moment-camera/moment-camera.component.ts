@@ -1,11 +1,11 @@
-import { Component, ViewChild, AfterViewInit, ElementRef, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, ViewChild, ElementRef, Output, EventEmitter, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'fampedia-moment-camera',
   templateUrl: './moment-camera.component.html',
   styleUrls: ['./moment-camera.component.scss']
 })
-export class MomentCameraComponent implements AfterViewInit, OnDestroy {
+export class MomentCameraComponent implements AfterViewInit {
   @ViewChild('video') private video?: ElementRef;
   @ViewChild('pic') private pic!: ElementRef;
   @ViewChild('canvas') private canvas?: ElementRef;
@@ -26,29 +26,14 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
       .then(devices => this.cameraSelect = devices.filter(dev => dev.kind === 'videoinput').length > 1);
   }
 
-  ngOnDestroy() {
-    if (this.video && this.video.nativeElement) {
-      const vid = this.video.nativeElement as HTMLVideoElement;
-      vid.pause();
-      vid.srcObject = null;
-      if (this.stream) {
-        const track = this.stream.getTracks()[0];
-        this.stream.removeTrack(track);
-        if (track.stop) {
-          track.stop();
-        }
-        // this.stream = undefined;
-      }
-    }
-  }
-
   ngAfterViewInit() {
     this.clearPhoto();
   }
 
   public initStream() {
     navigator.mediaDevices.getUserMedia({ video: this.frontCam ? true : { facingMode: 'environment' }, audio: false }).then(stream => {
-      if (!this.video || (this.stream && this.stream.active)) { return; }
+      if (!this.video) { return; }
+      this.cancelStream();
       this.video.nativeElement.srcObject = stream;
       this.video.nativeElement.play();
       this.stream = stream;
@@ -59,6 +44,25 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
         this.height = height;
       }
     }).catch(() => this.allowed = false);
+  }
+
+
+  private cancelVideo() {
+    if (this.video && this.video.nativeElement) {
+      const vid = this.video.nativeElement as HTMLVideoElement;
+      vid.pause();
+      vid.srcObject = null;
+    }
+  }
+
+  private cancelStream() {
+    if (this.stream && this.stream.active) {
+      let track: MediaStreamTrack | undefined = this.stream.getTracks()[0];
+      track.stop();
+      this.stream.removeTrack(track);
+      track = undefined;
+    }
+    delete this.stream;
   }
 
   public takePicture() {
@@ -73,6 +77,7 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
     const data = this.canvas.nativeElement.toDataURL('image/png');
     this.pic.nativeElement.setAttribute('src', data);
     this.mode = "display";
+    this.cancelVideo();
   }
 
   public clearPhoto() {
@@ -87,6 +92,7 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
   public returnImages() {
     this.addImage();
     this.output.emit(this.images);
+    this.cancelStream();
   }
 
   public addImage() {
@@ -99,7 +105,7 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
 
   public flipCamera() {
     this.frontCam = !this.frontCam;
-    this.ngOnDestroy();
+    this.cancelStream();
     this.ngAfterViewInit();
   }
 
@@ -112,7 +118,4 @@ export class MomentCameraComponent implements AfterViewInit, OnDestroy {
         .catch(e => console.log(e));
     }
   }
-  // track.applyConstraints({
-  //   advanced: [{zoom: capabilities.zoom.max}]
-  // })
 }

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -10,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class NewMomentComponent {
   public index = 0;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
 
   public next() {
@@ -18,7 +17,8 @@ export class NewMomentComponent {
   }
 
   public upload() {
-    this.router.navigate(['/main']);
+    // reload to kill camera stream
+    document.location.href = document.location.origin;
   }
 
   public get native(){

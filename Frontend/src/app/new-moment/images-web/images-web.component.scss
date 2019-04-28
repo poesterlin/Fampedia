@@ -18,6 +18,7 @@ p {
     .imageContainer {
         margin-bottom: 3px;
         position: relative;
+        height: calc(25vw - 10.5px);
 
         div:not(.selected) {
             width: 100%;

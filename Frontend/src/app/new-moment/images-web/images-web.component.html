@@ -22,10 +22,10 @@
   <div class="fotogrid" fxLayout="row break" fxLayoutAlign="space-around start" fxLayoutGap="3px">
     <div class="imageContainer" *ngFor="let im of images; let idx = index" fxFlex="calc(25% - 3px)" fxLayout="row"
       fxLayoutAlign="end start" (click)="select(idx)">
-      <div *ngIf="!im.data" fxFlex="100">
-        <img famImage [image]="'https://source.unsplash.com/100x100/?water,' + im.i">
+      <div fxFlex="100">
+        <img *ngIf="!im.data" famImage [image]="'https://source.unsplash.com/100x100/?water,' + im.i">
+        <img *ngIf="im.data" [src]="im.data">
       </div>
-      <img *ngIf="im.data" fxFlex="100" [src]="im.data">
       <div class="selected" fxFlex="100" *ngIf="isSelected(idx)">✓</div>
     </div>
   </div>
