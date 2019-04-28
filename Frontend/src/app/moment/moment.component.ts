@@ -23,4 +23,12 @@ export class MomentComponent implements OnInit {
     this.importances.unshift(...[1, 1, 3, 1, 1, 1, 1, 2, 2, 1, 1]);
   }
 
+  update(){
+    const t = document.querySelector('#header')!;
+    const image = document.querySelector('#image')! as any;
+    const top = t.getClientRects()[0].top;
+    image.style.height = 250 + top + "px";
+    image.style.marginTop = -top + "px";
+  }
+
 }

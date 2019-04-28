@@ -5,6 +5,7 @@ $gap: 12px;
 :host {
   @include clickable() {
     box-shadow: 3px 3px 17px 1px #00000060;
+    z-index: 0;
     .image {
       background: #ffffff21;
       img {
