@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "af476ec7-4648-4473-af19-6252cf6ce964",
+		"_postman_id": "59add746-2a1f-426c-91cd-ffbbaf556542",
 		"name": "backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -32,15 +32,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"TESTuser\", \"password\": \"TESTpassword\", \"mail\": \"test@mail.de\", \"familyname\": \"testfamily\"}"
+							"raw": "{\"un\": \"TESTuser\", \"pw\": \"TESTpassword\", \"familyName\": \"testfamily\"}"
 						},
 						"url": {
-							"raw": "{{url}}/createAccount",
+							"raw": "{{url}}/user/register",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"createAccount"
+								"user",
+								"register"
 							]
 						}
 					},
@@ -70,7 +71,77 @@
 								}
 							},
 							"_postman_previewlanguage": "json",
-							"header": null,
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"response\": \"created succesfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "createFamily",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "69f14b29-c128-47dc-95f4-9190c08178a5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"testfamily\"}"
+						},
+						"url": {
+							"raw": "{{url}}/user/family/new",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"family",
+								"new"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Account positive example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"username\": \"TESTuser\", \"password\": \"TESTpassword\", \"mail\": \"test@mail.de\", \"familyname\": \"testfamily\"}"
+								},
+								"url": {
+									"raw": "{{url}}/createAccount",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"createAccount"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [],
 							"cookie": [],
 							"body": "{\n  \"response\": \"created succesfully\"\n}"
 						}
@@ -100,14 +171,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"TESTuser\", \"password\": \"TESTpassword\"}"
+							"raw": "{\"un\": \"{{username}}\", \"pw\": \"{{passwort}}\"}"
 						},
 						"url": {
-							"raw": "{{url}}/login",
+							"raw": "{{url}}/user/login",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
+								"user",
 								"login"
 							]
 						}
@@ -137,8 +209,8 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
 							"body": "{\n  familyID: \"abc\"\n}"
 						}
@@ -342,7 +414,7 @@
 								}
 							},
 							"_postman_previewlanguage": "json",
-							"header": null,
+							"header": [],
 							"cookie": [],
 							"body": "{\n  \"moments\": [\"momentID1\", \"momentID2\"]\n}"
 						}
@@ -362,7 +434,18 @@
 							"script": {
 								"id": "2aa7d5ec-f138-4574-a002-523c3a0bec62",
 								"exec": [
-									""
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"url\") + \"/login\",",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"passwort\")})",
+									"    }",
+									"    }, function (err, response) {",
+									"            console.log(response.json().token);",
+									"            pm.environment.set(\"token\", response.json().token);",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -388,15 +471,18 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "familyID",
-								"value": "abc",
-								"type": "text",
-								"disabled": true
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
 							},
 							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "user",
+								"value": "{{username}}",
 								"type": "text"
 							}
 						],
@@ -443,7 +529,7 @@
 								}
 							},
 							"_postman_previewlanguage": "json",
-							"header": null,
+							"header": [],
 							"cookie": [],
 							"body": "{\n  \"moments\": [\n    { \n    \"momentiD\": \"momentDI1\",\n    \"momenttitle\": \"title\",\n    \"momentdescription\": \"text\",\n    \"Images\": {\n        \"description\": \"string\",\n        \"imageID\": \"string\",\n        \"timestamp\": \"timestamp\"\n    }\n    \n    },\n       { \n    \"momentiD\": \"momentDI2\",\n    \"momenttitle\": \"title\",\n    \"momentdescription\": \"text\",\n    \"Images\": {\n        \"description\": \"string\",\n        \"imageID\": \"string\",\n        \"timestamp\": \"timestamp\"\n    }\n    \n    }\n    \n    \n    ]\n    \n    \n}"
 						}
@@ -531,7 +617,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"New Moment\",\n  \"momentdescription\": \"Description of moment\",\n  \"familyID\": \"abc\"\n}"
+							"raw": "{\n  \"title\": \"Test1\",\n  \"momentdescription\": \"This is a test\",\n  \"familyID\": \"abc\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/moment/new",
@@ -577,8 +663,8 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
 							"body": "{\n  \"momentID\": \"abc\"\n}"
 						}
@@ -660,7 +746,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Edited New Moment\",\n  \"momentdescription\": \"Edited Description of moment\",\n  \"familyID\": \"abc\",\n  \"momentID\": 12383772\n}"
+							"raw": "{\n  \"title\": \"Edited New Moment\",\n  \"momentdescription\": \"Edited Description of moment\",\n  \"familyID\": \"abc\",\n  \"momentID\": 12782440\n}"
 						},
 						"url": {
 							"raw": "{{url}}/moment/edit",
@@ -706,8 +792,8 @@
 									]
 								}
 							},
-							"_postman_previewlanguage": null,
-							"header": null,
+							"_postman_previewlanguage": "Text",
+							"header": [],
 							"cookie": [],
 							"body": "{\n  \"momentID\": \"abc\"\n}"
 						}
@@ -765,7 +851,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"familyID\": \"abc\",\n   \"momentID\": 10625264\n}"
+							"raw": "{\n  \"familyID\": \"abc\",\n   \"momentID\": 12782440\n}"
 						},
 						"url": {
 							"raw": "{{url}}/moment/delete",
@@ -814,20 +900,24 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "momentID",
-								"type": "text",
-								"value": "text/plain"
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
 							},
 							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "user",
+								"value": "{{username}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"familyID\": \"abc\",\n   \"momentID\": 3887308\n}"
+							"raw": "{\n   \"momentID\": 12388547\n}"
 						},
 						"url": {
 							"raw": "{{url}}/moment/oneMoment",
@@ -869,7 +959,7 @@
 								}
 							},
 							"_postman_previewlanguage": "json",
-							"header": null,
+							"header": [],
 							"cookie": [],
 							"body": "{\n  \"moments\":\n    { \n    \"momentiD\": \"momentDI1\",\n    \"momenttitle\": \"title\",\n    \"momentdescription\": \"text\",\n    \"Images\": {\n        \"description\": \"string\",\n        \"imageID\": \"string\",\n        \"timestamp\": \"timestamp\"\n    }\n    \n    }\n}"
 						}
@@ -930,14 +1020,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/momentimage/deleteImage/5cbf2a720d50be28586fb2e5",
+							"raw": "{{url}}/momentimage/deleteImage/5cc6decd1dd79006974b59ae",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"momentimage",
 								"deleteImage",
-								"5cbf2a720d50be28586fb2e5"
+								"5cc6decd1dd79006974b59ae"
 							]
 						}
 					},
@@ -978,15 +1068,15 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/momentimage/getImage/640/5cbf17088a2be71480e517f7",
+							"raw": "{{url}}/momentimage/getImage/340/5cc6decd1dd79006974b59ae",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"momentimage",
 								"getImage",
-								"640",
-								"5cbf17088a2be71480e517f7"
+								"340",
+								"5cc6decd1dd79006974b59ae"
 							]
 						}
 					},
@@ -1068,14 +1158,14 @@
 							]
 						},
 						"url": {
-							"raw": "{{url}}/momentimage/addimage/{{momentID}}",
+							"raw": "{{url}}/momentimage/addimage/12388547",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"momentimage",
 								"addimage",
-								"{{momentID}}"
+								"12388547"
 							]
 						}
 					},
