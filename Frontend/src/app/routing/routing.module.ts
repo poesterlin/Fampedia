@@ -9,6 +9,7 @@ const routes: Routes = [
     data: { title: 'MAIN', preload: true },
     pathMatch: 'full'
   },
+  { path: 'main', redirectTo: '' },
   {
     path: 'moment',
     loadChildren: '../moment/moment.module#MomentModule',
