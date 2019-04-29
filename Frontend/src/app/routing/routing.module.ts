@@ -1,29 +1,36 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomPreloader } from './CustomPreloader';
+import { LoginComponent } from '../login/login.component';
+import { IsLoggedIn } from './guard';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: '../main/main.module#MainModule',
     data: { title: 'MAIN', preload: true },
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [IsLoggedIn],
   },
   { path: 'main', redirectTo: '' },
+  { path: 'login', component: LoginComponent },
   {
     path: 'moment',
     loadChildren: '../moment/moment.module#MomentModule',
-    data: { title: 'MOMENT', preload: true, delay: 5 }
+    data: { title: 'MOMENT', preload: true, delay: 5 },
+    canActivate: [IsLoggedIn],
   },
   {
     path: 'recipes',
     loadChildren: '../recipes/recipes.module#RecipesModule',
-    data: { title: 'RECIPES', preload: true, delay: 5 }
+    data: { title: 'RECIPES', preload: true, delay: 5 },
+    canActivate: [IsLoggedIn],
   },
   {
     path: 'new',
     loadChildren: '../new-moment/new-moment.module#NewMomentModule',
-    data: { preload: false, delay: 5 }
+    data: { preload: false, delay: 5 },
+    canActivate: [IsLoggedIn],
   },
   // wildcard for invalid urls
   {
@@ -41,6 +48,6 @@ const routes: Routes = [
     })
   ],
   exports: [RouterModule],
-  providers: [CustomPreloader]
+  providers: [CustomPreloader],
 })
 export class RoutingModule { }
