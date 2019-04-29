@@ -1,0 +1,18 @@
+<fampedia-navbar></fampedia-navbar>
+
+<div class="headerContainer">
+  <fampedia-tool-header></fampedia-tool-header>
+</div>
+
+<menu fxLayout="row">
+  <a fxFlex="25" (click)="setComp(0)"> For You </a>
+  <a fxFlex="25" [ngClass]="{'selected': comp === 0}" (click)="setComp(0)"> Timeline </a>
+  <a fxFlex="25" [ngClass]="{'selected': comp === 1}" (click)="setComp(1)"> News </a>
+  <a fxFlex="25" [ngClass]="{'selected': comp === 2}" (click)="setComp(2)"> Archive </a>
+</menu>
+
+<div [ngSwitch]="comp" (swipeleft)="left()" (swiperight)="right()">
+  <fampedia-timeline (swipeleft)="left()" (swiperight)="right()" *ngSwitchCase="0"></fampedia-timeline>
+  <fampedia-news (swipeleft)="left()" (swiperight)="right()" *ngSwitchCase="1"></fampedia-news>
+  <fampedia-archive (swipeleft)="left()" (swiperight)="right()" *ngSwitchCase="2"></fampedia-archive>
+</div>

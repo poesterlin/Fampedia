@@ -1,0 +1,29 @@
+<mat-toolbar>
+    <div fxLayout="row" fxFlex="100" fxLayoutAlign="start stretch">
+        <button mat-button routerLink="/" fxFlex="10">
+            <mat-icon>keyboard_backspace</mat-icon>
+        </button>
+        <div fxFlex="90" id="headline">NEW MOMENT</div>
+    </div>
+</mat-toolbar>
+
+<div class="status">
+    <div class="progress" fxLayout="row" fxLayoutGap="5px">
+        <div fxFlex="33%" (click)="index = 0" class="line"></div>
+        <div fxFlex="33%" (click)="index = 1" class="line"></div>
+        <div fxFlex="33%" (click)="index = 2" class="line"></div>
+    </div>
+    <div class="bar" [ngStyle]="{'left': 'calc(' + (32.5 * index) + '% + ' + (index * 5) + 'px)'}"></div>
+</div>
+
+<div class="container">
+
+    <fampedia-new-moment-data *ngIf="index === 0"></fampedia-new-moment-data>
+    
+    <fampedia-new-moment-images *ngIf="index === 1"></fampedia-new-moment-images>
+    
+    <fampedia-new-moment-access *ngIf="index === 2"></fampedia-new-moment-access>
+</div>
+    
+<button (click)="next()" class="nextBtn" *ngIf="index < 2">NEXT</button>
+<button (click)="upload()" class="nextBtn" *ngIf="index == 2">UPLOAD</button>

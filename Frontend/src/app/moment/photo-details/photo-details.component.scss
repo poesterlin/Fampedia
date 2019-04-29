@@ -1,0 +1,49 @@
+@import "../../styles/helperMixins.scss";
+@import "../../styles/theme.scss";
+
+mat-toolbar {
+    background: white !important;
+    color: black !important;
+
+    button {
+        min-width: 15px;
+        padding: 0;
+    }
+}
+
+
+.imageContainer {
+    width: 90%;
+    margin: 0 auto 20px;
+    border-radius: 12px;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        object-fit: contain;
+        max-height: 90vh;
+    }
+}
+
+.comment {
+    color: rgba(0, 0, 0, 0.75);
+    width: 500px;
+    max-width: 93vw;
+    margin: 6px auto 0;
+    
+    div {
+        border-bottom: 1px solid #0000004a;
+        padding-bottom: 5px;
+
+        .title {
+            font-weight: bold;
+        }
+    }
+
+    img {
+        @include constrainImage(40px, 40px);
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 10px;
+    }
+}

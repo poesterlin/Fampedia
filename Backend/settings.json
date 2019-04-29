@@ -1,0 +1,6 @@
+{ 
+    "APIKEY_PUBLIC":"", 
+    "APIKEY_PRIVATE": "", 
+    "emailReciever": "", 
+    "howTo": "https://cloud.google.com/appengine/docs/flexible/nodejs/sending-emails-with-mailjet" 
+}

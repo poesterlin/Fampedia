@@ -1,0 +1,35 @@
+<div id="header" (window:scroll)="update()">
+  <div id="image"> </div>
+  <button id="back" mat-icon-button routerLink="">
+    <mat-icon>keyboard_backspace</mat-icon>
+  </button>
+  <button id="add" mat-icon-button routerLink="">
+    <mat-icon>add</mat-icon>
+  </button>
+  <div>
+    <div id="title">
+      <span>new Moment</span>
+      <span>what a noice day</span>
+    </div>
+  </div>
+
+
+</div>
+
+<menu>
+  <a [routerLink]="['']">
+    Photos
+  </a>
+  <a [routerLink]="['']">
+    Visitors
+  </a>
+  <a [routerLink]="['']">
+    Thread
+  </a>
+</menu>
+
+<div class="dash">
+  <fampedia-grid-item [importance]="i" [itemId]="idx + 'id'" *ngFor="let i of importances; let idx = index" (click)="fullscreen(i)">
+  </fampedia-grid-item>
+</div>
+

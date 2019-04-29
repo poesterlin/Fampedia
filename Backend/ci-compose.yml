@@ -1,0 +1,32 @@
+version: '3.3'
+
+services:
+  backend:
+    build: .
+    stop_signal: SIGINT
+    stop_grace_period: 1s
+    environment:
+      - mongoUrl=mongodb://db:27017/news
+    ports:
+      - "3000:3000"
+    networks: 
+      - net
+    links:
+      - "db:db"
+    depends_on:
+      - db
+    command: npm run report
+
+
+  db:
+    image: mongo
+    restart: always
+    volumes:
+      - ./data:/data/db
+    networks: 
+      - net
+    ports:
+      - "27017:27017"
+      
+networks:
+  net:

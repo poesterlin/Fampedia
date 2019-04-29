@@ -2,9 +2,13 @@
     "test": "English",
     "titles": {
         "undefined": "",
-        "DASHBOARD": "Dashboard"
+        "DASHBOARD": "Dashboard",
+        "RECIPES": "Recipes",
+        "MAIN": "Main",
+        "MOMENT": "Moment"
     },
     "navbar":{
-        "LANGUAGE_SWITCH": "Change language"
+        "LANGUAGE_SWITCH": "Change language",
+        "NONE": ""
     }
 }

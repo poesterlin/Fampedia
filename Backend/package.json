@@ -1,0 +1,44 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "fampedia backend",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/philipOE/fampedia.git"
+  },
+  "license": "UNLICENSED",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon -w ./src ./src/app.js",
+    "test": "mocha --exit",
+    "test-q": "set log=quiet&& mocha test/test.js --exit",
+    "server": "pm2 start ecosystem.config.js",
+    "stop": "pm2 delete ecosystem.config.js",
+    "report": "nyc npm test"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.2.2",
+    "moment": "^2.22.1",
+    "mongodb": "^2.2.33",
+    "mongoose": "^5.0.6",
+    "multer": "^1.3.0",
+    "node-mailjet": "^3.2.1",
+    "password-hash": "^1.2.2",
+    "pm2": "^3.5.0",
+    "rand-token": "^0.4.0",
+    "sharp": "^0.22.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-fs": "^2.0.0",
+    "husky": "^0.15.0-rc.9",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.14.12",
+    "nyc": "^14.0.0",
+    "supertest": "~4.0.2",
+    "uuid": "^3.2.1"
+  }
+}
