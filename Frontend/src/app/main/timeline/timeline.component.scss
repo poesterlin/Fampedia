@@ -1,19 +1,18 @@
-
 .timeline {
-    width: 90vw;
-    margin: auto;
+  width: 90vw;
+  margin: auto;
 
-    #left,
-    #right {
-        display: block;
-    }
+  #left,
+  #right {
+    display: block;
+  }
 
-    #right {
-        direction: rtl;
-    }
+  #right {
+    direction: rtl;
+  }
 
-    #line {
-        border-right: 2px solid #acacac66;
-        transform: translateX(-1px);
-    }
+  #line {
+    border-right: 2px solid #acacac66;
+    transform: translateX(calc(-1vw + 2px));
+  }
 }
