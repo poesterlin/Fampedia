@@ -9,11 +9,12 @@
   "license": "UNLICENSED",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "test": "mocha test/test.js --exit",
+    "start": "nodemon -w ./src ./src/app.js",
+    "test": "mocha --exit",
     "test-q": "set log=quiet&& mocha test/test.js --exit",
     "server": "pm2 start ecosystem.config.js",
-    "stop": "pm2 delete ecosystem.config.js"
+    "stop": "pm2 delete ecosystem.config.js",
+    "report": "nyc npm test"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -31,11 +32,12 @@
     "sharp": "^0.22.0"
   },
   "devDependencies": {
-    "nodemon": "^1.14.12",
     "chai": "^4.2.0",
     "chai-fs": "^2.0.0",
     "husky": "^0.15.0-rc.9",
-    "mocha": "~6.1.2",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.14.12",
+    "nyc": "^14.0.0",
     "supertest": "~4.0.2",
     "uuid": "^3.2.1"
   }
