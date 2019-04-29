@@ -99,7 +99,7 @@ router.post("/family/new", async (req, res) => {
 
         await new FamilyDB({ name: req.body.name }).save();
 
-        res.status(200).json({ avaliable: !!findFamily });
+        res.status(200).send();
     }
     catch (error) {
         handle(res, error);

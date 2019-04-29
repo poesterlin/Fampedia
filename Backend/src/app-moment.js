@@ -4,7 +4,7 @@ const moment = require("moment");
 const { router, auth, authFail, log, handle, sanitize } = require("./app");
 const { MomentDB, ImageDB } = require("./app-db")
 
-moment.locale("de");
+moment.locale("en");
 
 /////////////////////////////
 ///// Server - Paths
@@ -57,15 +57,21 @@ router.get("/all", async (req, res) => {
 // Get one moment
 router.get("/oneMoment", async (req, res) => {
     try {
+        if (!req.body.momentID) {
+            throw 400;
+        }
+        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+
         const result = await MomentDB.findOne({
             momentID: req.body.momentID,
-            familyID: req.body.familyID
+            familyID: user.familyID
         });
 
         if (result) {
+            result.date = moment(result.date).fromNow();
             res.status(200).json(sanitize(result));
         } else {
-            res.status(404);
+            res.status(404).send();
         }
 
         log("returned moment");
