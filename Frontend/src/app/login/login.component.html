@@ -1,8 +1,7 @@
 <div fxLayout="row break">
-  <span fxFlex="50">username</span>
-  <input fxFlex="50" type="text" [(ngModel)]="username">
-  <span fxFlex="50">password</span>
-  <input fxFlex="50" type="password" [(ngModel)]="password">
+  <span fxFlex="30">Username</span>
+  <input fxFlex="70" type="text" [(ngModel)]="username">
+  <span fxFlex="30">Password</span>
+  <input fxFlex="70" type="password" [(ngModel)]="password">
+  <button fxFlex="100" (click)="login()">login</button>
 </div>
-
-<button (click)="login()">login</button>
