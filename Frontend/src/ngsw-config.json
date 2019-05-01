@@ -1,11 +1,30 @@
 {
   "index": "/index.html",
+  "dataGroups": [
+    {
+      "name": "images",
+      "urls": ["**/momentimage/getImage/**/**"],
+      "version": 1,
+      "cacheConfig": {
+        "maxSize": 500,
+        "maxAge": "5d",
+        "timeout": "10s",
+        "strategy": "performance"
+      }
+    }
+  ],
   "assetGroups": [
     {
       "name": "Fampedia",
       "installMode": "prefetch",
       "resources": {
-        "files": ["/favicon.ico", "/index.html", "/*.css", "/*.map", "/*.js"]
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/*.css",
+          "/*.map",
+          "/*.js"
+        ]
       },
       "cacheConfig": {
         "maxSize": 50,
