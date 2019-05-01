@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { TimelineElement } from '../timeline-element/timeline-element.component';
+import { CoreService } from '../../core/core.service'
+import { Moment } from 'src/app/core/Entitys/Moment';
 
 interface Event {
   title: string;
@@ -20,7 +22,15 @@ export class TimelineComponent {
 
   public timeline: TimelineElement[][] = [];
 
-  constructor() {
+
+  constructor(private core: CoreService) {
+      this.core.getMoments()
+        .subscribe(
+          (response: Moment[]) => {
+            console.log(response)
+          },
+          (error) => console.log(error)
+        )
     this.init(50);
     this.timeline = this.convert();
   }
