@@ -1,15 +1,7 @@
 import { Component } from '@angular/core';
 import { TimelineElement } from '../timeline-element/timeline-element.component';
-import { CoreService } from '../../core/core.service'
 import { Moment } from 'src/app/core/Entitys/Moment';
-
-interface Event {
-  title: string;
-  desc: string;
-  img: string;
-  date: Date;
-  id: number;
-}
+import { MainService } from '../main.service';
 
 @Component({
   selector: 'fampedia-timeline',
@@ -17,66 +9,40 @@ interface Event {
   styleUrls: ['./timeline.component.scss']
 })
 export class TimelineComponent {
-
-  private events: Event[] = [];
-
   public timeline: TimelineElement[][] = [];
 
-
-  constructor(private core: CoreService) {
-      this.core.getMoments()
-        .subscribe(
-          (response: Moment[]) => {
-            console.log(response)
-          },
-          (error) => console.log(error)
-        )
-    this.init(50);
-    this.timeline = this.convert();
+  constructor(private service: MainService) {
+    this.service.moments$.subscribe(mom => {
+      this.timeline = this.convert(mom);
+    });
   }
 
-  public convert() {
+  public convert(moments: Moment[]) {
     const timeline: [TimelineElement[], TimelineElement[]] = [[], []];
 
-    const dateSort = (d1: Event, d2: Event) =>
-      d1.date.getTime() - d2.date.getTime();
+    // const dateSort = (d1: Event, d2: Event) =>
+    //   d1.date.getTime() - d2.date.getTime();
 
-    this.events.sort(dateSort).forEach((event, idx) => {
-      const sideIdx = idx % 2;
-      const height = window.innerHeight / 5;
-      const margin = 8;
-      const last = timeline[sideIdx][timeline[sideIdx].length - 1] || timeline[sideIdx][timeline[sideIdx].length - 1] || { top: - margin };
+    moments
+      .filter(m => m.images.length > 0)
+      // .sort(dateSort)
+      .forEach((moment, idx) => {
+        const sideIdx = idx % 2;
+        const height = window.innerHeight / 5;
+        const margin = 8;
+        const last = timeline[sideIdx][timeline[sideIdx].length - 1] || timeline[sideIdx][timeline[sideIdx].length - 1] || { top: - margin };
 
-      let top = last.top + margin;
-      const element = {
-        row: (sideIdx === 0 ? 'left' : 'right') as any,
-        top,
-        height: Math.random() * height + height,
-        ...event,
-      };
+        let top = last.top + margin;
+        const element = {
+          row: (sideIdx === 0 ? 'left' : 'right') as any,
+          top,
+          height: Math.random() * height + height,
+          moment
+        };
 
-      timeline[sideIdx].push(element);
-    });
+        timeline[sideIdx].push(element);
+      });
     return timeline;
   }
-
-  private init(len: number) {
-    this.events = new Array(len).fill(null).map((_, idx) => ({
-      title: 'test ' + idx,
-      desc: 'test description',
-      img: 'https://picsum.photos/50/50/?random',
-      date: this.randomDate(),
-      id: idx
-    }));
-  }
-
-  private randomDate() {
-    const start = new Date(2000, 0, 1);
-    const end = new Date();
-    return new Date(
-      start.getTime() + Math.random() * (end.getTime() - start.getTime())
-    );
-  }
-
 
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 
 interface Comment {
@@ -14,7 +15,8 @@ interface Comment {
   templateUrl: './photo-details.component.html',
   styleUrls: ['./photo-details.component.scss']
 })
-export class PhotoDetailsComponent {
+export class PhotoDetailsComponent implements OnInit {
+  public imageId?: string;
   public comments: Comment[] = ["Inga Innes", "Cathrine Chism", "Johnnie Jone", "Margarite Mcdavis", "Beryl Bame", "Dahlia Down",
     "Valentina Vandiver", "Su Said", "Darci Desimone", "Meggan Mcpartland"]
     .map((name, id) => {
@@ -28,8 +30,13 @@ export class PhotoDetailsComponent {
       }
     });
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
 
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.imageId = params.id;
+    });
+  }
 
 }

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Moment } from './Entitys/Moment';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
+import { IMoment } from './Interfaces/IMoment';
 
 interface HttpOptions {
   authorization?: boolean
@@ -16,23 +18,23 @@ export class CoreService {
 
 
   public addMomentImage(description: String, momentID: BigInteger) {
-    return this.post(`momentimage/addimage/${momentID}`, {'desc': description})
-  }
-  
-  public updateMoment(moment: Moment) {
-    return this.post(`moment/edit` , moment)
+    return this.post(`momentimage/addimage/${momentID}`, { 'desc': description })
   }
 
-  public addMoment(title: String, momentdescription: String) {
-    return this.post(`moment/new`, {"title": title, "momentdescription": momentdescription})
+  public updateMoment(moment: Moment) {
+    return this.post(`moment/edit`, moment)
+  }
+
+  public addMoment(momenttitle: String, momentdescription: String) {
+    return this.post(`moment/new`, { momenttitle, momentdescription })
   }
 
   public getMoments() {
-    return this.get<Moment[]>(`moment/all`)
+    return this.get<IMoment[]>(`moment/all`).pipe(map(momentJSON => momentJSON.map(json => new Moment(json))))
   }
 
   public login(username: String, password: String) {
-    return this.post(`user/login`, {"un": username, "pw": password})
+    return this.post(`user/login`, { "un": username, "pw": password })
   }
 
 

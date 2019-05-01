@@ -1,5 +1,5 @@
 <div id="header" (window:scroll)="update()">
-  <div id="image"> </div>
+  <div id="image" [ngStyle]="{'background-image': imageUrl}"> </div>
   <button id="back" mat-icon-button routerLink="">
     <mat-icon>keyboard_backspace</mat-icon>
   </button>
@@ -7,9 +7,9 @@
     <mat-icon>add</mat-icon>
   </button>
   <div>
-    <div id="title">
-      <span>new Moment</span>
-      <span>what a noice day</span>
+    <div id="title" *ngIf="moment">
+      <span>{{moment.title}}</span>
+      <span>{{moment.description}}</span>
     </div>
   </div>
 
@@ -28,8 +28,6 @@
   </a>
 </menu>
 
-<div class="dash">
-  <fampedia-grid-item [importance]="i" [itemId]="idx + 'id'" *ngFor="let i of importances; let idx = index" (click)="fullscreen(i)">
-  </fampedia-grid-item>
+<div class="dash" *ngIf="moment">
+  <fampedia-grid-item [importance]="1" [imageId]="i" *ngFor="let i of moment.images"> </fampedia-grid-item>
 </div>
-

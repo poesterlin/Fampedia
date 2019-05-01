@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Moment } from '../core/Entitys/Moment';
+import { MomentService } from './moment.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'fampedia-event',
@@ -7,23 +10,21 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./moment.component.scss']
 })
 export class MomentComponent implements OnInit {
-  public id: string = '';
-  public importances: number[] = [];
+  public id: number = 0;
+  public moment?: Moment;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private service: MomentService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.id = params.id;
+      this.id = parseInt(params.id);
+      this.service.moments$.subscribe(() => {
+        this.moment = this.service.getMoment(this.id);
+      });
     });
-
-    this.importances = new Array(20)
-      .fill(null)
-      .map(() => Math.ceil(Math.random() * 3));
-    this.importances.unshift(...[1, 1, 3, 1, 1, 1, 1, 2, 2, 1, 1]);
   }
 
-  update(){
+  update() {
     const t = document.querySelector('#header')!;
     const image = document.querySelector('#image')! as any;
     const top = t.getClientRects()[0].top;
@@ -31,8 +32,10 @@ export class MomentComponent implements OnInit {
     image.style.marginTop = -top + "px";
   }
 
-  fullscreen(){
-    this.router.navigate(['/moment/image/5']);
+  get imageUrl() {
+    if (this.moment) {
+      return `url("${environment.url}/momentimage/getImage/640/${this.moment.images[0]}")`
+    }
+    return '';
   }
-
 }

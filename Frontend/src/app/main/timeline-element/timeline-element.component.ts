@@ -1,16 +1,13 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Moment } from 'src/app/core/Entitys/Moment';
 
 export interface TimelineElement {
   top: number;
   height: number;
-  title: string;
-  desc: string;
-  img: string;
   row: 'left' | 'right';
-  date: Date;
-  id: number;
+  moment: Moment;
 }
 
 @Component({
@@ -20,7 +17,6 @@ export interface TimelineElement {
 })
 export class TimelineElementComponent implements OnInit {
   @Input() element!: TimelineElement;
-  public rand = Math.random();
 
   constructor(private sanitizer: DomSanitizer, private router: Router) {}
 
@@ -33,7 +29,7 @@ export class TimelineElementComponent implements OnInit {
   }
 
 
-  public goToEvent() {
-    this.router.navigate(['/moment/', this.element.id]);
+  public goToMoment() {
+    this.router.navigate(['/moment/', this.element.moment.momentId]);
   }
 }

@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { StorageService } from '../storage/storage.service';
-
-export interface User {
-  token: string;
-  username: string;
-  expireDate: Date;
-}
+import { User } from '../core/Interfaces/IUser';
 
 @Injectable({
   providedIn: 'root'

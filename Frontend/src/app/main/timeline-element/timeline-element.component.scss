@@ -33,13 +33,14 @@ $rad: 19px;
       margin: 10px -15px 0px;
       text-shadow: 0 0 4px #00000047;
       z-index: 1;
+      line-height: 12px;
       span {
         display: inline-block;
         width: 85%;
         font-weight: bold;
         font-size: 12px;
       }
-      .desc {
+      .small {
         font-size: 8px;
       }
     }
