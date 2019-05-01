@@ -22,7 +22,6 @@ export class NewMomentComponent {
     document.location.href = document.location.origin;
     const title = 'This is a dummy title'
     const description = 'This is a dummy description'
-    const familyID = 'testfamily'
     this.core.addMoment(title, description)
         .subscribe(
           (response) => {
