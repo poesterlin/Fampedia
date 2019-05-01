@@ -351,12 +351,15 @@ describe("Task API Routes", () => {
       expect(moments).to.have.lengthOf(10);
     });
   });
-  describe("setup example family", () => {
-    it("delete image and check on article", async () => {
-      new Array(10).fill(null).forEach(() => {
-        newMom("great moment", "wow so great", token, username);
-      })
-    });
+  describe.skip("setup example family", () => {
+    it("add a lot of images", async () => {
+      for (let i = 0; i < 10; i++) {
+        const id = await newMom("great moment", "wow so great", token, username);
+        for (let j = 0; j < 10; j++) {
+          await addImage(id, imageFile, "no", username, token);
+        }
+      }
+    }).timeout(100000);
   });
 });
 
