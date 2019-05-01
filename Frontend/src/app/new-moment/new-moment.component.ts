@@ -23,7 +23,7 @@ export class NewMomentComponent {
     const title = 'This is a dummy title'
     const description = 'This is a dummy description'
     const familyID = 'testfamily'
-    this.core.addMoment(title, description, familyID)
+    this.core.addMoment(title, description)
         .subscribe(
           (response) => {
             console.log(response)

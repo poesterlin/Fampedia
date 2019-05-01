@@ -15,12 +15,16 @@ export class CoreService {
 
 
 
+  public addMomentImage(description: String, momentID: BigInteger) {
+    return this.post(`momentimage/addimage/${momentID}`, {'desc': description})
+  }
+  
   public updateMoment(moment: Moment) {
     return this.post(`moment/edit` , moment)
   }
 
-  public addMoment(title: String, momentdescription: String, familyID: String) {
-    return this.post(`moment/new`, {"title": title, "momentdescription": momentdescription, "familyID": familyID})
+  public addMoment(title: String, momentdescription: String) {
+    return this.post(`moment/new`, {"title": title, "momentdescription": momentdescription})
   }
 
   public getMoments() {
