@@ -17,6 +17,7 @@ export class LoginService {
   constructor(private storage: StorageService) {
     const user = this.storage.getSettingAsObject<User>('userdata');
     if (user) {
+      user.expireDate = new Date(Date.parse(user.expireDate as any));
       this.user$.next(user);
     }
     this.user$.subscribe(user => {
@@ -29,9 +30,6 @@ export class LoginService {
 
   public isLoggedIn() {
     const user = this.user$.getValue();
-    if (user && new Date() < user.expireDate) {
-      return true;
-    }
-    return false;
+    return user && new Date() < user.expireDate;
   }
 }

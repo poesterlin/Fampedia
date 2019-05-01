@@ -16,10 +16,8 @@ export class IsLoggedIn implements CanActivate {
         if (this.loginService.isLoggedIn()) {
             return true;
         } else {
-            // TODO: activate guard
-            this.router; // .navigate(['/login']);
-            console.log("not logged in");
-            return true;
+            this.router.navigate(['/login']);
+            return false;
         }
     }
 }
