@@ -5,7 +5,7 @@
     <span class="small">{{element.moment.date}}</span>
   </div>
   <div class="imageWrapper">
-    <img famImage [imageId]="element.moment.images[0]">
+    <img famImage [lazy]="true" [imageId]="element.moment.images[0]">
   </div>
 </div>
 <i class="line" [ngClass]="{'left': element.row == 'left', 'right': element.row == 'right'}"></i>

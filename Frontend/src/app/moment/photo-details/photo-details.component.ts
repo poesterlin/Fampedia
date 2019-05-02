@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 
 interface Comment {
@@ -30,13 +31,17 @@ export class PhotoDetailsComponent implements OnInit {
       }
     });
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private location: Location) { }
 
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.imageId = params.id;
     });
+  }
+
+  back(){
+    this.location.back();
   }
 
 }

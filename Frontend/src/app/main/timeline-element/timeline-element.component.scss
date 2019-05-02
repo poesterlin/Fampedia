@@ -23,9 +23,11 @@ $rad: 19px;
     }
     .left {
       direction: rtl;
+      text-align: right;
     }
     .right {
       direction: ltr;
+      text-align: left;
     }
     .data {
       color: white;
@@ -34,6 +36,7 @@ $rad: 19px;
       text-shadow: 0 0 4px #00000047;
       z-index: 1;
       line-height: 12px;
+      direction: initial;
       span {
         display: inline-block;
         width: 85%;

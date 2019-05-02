@@ -105,7 +105,7 @@ $gap: 5px;
 .dash {
     display: grid;
 
-    grid-template-columns: repeat(4, calc(25vmin - 5px));
+    grid-template-columns: repeat(4, calc(25vmin - 10px));
     // grid-template-rows: repeat(100, calc(25vmin - 5px));
 
     grid-gap: $gap;
