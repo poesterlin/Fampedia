@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  url: "141.19.142.86:3000",
+  url: "http://localhost:3000",
   isNative: false
 };
 
