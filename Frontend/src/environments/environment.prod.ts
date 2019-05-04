@@ -1,7 +1,6 @@
 export const environment = {
   production: true,
-  url: "http://localhost:3000",
-  isNative: false
+  url: "https://35.157.105.228:3000",
 };
 
 // TODO: update to server url

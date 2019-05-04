@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { NewMomentService } from './new-moment.service';
 
 @Component({
@@ -18,10 +17,6 @@ export class NewMomentComponent {
 
   public upload() {
     this.service.uploadMoment();
-  }
-
-  public get native() {
-    return environment.isNative;
   }
 
 }
