@@ -13,9 +13,11 @@ const bodyParser = require("body-parser");
 const port = process.env.PORT || 3000;
 
 const app = express();
+
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/", router);
+
 app.use(function (err, _req, res, _next) {
     if (err) {
         if (err.message === "File too large") {
@@ -58,6 +60,8 @@ app.use("/momentimage", require('./app-image'));
  *  user management routes
  */
 app.use("/user", userRoutes);
+
+app.use(express.static(__dirname + '/www'));
 
 
 ///////////////////

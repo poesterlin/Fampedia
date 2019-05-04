@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  url: "http://35.157.105.228:3000",
+  url: "http://52.59.239.202:3000",
 };
 
 // TODO: update to server url
