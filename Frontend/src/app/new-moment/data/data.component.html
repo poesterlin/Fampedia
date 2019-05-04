@@ -7,15 +7,18 @@
 <table>
   <tr>
     <td> <span>What?</span> </td>
-    <td> <input type="text" placeholder="Wedding"> </td>
+    <td> <input type="text" placeholder="Wedding" [(ngModel)]="service.moment.title"> </td>
   </tr>
   <tr>
     <td> <span>When?</span> </td>
-    <td> <input type="text" [value]="today" placeholder="24 / 05 / 2011"> </td>
+    <td>
+      <input type="text" [(ngModel)]="dateVal" (focusout)="setDate($event.currentTarget.value)">
+      <span style="color:red; opacity: 0.7; font-size: 13px" *ngIf="dateError">Error in date</span>
+    </td>
   </tr>
   <tr>
     <td> <span>Where?</span> </td>
-    <td> <input type="text" placeholder="Restaurant"> </td>
+    <td> <input type="text" placeholder="Restaurant" [(ngModel)]="service.moment.description"> </td>
   </tr>
   <tr>
     <td> <span>Who?</span> </td>

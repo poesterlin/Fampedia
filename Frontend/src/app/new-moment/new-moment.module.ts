@@ -11,7 +11,7 @@ import { PeopleSelectComponent } from './people-select/people-select.component';
 import { MomentCameraComponent } from './moment-camera/moment-camera.component';
 import { DirectivesModule } from '../helpers/directives.module';
 import { FormsModule } from '@angular/forms';
-import { NewMomentServiceService } from './new-moment-service.service';
+import { NewMomentService } from './new-moment.service';
 
 const routes: Routes = [{ path: '**', component: NewMomentComponent }];
 
@@ -25,6 +25,6 @@ const routes: Routes = [{ path: '**', component: NewMomentComponent }];
     DirectivesModule,
     FormsModule
   ],
-  providers: [NewMomentServiceService]
+  providers: [NewMomentService]
 })
 export class NewMomentModule { }

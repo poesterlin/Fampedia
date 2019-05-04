@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { CoreService } from '../core/core.service';
+import { NewMomentService } from './new-moment.service';
 
 @Component({
   selector: 'fampedia-new-moment',
@@ -10,28 +10,17 @@ import { CoreService } from '../core/core.service';
 export class NewMomentComponent {
   public index = 0;
 
-  constructor(private core: CoreService) { }
-
+  constructor(private service: NewMomentService) { }
 
   public next() {
     this.index++;
   }
 
   public upload() {
-    // reload to kill camera stream
-    document.location.href = document.location.origin;
-    const title = 'This is a dummy title'
-    const description = 'This is a dummy description'
-    this.core.addMoment(title, description)
-        .subscribe(
-          (response) => {
-            console.log(response)
-          },
-          (error) => console.log(error)
-        )
+    this.service.uploadMoment();
   }
 
-  public get native(){
+  public get native() {
     return environment.isNative;
   }
 

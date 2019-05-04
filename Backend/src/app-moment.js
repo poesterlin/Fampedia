@@ -12,7 +12,7 @@ moment.locale("en");
 // Add a new Moment 
 router.post("/new", async (req, res) => {
     try {
-        if (!req.body.title || !req.body.momentdescription) {
+        if (!req.body.title || !req.body.description || !req.body.date) {
             throw 400;
         }
         const user = await auth(req.headers.user, req.headers.token).catch(authFail);
@@ -21,8 +21,8 @@ router.post("/new", async (req, res) => {
         let newMoment = new MomentDB({
             momentID: count,
             momenttitle: req.body.title,
-            momentdescription: req.body.momentdescription,
-            date: new Date().toUTCString(),
+            momentdescription: req.body.description,
+            date: new Date(Date.parse(req.body.date)),
             images: [],
             familyID: user.familyID
         });

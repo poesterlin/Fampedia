@@ -5,3 +5,7 @@ export interface IMoment {
     images: string[];
     date: string;
 }
+
+export interface MomentCreated {
+    momentID: number;
+}

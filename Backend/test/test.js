@@ -458,7 +458,8 @@ async function newMom(title, desc, token, username, httpStatus = 201) {
     .post("/moment/new")
     .send({
       title,
-      momentdescription: desc,
+      description: desc,
+      date: new Date()
     })
     .set("token", token)
     .set("user", username)
