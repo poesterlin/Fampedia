@@ -23,8 +23,7 @@
     <div class="imageContainer" *ngFor="let im of images; let idx = index" fxFlex="calc(25% - 3px)" fxLayout="row"
       fxLayoutAlign="end start" (click)="select(idx)">
       <div fxFlex="100">
-        <img *ngIf="!im.data" [src]="'https://source.unsplash.com/100x100/?water,' + im.i">
-        <img *ngIf="im.data" [src]="im.data">
+        <img [src]="im.data">
       </div>
       <div class="selected" fxFlex="100" *ngIf="isSelected(idx)">✓</div>
     </div>
