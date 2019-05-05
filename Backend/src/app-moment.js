@@ -42,6 +42,10 @@ router.get("/all", async (req, res) => {
         const user = await auth(req.headers.user, req.headers.token).catch(authFail);
         const allMoments = await MomentDB.find({ familyID: user.familyID });
         if (allMoments) {
+            allMoments.sort(function(a, b) {
+                var dateA = new Date(a.date), dateB = new Date(b.date);
+                return dateA - dateB;
+            });
             res.status(200).json(sanitize(allMoments.map(mom => {
                 mom.date = moment(mom.date).fromNow();
                 return mom;
