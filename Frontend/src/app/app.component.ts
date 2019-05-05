@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { StorageService } from './storage/storage.service';
-import { Router, RouterState, ActivatedRoute, Scroll } from '@angular/router';
+import { Router, RouterState, ActivatedRoute, Scroll, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { filter } from 'rxjs/operators';
 import { ViewportScroller } from '@angular/common';
@@ -52,13 +52,20 @@ export class AppComponent {
                 //   /moment/5
                 //   /new
                 //   /moment/image/5
-                
+
                 if (resetRoutes.test(e.routerEvent.url)) {
                     viewportScroller.scrollToPosition([0, 0]);
                 } else {
                     viewportScroller.scrollToPosition(e.position || [0, 0]);
                 }
             });
+
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd && (<any>window).ga) {
+                (<any>window).ga('set', 'page', event.urlAfterRedirects);
+                (<any>window).ga('send', 'pageview');
+            }
+        });
     }
 
     private async updateTitle() {
