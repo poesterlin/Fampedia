@@ -17,6 +17,7 @@
     "report": "nyc npm test"
   },
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
@@ -26,7 +27,6 @@
     "mongoose": "^5.0.6",
     "multer": "^1.3.0",
     "node-mailjet": "^3.2.1",
-    "password-hash": "^1.2.2",
     "pm2": "^3.5.0",
     "rand-token": "^0.4.0",
     "sharp": "^0.22.0"
