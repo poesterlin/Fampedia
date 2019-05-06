@@ -12,8 +12,8 @@ services:
     depends_on:
       - db
     restart: always
-
-  db:
+    volumes: 
+      - /etc/letsencrypt/live/backend.df-ma.de
     image: mongo
     restart: always
     volumes:
