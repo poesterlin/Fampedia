@@ -1,0 +1,47 @@
+@import "../../styles/helperMixins.scss";
+@import "../../styles/theme.scss";
+
+p {
+  width: 100vw;
+  text-align: center;
+  margin: -35px 0 30px;
+}
+
+mat-toolbar {
+  background: white !important;
+  color: black !important;
+  user-select: none;
+
+  div,
+  button {
+    height: 100%;
+  }
+
+  #headline {
+    text-align: center;
+    padding-top: 15px;
+  }
+}
+
+.container {
+  height: calc(100vh - 220px);
+  overflow: auto;
+}
+
+.buttons {
+  width: 100vw;
+  button {
+    @include clickable() {
+      background: gray;
+    }
+    margin: 10px auto;
+    background: lightgray;
+    font-size: 180%;
+    border: none;
+    width: 300px;
+    max-width: 90vw;
+    height: 50px;
+    text-align: center;
+    display: table;
+  }
+}

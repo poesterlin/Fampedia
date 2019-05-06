@@ -3,7 +3,7 @@
   <button id="back" mat-icon-button routerLink="">
     <mat-icon>keyboard_backspace</mat-icon>
   </button>
-  <button id="add" mat-icon-button routerLink="">
+  <button id="add" mat-icon-button *ngIf="moment" [routerLink]="'/new/add/' + moment.momentId">
     <mat-icon>add</mat-icon>
   </button>
   <div>

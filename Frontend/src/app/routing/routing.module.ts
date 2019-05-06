@@ -13,23 +13,23 @@ const routes: Routes = [
     canActivate: [IsLoggedIn],
   },
   { path: 'main', redirectTo: '' },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', data: { title: 'LOGIN' }, component: LoginComponent },
   {
     path: 'moment',
     loadChildren: '../moment/moment.module#MomentModule',
     data: { title: 'MOMENT', preload: true, delay: 5 },
     canActivate: [IsLoggedIn],
   },
-  {
-    path: 'recipes',
-    loadChildren: '../recipes/recipes.module#RecipesModule',
-    data: { title: 'RECIPES', preload: true, delay: 5 },
-    canActivate: [IsLoggedIn],
-  },
+  // {
+  //   path: 'recipes',
+  //   loadChildren: '../recipes/recipes.module#RecipesModule',
+  //   data: { title: 'RECIPES', preload: true, delay: 5 },
+  //   canActivate: [IsLoggedIn],
+  // },
   {
     path: 'new',
     loadChildren: '../new-moment/new-moment.module#NewMomentModule',
-    data: { preload: false, delay: 5 },
+    data: { preload: false, delay: 5, title: 'NEW_MOMENT' },
     canActivate: [IsLoggedIn],
   },
   // wildcard for invalid urls

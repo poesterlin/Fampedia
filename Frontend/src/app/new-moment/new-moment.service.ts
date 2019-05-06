@@ -12,16 +12,20 @@ export class NewMomentService {
     if (this.moment.title && this.moment.description) {
       this.core.addMoment(this.moment.title, this.moment.description, this.moment.date)
         .subscribe(async ({ momentID }) => {
-          const promises: Promise<any>[] = [];
-          for (const image of this.images) {
-            promises.push(this.core.addMomentImage('image', momentID, this.dataURItoBlob(image)).toPromise());
-          }
-          await Promise.all(promises);
+          await this.uploadImages(momentID);
           
           // reload to kill camera stream
           document.location.href = document.location.origin;
         })
     }
+  }
+
+  public async uploadImages(momentID: number) {
+    const promises: Promise<any>[] = [];
+    for (const image of this.images) {
+      promises.push(this.core.addMomentImage('image', momentID, this.dataURItoBlob(image)).toPromise());
+    }
+    return await Promise.all(promises);
   }
 
   private dataURItoBlob(dataURI: string) {

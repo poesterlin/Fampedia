@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NewMomentService } from '../new-moment.service';
 
 @Component({
@@ -7,6 +7,7 @@ import { NewMomentService } from '../new-moment.service';
   styleUrls: ['./images-web.component.scss']
 })
 export class ImagesWebComponent implements OnInit {
+  @Input() title: boolean = true;
   public images: { data: string, isBase64: boolean }[] = new Array(100).fill(null).map((_, idx) => ({ data: 'https://loremflickr.com/320/240/water?lock=' + idx, isBase64: false }));
   public takePicture = false;
   private selected: number[] = [];

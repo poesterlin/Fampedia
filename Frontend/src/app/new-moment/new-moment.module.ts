@@ -12,11 +12,26 @@ import { MomentCameraComponent } from './moment-camera/moment-camera.component';
 import { DirectivesModule } from '../helpers/directives.module';
 import { FormsModule } from '@angular/forms';
 import { NewMomentService } from './new-moment.service';
+import { AddImageComponent } from './add-image/add-image.component';
 
-const routes: Routes = [{ path: '**', component: NewMomentComponent }];
+const routes: Routes = [
+  { path: 'moment', data: { title: 'NOT_FOUND' }, component: NewMomentComponent },
+  {
+    path: 'add', data: { title: 'NOT_FOUND' },
+    children: [{ path: ':id', component: AddImageComponent }]
+  }
+];
 
 @NgModule({
-  declarations: [NewMomentComponent, DataComponent, ImagesWebComponent, AccessComponent, PeopleSelectComponent, MomentCameraComponent],
+  declarations: [
+    NewMomentComponent,
+    DataComponent,
+    ImagesWebComponent,
+    AccessComponent,
+    PeopleSelectComponent,
+    MomentCameraComponent,
+    AddImageComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
