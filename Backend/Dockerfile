@@ -1,4 +1,4 @@
-FROM node:10.15.3-slim
+FROM node:10.15-slim
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -9,8 +9,8 @@ COPY package.json package-lock.json ./
 RUN npm install --quiet
 
 # Bundle app source
-COPY . .
+COPY ./src .
 
 EXPOSE 3000
 
-CMD npm run server
+CMD /bin/sh -c "sleep 10 && npm start"
