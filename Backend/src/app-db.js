@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const mongoUrl = process.env.mongoUrl || "mongodb://127.0.0.1:27017/fampedia";
-const passwordHash = require("password-hash");
+const bcrypt = require("bcrypt");
 
 const { log } = require("./app");
 mongoose.connect(mongoUrl);
@@ -67,7 +67,7 @@ async function testUser(user, password, keep = true) {
         const fam = await new FamilyDB({name: 'Test Family'}).save();
         let newUser = new UserDB({
             user,
-            hash: passwordHash.generate(password),
+            hash: await bcrypt.hash(password, 10),
             familyID: fam.id,
         });
         await newUser.save();

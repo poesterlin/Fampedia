@@ -9,7 +9,6 @@
 
     #image {
         z-index: 0;
-        background-image: url("https://www.w3schools.com/w3images/photographer.jpg");
         position: absolute;
         height: 250px;
         width: 100%;
@@ -106,8 +105,8 @@ $gap: 5px;
 .dash {
     display: grid;
 
-    grid-template-columns: repeat(4, calc(25vmin - 5px));
-    grid-template-rows: repeat(100, calc(25vmin - 5px));
+    grid-template-columns: repeat(4, calc(25vmin - 10px));
+    // grid-template-rows: repeat(100, calc(25vmin - 5px));
 
     grid-gap: $gap;
     padding: 0;

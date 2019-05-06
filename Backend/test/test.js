@@ -352,11 +352,24 @@ describe("Task API Routes", () => {
     });
   });
   describe("setup example family", () => {
-    it("delete image and check on article", async () => {
-      new Array(10).fill(null).forEach(() => {
-        newMom("great moment", "wow so great", token, username);
-      })
-    });
+    it("add a lot of images", async () => {
+
+      const titles = ['Summer Vacation', 'Winter Holiday', 'Grandmas Birthday'];
+      const desc = ['Summer 2018, Teneriffa', ];
+
+      for (let i = 0; i < 20; i++) {
+        const t = Math.floor(Math.random() * titles.length);
+        const d = Math.floor(Math.random() * desc.length);
+        const id = await newMom(titles[t], desc[d], token, username);
+        const n = Math.floor(Math.random() * 36);
+        const promises = [];
+        for (let j = 0; j < n; j++) {
+          const r = Math.floor(Math.random() * 36);
+          promises.push(addImage(id, `./test/images/im.${r}.jpg`, "no", username, token));
+        }
+        await Promise.all(promises);
+      }
+    }).timeout(10 * 60 * 1000); // 10 minutes
   });
 });
 
@@ -445,7 +458,8 @@ async function newMom(title, desc, token, username, httpStatus = 201) {
     .post("/moment/new")
     .send({
       title,
-      momentdescription: desc,
+      description: desc,
+      date: new Date()
     })
     .set("token", token)
     .set("user", username)

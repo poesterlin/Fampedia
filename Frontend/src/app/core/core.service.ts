@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Moment } from './Entitys/Moment';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { IMoment, MomentCreated } from './Interfaces/IMoment';
 
 interface HttpOptions {
-  authorization?: boolean
+  headers?: { key: string, value: string }[];
 }
 
 @Injectable({
@@ -15,33 +15,35 @@ interface HttpOptions {
 export class CoreService {
   constructor(private http: HttpClient) { }
 
-
+  public addMomentImage(description: string, momentID: number, file: Blob) {
+    const formdata = new FormData();
+    formdata.append('image', file);
+    return this.post(`momentimage/addimage/${momentID}`, formdata, { headers: [{ key: 'desc', value: description }] });
+  }
 
   public updateMoment(moment: Moment) {
-    if (!moment.dirtyFlag) { return of(false) }
-
-    // TODO: Implement errorhandling
-    // dont forget to subscribe to return value somewhere
-    return this.post("momenturl", moment).pipe(
-      tap(() => moment.dirtyFlag = false)
-    )
+    return this.post(`moment/edit`, moment)
   }
 
+  public addMoment(title: string, description: string, date: Date = new Date()) {
+    return this.post<MomentCreated>(`moment/new`, { title, description, date }) 
+  }
 
   public getMoments() {
-    // TODO: Implement json to moment object conversion
-    // TODO: Implement errorhandling
-    // dont forget to subscribe to return value somewhere
-    return this.get("momenturl")
+    return this.get<IMoment[]>(`moment/all`).pipe(map(momentJSON => momentJSON.map(json => new Moment(json))))
+  }
+
+  public login(username: string, password: string) {
+    return this.post(`user/login`, { "un": username, "pw": password })
   }
 
 
-  private get(uri: string, config: HttpOptions = {}) {
-    return this.http.get(this.url + "/" + uri, this.makeOptions(config))
+  private get<T>(uri: string, config: HttpOptions = {}) {
+    return this.http.get<T>(this.url + "/" + uri, this.makeOptions(config))
   }
 
-  private post(uri: string, body: any, config: HttpOptions = {}) {
-    return this.http.post(this.url + "/" + uri, body, this.makeOptions(config))
+  private post<T>(uri: string, body: any, config: HttpOptions = {}) {
+    return this.http.post<T>(this.url + "/" + uri, body, this.makeOptions(config))
   }
 
   private makeOptions(config: HttpOptions) {
@@ -49,9 +51,8 @@ export class CoreService {
       headers: new HttpHeaders(),
       params: new HttpParams()
     };
-    if (config.authorization) {
-      // TODO: Token stuff
-      options.headers.set('Authorization', 'my-new-auth-token');
+    if (config.headers) {
+      config.headers.forEach(({ key, value }) => options.headers.set(key, value))
     }
     return options;
   }

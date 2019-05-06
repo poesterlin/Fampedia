@@ -4,7 +4,8 @@
 /////////////////////////////
 
 "use strict";
-
+var fs = require('fs');
+var https = require('https');
 const cors = require("cors");
 const express = require("express");
 const router = express.Router();
@@ -13,9 +14,11 @@ const bodyParser = require("body-parser");
 const port = process.env.PORT || 3000;
 
 const app = express();
+
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/", router);
+
 app.use(function (err, _req, res, _next) {
     if (err) {
         if (err.message === "File too large") {
@@ -27,9 +30,18 @@ app.use(function (err, _req, res, _next) {
 });
 
 
-const server = app.listen(port, () => {
-    log("The Server ist running on Port " + port);
-});
+// for local dev
+// const server = app.listen(port, () => {
+//     log("The Server ist running on Port " + port);
+// });
+
+const server = https.createServer({
+    key: fs.readFileSync('/etc/letsencrypt/live/backend.df-ma.de/fullchain.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/backend.df-ma.de/privkey.pem')
+}, app)
+    .listen(port, () => {
+        log("The Server ist running on Port " + port);
+    });
 
 exports.server = server;
 exports.router = router;
@@ -58,7 +70,6 @@ app.use("/momentimage", require('./app-image'));
  *  user management routes
  */
 app.use("/user", userRoutes);
-
 
 ///////////////////
 // Required global functions

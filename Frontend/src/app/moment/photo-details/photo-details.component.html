@@ -1,13 +1,13 @@
 <mat-toolbar>
   <div fxLayout="row" fxFlex="100" fxLayoutAlign="start stretch">
-    <button mat-button routerLink="/moment/5" fxFlex="10">
+    <button mat-button (click)="back()" fxFlex="10">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
   </div>
 </mat-toolbar>
 
 <div class="imageContainer">
-  <img famImage image="https://source.unsplash.com/600x600/?water">
+  <img famImage [imageId]="imageId" size="680">
 </div>
 
 <div class="comment" *ngFor="let comment of comments" fxLayout="row break" fxLayoutAlign="space-between start"

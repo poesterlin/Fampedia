@@ -1,5 +1,5 @@
 // @ts-check
-const passwordHash = require("password-hash");
+const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const randtoken = require("rand-token");
 const { UserDB, TokenDB, FamilyDB } = require("./app-db");
@@ -13,7 +13,7 @@ router.post("/login", async (req, res) => {
         let findUser = await UserDB.findOne({
             user
         });
-        if (!findUser || !passwordHash.verify(req.body.pw, findUser.hash)) {
+        if (!findUser || ! await bcrypt.compare(req.body.pw, findUser.hash)) {
             throw 401;
         }
         let token = jwt.sign({
@@ -60,11 +60,12 @@ router.post("/register", async (req, res) => {
 
         if (!findFamily) { throw 400; }
 
-        await new UserDB({
+        const u = new UserDB({
             user,
-            hash: passwordHash.generate(req.body.pw),
+            hash: await bcrypt.hash(req.body.pw, 10),
             familyID: findFamily.id
-        }).save();
+        })
+        await u.save();
 
         res.status(201).send();
     }

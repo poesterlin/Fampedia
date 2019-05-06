@@ -95,7 +95,6 @@ router.get("/getImage/:width/:ID", async (req, res, next) => {
             default:
                 data = image.data320;
         }
-        res.setHeader('description', image.desc);
         res.setHeader('Content-Transfer-Encoding', 'binary');
         res.setHeader('Content-Type', 'image/webp');
         res.send(data);
