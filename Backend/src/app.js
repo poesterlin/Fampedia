@@ -33,8 +33,8 @@ app.use(function (err, _req, res, _next) {
 let server;
 if (process.env.NODE_ENV === 'production') {
     server = https.createServer({
-        key: fs.readFileSync('/etc/letsencrypt/live/backend.df-ma.de/privkey.pem'),
-        cert: fs.readFileSync('/etc/letsencrypt/live/backend.df-ma.de/fullchain.pem')
+        key: fs.readFileSync('privkey.pem'),
+        cert: fs.readFileSync('fullchain.pem')
     }, app).listen(port, () => {
         log("The Server ist running on Port " + port);
     });

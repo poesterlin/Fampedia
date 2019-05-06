@@ -4,7 +4,7 @@ FROM node:10.15-slim
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json /etc/letsencrypt/live/backend.df-ma.de/ ./
 
 RUN npm install --quiet
 
@@ -13,4 +13,4 @@ COPY ./src .
 
 EXPOSE 3000
 
-CMD /bin/sh -c "sleep 10 && npm start"
+CMD ls && /bin/sh -c "sleep 10 && node app.js"
