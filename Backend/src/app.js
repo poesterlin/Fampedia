@@ -36,12 +36,11 @@ app.use(function (err, _req, res, _next) {
 // });
 
 const server = https.createServer({
-    key: fs.readFileSync('/etc/letsencrypt/live/backend.df-ma.de/fullchain.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/backend.df-ma.de/privkey.pem')
-}, app)
-    .listen(port, () => {
-        log("The Server ist running on Port " + port);
-    });
+    key: fs.readFileSync('/etc/letsencrypt/live/backend.df-ma.de/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/backend.df-ma.de/fullchain.pem')
+}, app).listen(port, () => {
+    log("The Server ist running on Port " + port);
+});
 
 exports.server = server;
 exports.router = router;
