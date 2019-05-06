@@ -4,7 +4,7 @@ FROM node:10.15-slim
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package.json package-lock.json privkey.pem /etc/letsencrypt/live/backend.df-ma.de/ ./
+COPY package.json package-lock.json /etc/letsencrypt/live/backend.df-ma.de/ ./
 
 RUN npm install --quiet
 
