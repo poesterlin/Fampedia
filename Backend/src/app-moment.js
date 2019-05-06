@@ -44,7 +44,8 @@ router.get("/all", async (req, res) => {
         if (allMoments) {
             allMoments.sort(function(a, b) {
                 var dateA = new Date(a.date), dateB = new Date(b.date);
-                return dateA - dateB;
+                // @ts-ignore
+                return dateB - dateA;
             });
             res.status(200).json(sanitize(allMoments.map(mom => {
                 mom.date = moment(mom.date).fromNow();
