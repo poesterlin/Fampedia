@@ -10,12 +10,15 @@
       </button>
     </div>
 
-    <div id="folder" fxFlex="calc(100% - 80px)">
-      <span>Phone folder name</span>
-      <div id="folderDropDown" fxLayout="row break" fxLayoutAlign="space-between center">
-        <mat-icon>arrow_drop_down</mat-icon>
-        Camera Pictures
-      </div>
+    <div id="folder" fxFlex="calc(100% - 80px)" fxLayout="row break">
+      <span fxFlex="100">Phone folder name</span>
+      <input type="file" id="file" (change)="uploadFile($event)" name="file" style="display:none" multiple />
+      <label for="file" fxFlex="100">
+        <div id="folderDropDown" fxLayout="row break" fxLayoutAlign="space-between center">
+          <mat-icon>arrow_drop_down</mat-icon>
+          Camera Pictures
+        </div>
+      </label>
     </div>
   </div>
 

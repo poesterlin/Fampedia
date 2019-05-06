@@ -53,11 +53,24 @@ export class ImagesWebComponent implements OnInit {
 
     reader.readAsDataURL(blob);
     return new Promise((res) => {
-      reader.onloadend = () => {
-        res(reader.result as string);
-      }
+      reader.onloadend = () => res(reader.result as string);
     });
   }
 
+  public async uploadFile(event: Event) {
+    const files = (event.srcElement! as HTMLInputElement).files;
+    if (files) {
+      const reader = new FileReader();
+
+      for (const file of Array.from(files)) {
+        reader.readAsDataURL(file);
+        const res = await new Promise<string>((res) => {
+          reader.onloadend = () => { res(reader.result as string) };
+        });
+        this.images.unshift({ data: res, isBase64: true });
+      }
+      this.selected = this.selected.map(n => n + files.length);
+    }
+  }
 
 }
