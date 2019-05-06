@@ -5,6 +5,7 @@ services:
     build: .
     environment:
       - mongoUrl=mongodb://db:27017/news
+      - NODE_ENV=production
     ports:
       - "3000:3000"
     links:
