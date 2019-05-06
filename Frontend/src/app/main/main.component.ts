@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { EComponent, MainService } from './main.service';
+import { ErrorService } from '../error/shared/error.service';
 
 @Component({
   selector: 'fampedia-main',
@@ -10,7 +11,7 @@ export class MainComponent {
   public comp!: EComponent;
 
 
-  constructor(private service: MainService) {
+  constructor(private service: MainService, private error: ErrorService) {
     this.service.comp$.subscribe(comp => this.comp = comp);
   }
 
@@ -32,6 +33,10 @@ export class MainComponent {
     if (this.comp > 0) {
       this.setComp(this.comp - 1);
     }
+  }
+
+  public notImplemented(){
+    this.error.showMessage('not implemented yet');
   }
 
 }
