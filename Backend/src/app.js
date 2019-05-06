@@ -30,17 +30,20 @@ app.use(function (err, _req, res, _next) {
 });
 
 
-// for local dev
-// const server = app.listen(port, () => {
-//     log("The Server ist running on Port " + port);
-// });
-
-const server = https.createServer({
-    key: fs.readFileSync('/etc/letsencrypt/live/backend.df-ma.de/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/backend.df-ma.de/fullchain.pem')
-}, app).listen(port, () => {
-    log("The Server ist running on Port " + port);
-});
+let server;
+if (process.env.NODE_ENV === 'production') {
+    server = https.createServer({
+        key: fs.readFileSync('/etc/letsencrypt/live/backend.df-ma.de/privkey.pem'),
+        cert: fs.readFileSync('/etc/letsencrypt/live/backend.df-ma.de/fullchain.pem')
+    }, app).listen(port, () => {
+        log("The Server ist running on Port " + port);
+    });
+}
+else {
+    server = app.listen(port, () => {
+        log("The Server ist running on Port " + port);
+    });
+}
 
 exports.server = server;
 exports.router = router;

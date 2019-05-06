@@ -17,6 +17,7 @@ db.once("open", async function () {
 process.on('SIGINT', async () => {
     await mongoose.disconnect();
     log("shutdown");
+    process.exit(0);
 });
 
 
