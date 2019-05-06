@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NewMomentService } from '../new-moment.service';
 
 @Component({
   selector: 'fampedia-new-moment-access',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccessComponent implements OnInit {
 
-  constructor() { }
+  constructor(public service: NewMomentService) { }
 
   ngOnInit() {
   }

@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 import { ExceptionComponent } from '../exception/exception.component';
 
 export enum eMessageDuration {
-    Short = 1700,
+    Short = 1500,
     Middle = 3000,
     Long = 7000
 }

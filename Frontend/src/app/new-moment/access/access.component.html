@@ -1,3 +1,17 @@
-<p>
+<!-- <p>
   Who would you like to have access to this moment?
-</p>
+</p> -->
+
+
+<p>Summary</p>
+
+<div fxLayout="row break">
+  <span fxFlex="100">Title: {{service.moment.title}}</span>
+  <span fxFlex="100">Description: {{service.moment.description}}</span>
+</div>
+
+<p>Images</p>
+
+<div fxLayout="row break" fxLayoutAlign="center center">
+  <img fxFlex="33" *ngFor="let img of service.images" [src]="img">
+</div>
