@@ -15,11 +15,13 @@ $rad: 19px;
     height: 100%;
     position: absolute;
     img {
+      position: absolute;
+    }
+    img {
       @include constrainImage(100%, 100%, cover);
       z-index: -1;
       overflow: hidden;
       border-radius: $rad;
-      background: #d4d3d3;
     }
     .left {
       direction: rtl;
@@ -29,14 +31,21 @@ $rad: 19px;
       direction: ltr;
       text-align: left;
     }
+    .data.left {
+      background: linear-gradient(190deg, #0000001f 26px, transparent 122px, transparent);
+    }
+    .data.right {
+      background: linear-gradient(166deg, #0000001f 26px, transparent 122px, transparent);
+    }
     .data {
       color: white;
       position: absolute;
-      margin: 10px -15px 0px;
+      padding: 10px 15px 0px;
       text-shadow: 0 0 4px #00000047;
       z-index: 1;
       line-height: 12px;
       direction: initial;
+      border-radius: $rad;
       span {
         display: inline-block;
         width: 85%;
@@ -50,15 +59,15 @@ $rad: 19px;
   }
   i.line {
     background: rgb(97, 97, 97);
-    width: 6vw;
+    width: 5vw;
     height: 1px;
     position: absolute;
     z-index: -10;
     &.left {
-      transform: translate(39vw, 25px)
+      transform: translate(40vw, 25px);
     }
     &.right {
-      transform: translate(-39vw, 25px)
+      transform: translate(-40vw, 25px);
     }
   }
   i.bubble {
