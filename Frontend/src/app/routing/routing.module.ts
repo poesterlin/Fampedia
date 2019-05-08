@@ -20,6 +20,11 @@ const routes: Routes = [
     data: { title: 'MOMENT', preload: true, delay: 5 },
     canActivate: [IsLoggedIn],
   },
+  {
+    path: 'register',
+    loadChildren: '../register/register.module#RegisterModule',
+    data: { title: 'MOMENT', preload: false },
+  },
   // {
   //   path: 'recipes',
   //   loadChildren: '../recipes/recipes.module#RecipesModule',

@@ -78,7 +78,7 @@ router.post("/register", async (req, res) => {
 router.get("/family/:NAME", async (req, res) => {
     try {
         const findFamily = await FamilyDB.findOne({
-            name: req.params.ID
+            name: req.params.NAME
         });
 
         res.status(200).json({ avaliable: !!findFamily });

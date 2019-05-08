@@ -1,0 +1,35 @@
+<div fxLayout="row break" id="card">
+  <h3 fxFlex="100">Create new Fampedia-Account</h3>
+  <div fxFlex="100" fxLayout="row break">
+    <label fxFlex="100" for="family">Join Family</label>
+    <input fxFlex="100" id="family" type="text" [(ngModel)]="family" (change)="checkFamilyName()">
+  </div>
+  <span fxFlex="100" *ngIf="!avaliable && family">
+    Family doesn’t exist yet. New Family will be created.
+  </span>
+  <span fxFlex="100" *ngIf="avaliable && family">
+    Family found. Ready to join.
+  </span>
+  <div class="spacer" fxFlex="100"></div>
+  <div fxFlex="100" fxLayout="row break">
+    <label fxFlex="100" for="email">E-Mail</label>
+    <input fxFlex="100" id="email" type="email">
+  </div>
+  <div fxFlex="100" fxLayout="row break">
+    <label fxFlex="100" for="un">Username</label>
+    <input fxFlex="100" id="un" type="text" [(ngModel)]="username">
+  </div>
+  <div fxFlex="100" fxLayout="row break">
+    <label fxFlex="100" for="pw">Password</label>
+    <input fxFlex="100" id="pw" type="password" [(ngModel)]="password">
+  </div>
+  <span fxFlex="100" id="test">
+    This is just a test.
+    <br>
+    Data might not be saved permanently.
+  </span>
+  <div fxFlex="100">
+    <button (click)="register()">Register</button>
+  </div>
+
+</div>
