@@ -34,9 +34,4 @@ export class MainComponent {
       this.setComp(this.comp - 1);
     }
   }
-
-  public notImplemented(){
-    this.error.showMessage('not implemented yet');
-  }
-
 }
