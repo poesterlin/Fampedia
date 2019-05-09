@@ -25,7 +25,7 @@
     <fampedia-new-moment-access *ngIf="index === 2"></fampedia-new-moment-access>
 </div>
     
-<div class="buttons">
+<div class="buttons" *ngIf="showButton">
     <button (click)="next()" class="nextBtn" *ngIf="index < 2">NEXT</button>
     <button (click)="upload()" class="nextBtn" *ngIf="index == 2">UPLOAD</button>
 </div>

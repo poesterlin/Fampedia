@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CoreService } from '../core/core.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class NewMomentService {
+  public readonly showButton: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   public moment: { title?: string, description?: string, date?: Date } = {};
   public images: string[] = [];
 
@@ -13,7 +15,7 @@ export class NewMomentService {
       this.core.addMoment(this.moment.title, this.moment.description, this.moment.date)
         .subscribe(async ({ momentID }) => {
           await this.uploadImages(momentID);
-          
+
           // reload to kill camera stream
           document.location.href = document.location.origin;
         })

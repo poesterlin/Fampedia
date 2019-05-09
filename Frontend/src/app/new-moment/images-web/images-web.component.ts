@@ -21,6 +21,7 @@ export class ImagesWebComponent implements OnInit {
     this.selected = this.selected.map(n => n + images.length);
     this.takePicture = false;
     this.updateServiceImages();
+    this.service.showButton.next(true);
   }
 
   public select(idx: number) {
@@ -57,4 +58,8 @@ export class ImagesWebComponent implements OnInit {
     }
   }
 
+  public imageMode(){
+    this.service.showButton.next(false);
+    this.takePicture = true;
+  }
 }

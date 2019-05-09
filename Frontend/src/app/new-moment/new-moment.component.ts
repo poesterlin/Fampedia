@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NewMomentService } from './new-moment.service';
 import { ErrorService, eMessageDuration } from '../error/shared/error.service';
 
@@ -7,15 +7,20 @@ import { ErrorService, eMessageDuration } from '../error/shared/error.service';
   templateUrl: './new-moment.component.html',
   styleUrls: ['./new-moment.component.scss']
 })
-export class NewMomentComponent {
+export class NewMomentComponent implements OnInit {
   public index = 0;
+  public showButton = true;
 
   constructor(private service: NewMomentService, private error: ErrorService) { }
+
+  ngOnInit() {
+    this.service.showButton.subscribe(val => this.showButton = val);
+  }
 
   public next() {
     if (this.index === 1) {
       if (this.service.images.length > 0) {
-      this.index++;
+        this.index++;
       } else {
         this.error.showMessage('Please add at least one image.', true, eMessageDuration.Short);
       }

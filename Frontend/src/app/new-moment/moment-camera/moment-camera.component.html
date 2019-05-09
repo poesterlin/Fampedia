@@ -33,10 +33,8 @@
   alt="The screen capture will appear in this box.">
 
 <div class="output" fxLayout="column break" fxLayoutAlign="center center" *ngIf=" mode === 'display'">
-  <span fxFlex="100"> Keep picture? </span>
   <div fxLayout="row" fxFlex="100" fxLayoutGap="5px">
-    <button fxFlex="50" (click)="clearPhoto()">No, repeat</button>
-    <button fxFlex="50" (click)="returnImages()">Yes, continue</button>
+    <button fxFlex="50" (click)="addImage()">More</button>
+    <button fxFlex="50" (click)="returnImages()">Done</button>
   </div>
-  <button class="big" fxFlex="100" (click)="addImage()">Yes, take more to add</button>
 </div>
