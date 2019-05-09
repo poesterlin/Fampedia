@@ -1,14 +1,12 @@
 {
-    "test": "English",
     "titles": {
         "undefined": "",
         "DASHBOARD": "Dashboard",
         "RECIPES": "Recipes",
         "MAIN": "Main",
-        "MOMENT": "Moment"
-    },
-    "navbar":{
-        "LANGUAGE_SWITCH": "Change language",
-        "NONE": ""
+        "MOMENT": "Moment",
+        "LOGIN": "Login",
+        "NEW_MOMENT": "new Moment",
+        "NOT_FOUND": ""
     }
 }

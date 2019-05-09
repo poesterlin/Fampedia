@@ -1,0 +1,19 @@
+<mat-toolbar>
+  <div fxLayout="row" fxFlex="100" fxLayoutAlign="start stretch">
+      <button mat-button routerLink="/" fxFlex="10">
+          <mat-icon>keyboard_backspace</mat-icon>
+      </button>
+      <div fxFlex="90" id="headline"></div>
+  </div>
+</mat-toolbar>
+
+<p>
+  Add Images to Moment.
+</p>
+<div class="container">
+  <fampedia-new-moment-images [title]="false"></fampedia-new-moment-images>
+</div>
+
+<div class="buttons">
+  <button (click)="add()">Add</button>
+</div>

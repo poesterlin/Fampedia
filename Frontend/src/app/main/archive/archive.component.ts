@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ErrorService } from 'src/app/error/shared/error.service';
 
 @Component({
   selector: 'fampedia-archive',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArchiveComponent implements OnInit {
 
-  constructor() { }
+  constructor(private error: ErrorService) { }
 
   ngOnInit() {
   }
 
+
+  public notImplemented() {
+    this.error.showMessage('not implemented yet');
+  }
 }

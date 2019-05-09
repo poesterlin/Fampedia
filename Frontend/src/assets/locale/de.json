@@ -1,14 +1,12 @@
 {
-    "test": "Deutsch",
     "titles": {
         "undefined": "",
         "DASHBOARD": "Dashboard",
         "RECIPES": "Rezepte",
-        "MAIN": "Main",
-        "MOMENT": "Moment"
-    },
-    "navbar":{
-        "LANGUAGE_SWITCH": "Sprache wechseln",
-        "NONE": ""
+        "MAIN": "Timeline",
+        "MOMENT": "Moment",
+        "LOGIN": "Login",
+        "NEW_MOMENT": "neuer Moment",
+        "NOT_FOUND": ""
     }
 }

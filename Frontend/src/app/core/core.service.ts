@@ -4,6 +4,7 @@ import { Moment } from './Entitys/Moment';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { IMoment, MomentCreated } from './Interfaces/IMoment';
+import { Observable } from 'rxjs';
 
 interface HttpOptions {
   headers?: { key: string, value: string }[];
@@ -26,7 +27,7 @@ export class CoreService {
   }
 
   public addMoment(title: string, description: string, date: Date = new Date()) {
-    return this.post<MomentCreated>(`moment/new`, { title, description, date }) 
+    return this.post<MomentCreated>(`moment/new`, { title, description, date })
   }
 
   public getMoments() {
@@ -35,6 +36,18 @@ export class CoreService {
 
   public login(username: string, password: string) {
     return this.post(`user/login`, { "un": username, "pw": password })
+  }
+
+  public checkFamilyName(family: string): Observable<boolean> {
+    return this.get<{ avaliable: boolean }>('user/family/' + family).pipe(map(resp => resp.avaliable));
+  }
+
+  public registerFamily(name: string) {
+    return this.post('user/family/new', { name });
+  }
+
+  public registerUser(un: string, pw: string, familyName: string) {
+    return this.post('user/register', { un, pw, familyName })
   }
 
 

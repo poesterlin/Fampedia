@@ -1,9 +1,9 @@
 <div id="header" (window:scroll)="update()">
-  <div id="image" [ngStyle]="{'background-image': imageUrl}"> </div>
+  <div id="image" [ngStyle]="{'background-image': 'linear-gradient(12deg, rgb(0, 0, 0, 0.3), transparent),' + imageUrl}"> </div>
   <button id="back" mat-icon-button routerLink="">
     <mat-icon>keyboard_backspace</mat-icon>
   </button>
-  <button id="add" mat-icon-button routerLink="">
+  <button id="add" mat-icon-button *ngIf="moment" [routerLink]="'/new/add/' + moment.momentId">
     <mat-icon>add</mat-icon>
   </button>
   <div>

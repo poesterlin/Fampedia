@@ -3,6 +3,7 @@ import { AfterViewInit, Component, HostBinding } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { distinctUntilChanged, filter, map, pairwise, share, throttleTime } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ErrorService } from 'src/app/error/shared/error.service';
 
 
 enum Direction {
@@ -28,7 +29,7 @@ enum Direction {
 export class ToolHeaderComponent implements AfterViewInit {
   private state: 'normal' | 'visible' | 'hidden' = 'normal';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private error: ErrorService) { }
 
   @HostBinding('@mode')
   get mode(): 'normal' | 'visible' | 'hidden' {
@@ -64,5 +65,9 @@ export class ToolHeaderComponent implements AfterViewInit {
 
   public goTo(s: string) {
     this.router.navigate(s.split('/'));
+  }
+
+  notImplemented(){
+    this.error.showMessage('You can only add moments for now.')
   }
 }

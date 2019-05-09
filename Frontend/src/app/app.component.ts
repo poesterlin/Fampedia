@@ -72,7 +72,7 @@ export class AppComponent {
         const title = await this.translate.get(
             'titles.' + this.getFirstModule(this.router.routerState, this.router.routerState.root)
         ).toPromise();
-        this.titleService.setTitle('fampedia | ' + title);
+        this.titleService.setTitle('Fampedia' + (title ? " | " : "") + title);
     }
 
     private getFirstModule(state: RouterState, parent: ActivatedRoute | null): string | undefined {

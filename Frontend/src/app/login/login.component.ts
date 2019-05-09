@@ -25,5 +25,11 @@ export class LoginComponent {
     )
   }
 
+  readonlyUser(){
+    this.username = 'fampedia';
+    this.password = 'fampedia';
+    this.login();
+  }
+
 
 }
