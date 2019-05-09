@@ -1,15 +1,46 @@
+mat-toolbar {
+  background: white !important;
+  color: black !important;
+  user-select: none;
+
+  button {
+    height: 100%;
+    color: black;
+  }
+}
+
 #card {
   margin: auto;
   width: 400px;
   padding: 10px;
   max-width: 90vw;
+
+  button {
+    width: 156px;
+    height: 33px;
+    left: 164px;
+    top: 542px;
+
+    background: #c4c4c4;
+    border-radius: 20px;
+
+    font-size: 16px;
+    line-height: 18px;
+    text-align: center;
+
+    color: rgba(0, 0, 0, 0.8);
+    border: 0;
+    outline: 0;
+    float: right;
+    margin-top: -30px;
+  }
 }
 
 h3 {
   font-size: 20px;
   line-height: 23px;
   text-align: center;
-  margin: 45px 0;
+  margin: -48px 0 25px;
 }
 
 input {
@@ -23,8 +54,8 @@ input {
   outline: 0;
 }
 
-input:focus{
-    border: 1px solid rgb(1, 1, 53);
+input:focus {
+  border: 1px solid rgb(1, 1, 53);
 }
 
 label {
@@ -34,8 +65,8 @@ label {
   border-radius: 15px;
 }
 
-label:focus{
-    color: blue;
+label:focus {
+  color: blue;
 }
 
 .spacer {
@@ -49,24 +80,4 @@ span#test {
   height: 104px;
   display: block;
   padding-top: 15px;
-}
-
-button {
-  width: 156px;
-  height: 33px;
-  left: 164px;
-  top: 542px;
-
-  background: #c4c4c4;
-  border-radius: 20px;
-
-  font-size: 16px;
-  line-height: 18px;
-  text-align: center;
-
-  color: rgba(0, 0, 0, 0.8);
-  border: 0;
-  outline: 0;
-  float: right;
-  margin-top: -30px;
 }
