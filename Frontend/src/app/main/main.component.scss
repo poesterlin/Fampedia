@@ -3,9 +3,10 @@
 @import "../styles/theme.scss";
 
 .headerContainer {
-  height: 146px;
-  width: 100%;
+  height: 66px;
+  width: 90%;
   background: white;
+  margin: auto;
 
   @include forType(gt-md) {
     height: 108px;
