@@ -14,11 +14,11 @@ export class NewMomentComponent {
 
   public next() {
     if (this.index === 1) {
-      // if (this.service.images.length > 0) {
+      if (this.service.images.length > 0) {
       this.index++;
-      // } else {
-      //   this.error.showMessage('Please select at least one image.', true, eMessageDuration.Short);
-      // }
+      } else {
+        this.error.showMessage('Please add at least one image.', true, eMessageDuration.Short);
+      }
     }
 
     if (this.index === 0) {

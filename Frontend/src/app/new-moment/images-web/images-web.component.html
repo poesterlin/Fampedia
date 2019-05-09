@@ -3,26 +3,28 @@
     Would you like to add some media to help you remeber this moment?
   </p>
   <div fxFlex="100">
-    <div id="openCamera" fxFlex="75px" fxLayout="row break" fxLayoutAlign="space-around center">
-      <button (click)="takePicture = !takePicture">
+    <div id="openCamera" fxFlex="50" fxLayout="row break" fxLayoutAlign="space-around center">
+      <button (click)="takePicture = !takePicture" fxLayout="row break" fxLayoutAlign="center center">
         <mat-icon>photo_camera</mat-icon>
         Take Pic
       </button>
     </div>
 
-    <div id="folder" fxFlex="calc(100% - 80px)" fxLayout="row break">
-      <span fxFlex="100">Phone folder name</span>
+    <div id="folder" fxFlex="50" fxLayout="row break">
       <input type="file" id="file" (change)="uploadFile($event)" name="file" style="display:none" multiple />
-      <label for="file" fxFlex="100">
-        <div id="folderDropDown" fxLayout="row break" fxLayoutAlign="space-between center">
-          <mat-icon>arrow_drop_down</mat-icon>
-          Camera Pictures
-        </div>
-      </label>
+      <button fxFlex="100" fxLayout="row break" fxLayoutAlign="center center">
+        <label for="file" fxFlex="100" fxLayout="row break" fxLayoutAlign="center center">
+          <mat-icon>collections</mat-icon>
+          <div id="folderDropDown">
+            Upload Pictures
+          </div>
+        </label>
+      </button>
     </div>
   </div>
 
   <div class="fotogrid" fxLayout="row break" fxLayoutAlign="space-around start" fxLayoutGap="3px">
+    <div id="noPics" *ngIf="images.length === 0">No pictures :(</div>
     <div class="imageContainer" *ngFor="let im of images; let idx = index" fxFlex="calc(25% - 3px)" fxLayout="row"
       fxLayoutAlign="end start" (click)="select(idx)">
       <div fxFlex="100">
