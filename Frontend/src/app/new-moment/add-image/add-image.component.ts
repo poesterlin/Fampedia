@@ -9,9 +9,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddImageComponent {
   private id = 0
+  public showButton = true;
 
   constructor(private service: NewMomentService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => this.id = +params['id']);
+    this.service.showButton.subscribe(val => this.showButton = val);
   }
 
   async add() {
