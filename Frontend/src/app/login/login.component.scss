@@ -1,10 +1,68 @@
-div {
+#card {
+  margin: calc(50vh - 190px) auto 0;
   width: 400px;
-  margin: 30vh auto 0;
-  max-width: 80vw;
   padding: 10px;
-  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.733);
-  & > * {
-    margin: 3px 0;
+  max-width: 90vw;
+
+  button {
+    width: 156px;
+    height: 33px;
+    background: #c4c4c4;
+    border-radius: 20px;
+    font-size: 16px;
+    line-height: 18px;
+    color: rgba(0, 0, 0, 0.8);
+    border: 0;
+    outline: 0;
+    margin: 5px 0;
   }
+  .big {
+    margin: 2px 5px 0 0;
+  }
+}
+
+h3 {
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
+  margin: -48px 0 25px;
+}
+
+input {
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 6px;
+  height: 43px;
+  padding: 0 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  outline: 0;
+}
+
+input:focus {
+  border: 1px solid rgb(1, 1, 53);
+}
+
+label {
+  transform: translate(7px, 16px);
+  background: linear-gradient(white 50%, transparent 53%);
+  padding: 0 5px;
+  border-radius: 15px;
+}
+
+label:focus {
+  color: blue;
+}
+
+.spacer {
+  height: 25px;
+}
+
+span#test {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  height: 104px;
+  display: block;
+  padding-top: 15px;
 }

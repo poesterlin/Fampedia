@@ -1,9 +1,15 @@
-<div fxLayout="row break">
-  <span fxFlex="30">Username</span>
-  <input fxFlex="70" type="text" [(ngModel)]="username">
-  <span fxFlex="30">Password</span>
-  <input fxFlex="70" type="password" [(ngModel)]="password">
-  <button fxFlex="50" (click)="login()">Login</button>
-  <button fxFlex="50" routerLink="/register">Register</button>
-  <button fxFlex="100" (click)="readonlyUser()">Demo</button>
+<div fxLayout="row break" id="card">
+  <div fxFlex="100" fxLayout="row break">
+    <label for="name">Username</label>
+    <input fxFlex="100" id="name" type="text" [(ngModel)]="username">
+  </div>
+  <div fxFlex="100" fxLayout="row break">
+    <label for="passwd">Password</label>
+    <input fxFlex="100" id="passwd" type="password" [(ngModel)]="password">
+  </div>
+  <div fxLayout="row break" fxLayoutGap="5px">
+    <button fxFlex="calc(50% - 5px)" (click)="login()">Login</button>
+    <button fxFlex="calc(50% - 5px)" routerLink="/register">Register</button>
+    <button class="big" fxFlex="100" (click)="readonlyUser()">Request a Demo</button>
+  </div>
 </div>
