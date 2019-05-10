@@ -1,13 +1,13 @@
 <mat-toolbar>
-  <div fxLayout="row" fxFlex="100" fxLayoutAlign="start stretch">
+  <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
     <button mat-button routerLink="/login" fxFlex="10">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
+    <div fxFlex="90" id="headline">Create new Fampedia Account</div>
   </div>
 </mat-toolbar>
 
 <div fxLayout="row break" id="card">
-  <h3 fxFlex="100">Create new Fampedia-Account</h3>
   <div fxFlex="100" fxLayout="row break">
     <label for="family">Join Family</label>
     <input fxFlex="100" id="family" type="text" [(ngModel)]="family" (change)="checkFamilyName()">
