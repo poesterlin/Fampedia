@@ -3,7 +3,8 @@
 let supertest = require("supertest");
 let chai = require("chai");
 chai.use(require('chai-fs'));
-let { server, testUser: accountSetup } = require("../src/app.js");
+
+var { server, testUser: accountSetup } = require("../src/app.js");
 
 let expect = chai.expect;
 let request = supertest(server);
@@ -349,22 +350,22 @@ describe("Task API Routes", () => {
       }
       const moments = await getMom(token, username + 9);
       expect(moments).to.have.lengthOf(10);
-    });
+    }).timeout(20 * 1000); //10 seconds
   });
-  describe("setup example family", () => {
+  describe.skip("setup example family", () => {
     it("add a lot of images", async () => {
 
       const titles = ['Summer Vacation', 'Winter Holiday', 'Grandmas Birthday'];
       const desc = ['Summer 2018, Teneriffa', ];
 
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 15; i++) {
         const t = Math.floor(Math.random() * titles.length);
         const d = Math.floor(Math.random() * desc.length);
         const id = await newMom(titles[t], desc[d], token, username);
         const n = Math.floor(Math.random() * 36);
         const promises = [];
         for (let j = 0; j < n; j++) {
-          const r = Math.floor(Math.random() * 36);
+          const r = Math.floor(Math.random() * 10);
           promises.push(addImage(id, `./test/images/im.${r}.jpg`, "no", username, token));
         }
         await Promise.all(promises);

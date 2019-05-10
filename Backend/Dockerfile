@@ -8,8 +8,7 @@ COPY package.json package-lock.json fullchain.pem privkey.pem ./
 
 RUN npm install --quiet
 
-# Bundle app source
-COPY ./src .
+COPY . .
 
 EXPOSE 3000
 
