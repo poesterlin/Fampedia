@@ -33,10 +33,10 @@ let mom = mongoose.Schema({
     images: [String],
     familyID: String
 });
-let ip = mongoose.Schema({
-    ip: String,
+let logs = mongoose.Schema({
+    message: String,
     date: String,
-    state: Number
+    permanent: Boolean,
 });
 let us = mongoose.Schema({
     user: String,
@@ -65,7 +65,7 @@ async function testUser(user, password, keep = true) {
 
     if (allUsers.length === 0 || !keep) {
         mongoose.connection.db.dropDatabase();
-        const fam = await new FamilyDB({name: 'Test Family'}).save();
+        const fam = await new FamilyDB({ name: 'Test Family' }).save();
         let newUser = new UserDB({
             user,
             hash: await bcrypt.hash(password, 10),
@@ -75,6 +75,16 @@ async function testUser(user, password, keep = true) {
     }
 }
 exports.testUser = testUser;
+
+const msDay = 1000 * 60 * 60 * 24;
+setInterval(async () => {
+    const logs = await LogsDB.find();
+    for (const log of logs) {
+        if (Date.now() - Date.parse(log.date) > msDay && !log.permanent) {
+            await log.remove();
+        }
+    }
+}, msDay); //Run every day
 
 //database models
 let ImageDB = mongoose.model("image", image);
@@ -87,5 +97,5 @@ let FamilyDB = mongoose.model("family", family);
 exports.FamilyDB = FamilyDB;
 let TokenDB = mongoose.model("token", token);
 exports.TokenDB = TokenDB;
-let IP = mongoose.model("ip", ip);
-exports.IP = IP;
+let LogsDB = mongoose.model("logs", logs);
+exports.LogsDB = LogsDB;

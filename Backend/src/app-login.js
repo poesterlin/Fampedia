@@ -2,7 +2,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const randtoken = require("rand-token");
-const { UserDB, TokenDB, FamilyDB } = require("./app-db");
+const { UserDB, TokenDB, FamilyDB, LogsDB } = require("./app-db");
 const { router, log, handle } = require("./app");
 
 router.post("/login", async (req, res) => {
@@ -62,7 +62,7 @@ router.post("/register", async (req, res) => {
 
         const u = new UserDB({
             user,
-            hash: await bcrypt.hash(req.body.pw, 10),
+            hash: await bcrypt.hash(req.body.pw, 13),
             familyID: findFamily.id
         })
         await u.save();
@@ -100,6 +100,33 @@ router.post("/family/new", async (req, res) => {
 
         await new FamilyDB({ name: req.body.name }).save();
 
+        res.status(200).send();
+    }
+    catch (error) {
+        handle(res, error);
+    }
+});
+
+
+router.get("/logs", async (req, res) => {
+    try {
+        const logs = await LogsDB.find();
+        log('LOGS RECIEVED: ' + req.ip, true);
+        res.status(200).json(logs);
+    }
+    catch (error) {
+        handle(res, error);
+    }
+});
+
+router.get("/logs/clear", async (req, res) => {
+    try {
+        const logs = await LogsDB.find();
+        for (const log of logs) {
+            if (!log.permanent) {
+                await log.remove();
+            }
+        }
         res.status(200).send();
     }
     catch (error) {

@@ -55,7 +55,7 @@ exports.sanitize = sanitize;
 const { auth, router: userRoutes } = require('./app-login');
 exports.auth = auth;
 
-const { testUser } = require("./app-db");
+const { testUser, LogsDB } = require("./app-db");
 exports.testUser = testUser;
 
 /**
@@ -112,14 +112,15 @@ function sanitize(obj) {
 }
 
 
-function log(text) {
+function log(message, logPerm = false) {
+    new LogsDB({ message, date: new Date(), permanent: logPerm }).save();
     if (process.env.log != "quiet") {
-        text = text + "";
+        message = message + "";
         let d = new Date();
+        const date = `${d.getHours()} : ${d.getMinutes() > 9 ? d.getMinutes() : "0" + d.getMinutes()} : ${d.getSeconds() > 9 ? d.getSeconds() : "0" + d.getSeconds()} - ${d.getMilliseconds()}`
         const width = process.stdout.columns - 20;
         let equalizer = " ".repeat(width > 0 ? width : 70);
-        equalizer = equalizer.slice(text.length);
-        console.log(text + equalizer, d.getHours(), ":", d.getMinutes() > 9 ? d.getMinutes() : "0" + d.getMinutes(),
-            ":", d.getSeconds() > 9 ? d.getSeconds() : "0" + d.getSeconds(), "-", d.getMilliseconds());
+        equalizer = equalizer.slice(message.length);
+        console.log(message + equalizer, date);
     }
 }
