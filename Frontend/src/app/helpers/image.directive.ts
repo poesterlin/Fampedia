@@ -12,7 +12,7 @@ const transparentGif = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAA
 })
 export class ImageDirective implements AfterViewInit, OnDestroy {
   @Input() imageId!: string;
-  @Input() size: 50 | 340 | 680 = 340;
+  @Input() size: 50 | 320 | 640 = 320;
   @Input() lazy: boolean = false;
 
   @HostBinding('src') private source = transparentGif;

@@ -391,7 +391,7 @@ async function getImage(id, width, httpStatus = 200) {
     res = await request
       .get("/momentimage/getImage/" + width + "/" + id)
       .expect(httpStatus)
-      .expect('Content-Type', /webp/)
+      .expect('Content-Type', /jpeg/)
   } else {
     res = await request
       .get("/momentimage/getImage/" + width + "/" + id)

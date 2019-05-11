@@ -40,7 +40,7 @@ router.post("/addimage/:ID", upload.single("image"), async (req, res) => {
         const buffer = req.file.buffer;
         const data50 = await prepareImage(buffer, 50, 20);
         const data320 = await prepareImage(buffer, 320, 65);
-        const data640 = await prepareImage(buffer, 1000, 100);
+        const data640 = await prepareImage(buffer);
         log("Bilder konvertiert");
         let img = new ImageDB({
             desc: req.headers.desc,
@@ -61,14 +61,17 @@ router.post("/addimage/:ID", upload.single("image"), async (req, res) => {
     }
 });
 
-async function prepareImage(image, imgWidth, option) {
-    return sharp(image)
-        .resize(imgWidth - 10)
-        .webp({ quality: option })
-        .sharpen()
-        .toBuffer();
-    // .background('white')
-    // .embed()
+async function prepareImage(image, resize, option) {
+    if (resize) {
+        return sharp(image)
+            .resize(resize)
+            .jpeg({ quality: option })
+            .toBuffer();
+    } else {
+        return sharp(image)
+            .jpeg()
+            .toBuffer();
+    }
 }
 
 //get image with number ImageNr
@@ -79,24 +82,15 @@ router.get("/getImage/:width/:ID", async (req, res, next) => {
         let image = await ImageDB.findOne({
             _id: imgID
         });
-        if (!image)
-            throw 404;
-        let data;
-        switch (width) {
-            case 50:
-                data = image.data50;
-                break;
-            case 320:
-                data = image.data320;
-                break;
-            case 640:
-                data = image.data640;
-                break;
-            default:
-                data = image.data320;
-        }
+        
+        if (!image) throw 404;
+
+        let data = image['data' + width];
+
+        if (!data) throw 404;
+
         res.setHeader('Content-Transfer-Encoding', 'binary');
-        res.setHeader('Content-Type', 'image/webp');
+        res.setHeader('Content-Type', 'image/jpeg');
         res.send(data);
         log("Bild gesendet");
     }
@@ -116,7 +110,7 @@ router.delete("/deleteImage/:ID", async (req, res) => {
 
         let affectedMoment = await MomentDB.findOne({ images: id });
         if (!affectedMoment) throw 404;
-        
+
         log(affectedMoment.images);
         const pointToDelete = affectedMoment.images.indexOf(id);
         affectedMoment.images.splice(pointToDelete, 1);
