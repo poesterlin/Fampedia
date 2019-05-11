@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CoreService } from '../core/core.service';
-import { ErrorService } from '../error/shared/error.service';
-import { Router } from '@angular/router';
+import { ErrorService, eMessageDuration } from '../error/shared/error.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'fampedia-register',
@@ -14,9 +14,15 @@ export class RegisterComponent implements OnInit {
   public username = "";
   public avaliable = true;
 
-  constructor(private service: CoreService, private error: ErrorService, private router: Router) { }
+  constructor(private service: CoreService, private error: ErrorService, private router: Router, private route: ActivatedRoute, ) {
+  }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params.family) {
+        this.family = decodeURIComponent(params.family);
+      }
+    })
   }
 
   public checkFamilyName() {
@@ -30,7 +36,15 @@ export class RegisterComponent implements OnInit {
 
     this.service.registerUser(this.username, this.password, this.family)
       .subscribe(() => {
-        this.error.showMessage('registration successfull. You can login now.');
+
+        const el = document.createElement('textarea');
+        el.value = `https://www.fampedia.de/#/register?family=${this.family}`;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+
+        this.error.showMessage('Registration successfull. Invite link was copied to clipboard.', true, eMessageDuration.Long);
         setTimeout(() => this.router.navigate(['/login']), 1500);
       });
   }
