@@ -115,3 +115,4 @@ exports.TokenDB = TokenDB;
 let LogsDB = mongoose.model("logs", logs);
 exports.LogsDB = LogsDB;
 let NewsDB = mongoose.model("news", news)
+exports.NewsDB = NewsDB
