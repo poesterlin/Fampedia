@@ -31,15 +31,18 @@ export class ErrorService implements ErrorHandler {
         }
     }
 
-    public showMessage(message: string, dismissable = true, messageDuration = eMessageDuration.Middle) {
-        this._ngZone.run(() => {
-            const snackBar = this._injector.get<MatSnackBar>(MatSnackBar);
-            const snackBarConfig = new MatSnackBarConfig<Error>();
-            snackBarConfig.verticalPosition = this.verticalPosition;
-            snackBarConfig.horizontalPosition = this.horizontalPosition;
-            const duration = dismissable ? messageDuration : undefined;
-            const action = dismissable ? 'close' : undefined;
-            snackBar.open(message, action , { duration });
+    public showMessage(message: string, dismissable = true, messageDuration = eMessageDuration.Middle, action = 'close'): Promise<{ dismissedByAction: boolean }> {
+        return new Promise(res => {
+            this._ngZone.run(() => {
+                const snackBar = this._injector.get<MatSnackBar>(MatSnackBar);
+                const snackBarConfig = new MatSnackBarConfig<Error>();
+                snackBarConfig.verticalPosition = this.verticalPosition;
+                snackBarConfig.horizontalPosition = this.horizontalPosition;
+                const duration = dismissable ? messageDuration : undefined;
+                const button = dismissable ? action : undefined;
+                const snackbarRef = snackBar.open(message, button, { duration });
+                snackbarRef.afterDismissed().subscribe(res)
+            });
         });
     }
 
