@@ -76,6 +76,11 @@ app.use("/momentimage", require('./app-image'));
  */
 app.use("/user", userRoutes);
 
+/**
+ *  news routes
+ */
+app.use("/news", require('./app-news'));
+
 ///////////////////
 // Required global functions
 //////////////////
