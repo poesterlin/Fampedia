@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "59add746-2a1f-426c-91cd-ffbbaf556542",
+		"_postman_id": "01256aa1-53c1-4012-988e-e4f2d9655c30",
 		"name": "backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -32,7 +32,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"un\": \"TESTuser\", \"pw\": \"TESTpassword\", \"familyName\": \"testfamily\"}"
+							"raw": "{\"un\": \"{{username}}\", \"pw\": \"{{password}}\", \"familyName\": \"{{familyName}}\"}"
 						},
 						"url": {
 							"raw": "{{url}}/user/register",
@@ -101,7 +101,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"name\": \"testfamily\"}"
+							"raw": "{\"name\": \"{{familyName}}\"}"
 						},
 						"url": {
 							"raw": "{{url}}/user/family/new",
@@ -171,7 +171,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"un\": \"{{username}}\", \"pw\": \"{{passwort}}\"}"
+							"raw": "{\"un\": \"{{username}}\", \"pw\": \"{{password}}\"}"
 						},
 						"url": {
 							"raw": "{{url}}/user/login",
@@ -217,76 +217,23 @@
 					]
 				},
 				{
-					"name": "newPassword",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "69f14b29-c128-47dc-95f4-9190c08178a5",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
+					"name": "getFamily",
 					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
+						"method": "GET",
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"username\": \"TESTuser\", \"password-old\": \"TESTpassword\", \"password-new\": \"TESTpassword\"}"
+							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/newPassword",
+							"raw": "{{url}}/user/family/{{familyName}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"newPassword"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "forgotPassword",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "69f14b29-c128-47dc-95f4-9190c08178a5",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"username\": \"TESTuser\", \"mail\": \"test@mail.de\"}"
-						},
-						"url": {
-							"raw": "{{url}}/newPassword",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"newPassword"
+								"user",
+								"family",
+								"{{familyName}}"
 							]
 						}
 					},
@@ -296,7 +243,7 @@
 			"description": "All user related endpoints"
 		},
 		{
-			"name": "News",
+			"name": "news",
 			"item": [
 				{
 					"name": "news",
@@ -421,10 +368,32 @@
 					]
 				}
 			],
-			"description": "All endpoints related to getting \"News\" --> New Moments"
+			"description": "All endpoints related to getting \"News\" --> New Moments",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "233361de-7792-49b4-8b5a-eccfdbb3ed32",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "bcd69b66-ed4d-4cf8-a265-6682fa070696",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		},
 		{
-			"name": "Timeline",
+			"name": "timeline",
 			"item": [
 				{
 					"name": "getAllMoments",
@@ -440,7 +409,7 @@
 									"    header: 'Content-Type:application/json',",
 									"    body: {",
 									"        mode: 'raw',",
-									"        raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"passwort\")})",
+									"        raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"password\")})",
 									"    }",
 									"    }, function (err, response) {",
 									"            console.log(response.json().token);",
@@ -488,7 +457,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"familyID\": \"abc\"\n}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "{{url}}/moment/all",
@@ -536,10 +505,32 @@
 					]
 				}
 			],
-			"description": "All endpoints related to the main functionality: The timeline"
+			"description": "All endpoints related to the main functionality: The timeline",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "949c0acf-c600-43d5-84d1-efad8af58c3f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "930ec512-4893-4e25-ba61-081d5316c82d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		},
 		{
-			"name": "Moments",
+			"name": "moments",
 			"item": [
 				{
 					"name": "addMoment",
@@ -555,7 +546,7 @@
 									"    header: 'Content-Type:application/json',",
 									"    body: {",
 									"        mode: 'raw',",
-									"        raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"passwort\")})",
+									"        raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"password\")})",
 									"    }",
 									"    }, function (err, response) {",
 									"            console.log(response.json().token);",
@@ -617,7 +608,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Test1\",\n  \"momentdescription\": \"This is a test\",\n  \"familyID\": \"abc\"\n}"
+							"raw": "{\n  \"title\": \"Test1\",\n  \"description\": \"This is a test\",\n  \"date\": \"12-12-2019\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/moment/new",
@@ -678,18 +669,69 @@
 							"script": {
 								"id": "a54aa578-37f5-4809-ac33-8bfd78ea5a6b",
 								"exec": [
-									"pm.sendRequest({",
-									"    url: pm.environment.get(\"url\") + \"/login\",",
-									"    method: 'POST',",
-									"    header: 'Content-Type:application/json',",
-									"    body: {",
-									"        mode: 'raw',",
-									"        raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"passwort\")})",
-									"    }",
-									"    }, function (err, response) {",
-									"            console.log(response.json().token);",
-									"            pm.environment.set(\"token\", response.json().token);",
-									"});",
+									"const interval = setTimeout(() => {}, 2147483647);",
+									"",
+									"function login() {",
+									"    return new Promise((resolve, reject) => {",
+									"        pm.sendRequest({",
+									"            url: pm.environment.get(\"url\") + \"/login\",",
+									"            method: 'POST',",
+									"            header: 'Content-Type:application/json',",
+									"            body: {",
+									"                mode: 'raw',",
+									"                raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"password\")})",
+									"            }",
+									"            }, function (err, response) {",
+									"                if (err) {",
+									"                    console.log(err);",
+									"                    reject();",
+									"                } else {",
+									"                    console.log(response.json().token);",
+									"                    pm.environment.set(\"token\", response.json().token);",
+									"                    resolve();",
+									"                }",
+									"        });",
+									"    });",
+									"}",
+									"",
+									"function addMoment() {",
+									"    return new Promise((resolve, reject) => {",
+									"        pm.sendRequest({",
+									"            url: pm.environment.get(\"url\") + \"/moment/new\",",
+									"            method: 'POST',",
+									"            header: { ",
+									"                'content-type': 'application/json',",
+									"                'token': pm.environment.get(\"token\"),",
+									"                'user': pm.environment.get(\"username\")",
+									"            },",
+									"            body: {",
+									"                mode: 'raw',",
+									"                raw: JSON.stringify({ ",
+									"                    title: \"Test1\", ",
+									"                    description: \"This is a test\", ",
+									"                    date: \"12-12-2019\"",
+									"                })",
+									"            }",
+									"            }, function (err, response) {",
+									"                if (err) {",
+									"                    console.log(err);",
+									"                    reject();",
+									"                } else {",
+									"                    console.log(response.json().momentID);",
+									"                    pm.environment.set(\"momentID\", response.json().momentID);",
+									"                    resolve();",
+									"                }",
+									"        });",
+									"    });",
+									"}",
+									"",
+									"login()",
+									"    .then(addMoment)",
+									"    .then(() => clearTimeout(interval))",
+									"    .catch(err => {",
+									"        console.log(err);",
+									"        clearTimeout(interval);",
+									"    });",
 									""
 								],
 								"type": "text/javascript"
@@ -746,7 +788,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Edited New Moment\",\n  \"momentdescription\": \"Edited Description of moment\",\n  \"familyID\": \"abc\",\n  \"momentID\": 12782440\n}"
+							"raw": "{\n  \"title\": \"Edited New Moment\",\n  \"momentdescription\": \"Edited Description of moment\",\n  \"momentID\": {{momentID}}\n}"
 						},
 						"url": {
 							"raw": "{{url}}/moment/edit",
@@ -807,25 +849,70 @@
 							"script": {
 								"id": "c8a71b02-276b-4230-892e-8381559d4f81",
 								"exec": [
-									"pm.sendRequest({",
-									"    url: pm.environment.get(\"url\") + \"/login\",",
-									"    method: 'POST',",
-									"    header: 'Content-Type:application/json',",
-									"    body: {",
-									"        mode: 'raw',",
-									"        raw: JSON.stringify({un: pm.globals.get(\"username\"), pw: pm.globals.get(\"passwort\")})",
-									"    }",
-									"    }, function (err, response) {",
-									"            console.log(response.json().token);",
-									"            pm.environment.set(\"token\", response.json().token);",
-									"});",
+									"const interval = setTimeout(() => {}, 2147483647);",
 									"",
-									"pm.sendRequest(pm.environment.get(\"url\") + \"/news\", function (err, response) {",
-									"    if(!response.json().some(a=> a.articleId === pm.environment.get(\"id\"))){",
-									"        pm.environment.set(\"id\", response.json().reverse()[0].articleId); ",
-									"        console.log(\"set id\", pm.environment.get(\"id\"));",
-									"    }",
-									"});"
+									"function login() {",
+									"    return new Promise((resolve, reject) => {",
+									"        pm.sendRequest({",
+									"            url: pm.environment.get(\"url\") + \"/login\",",
+									"            method: 'POST',",
+									"            header: 'Content-Type:application/json',",
+									"            body: {",
+									"                mode: 'raw',",
+									"                raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"password\")})",
+									"            }",
+									"            }, function (err, response) {",
+									"                if (err) {",
+									"                    console.log(err);",
+									"                    reject();",
+									"                } else {",
+									"                    console.log(response.json().token);",
+									"                    pm.environment.set(\"token\", response.json().token);",
+									"                    resolve();",
+									"                }",
+									"        });",
+									"    });",
+									"}",
+									"",
+									"function addMoment() {",
+									"    return new Promise((resolve, reject) => {",
+									"        pm.sendRequest({",
+									"            url: pm.environment.get(\"url\") + \"/moment/new\",",
+									"            method: 'POST',",
+									"            header: { ",
+									"                'content-type': 'application/json',",
+									"                'token': pm.environment.get(\"token\"),",
+									"                'user': pm.environment.get(\"username\")",
+									"            },",
+									"            body: {",
+									"                mode: 'raw',",
+									"                raw: JSON.stringify({ ",
+									"                    title: \"Should be deleted\", ",
+									"                    description: \"This is a delete test\", ",
+									"                    date: \"12-12-2019\"",
+									"                })",
+									"            }",
+									"            }, function (err, response) {",
+									"                if (err) {",
+									"                    console.log(err);",
+									"                    reject();",
+									"                } else {",
+									"                    console.log(response.json().momentID);",
+									"                    pm.environment.set(\"momentID\", response.json().momentID);",
+									"                    resolve();",
+									"                }",
+									"        });",
+									"    });",
+									"}",
+									"",
+									"login()",
+									"    .then(addMoment)",
+									"    .then(() => clearTimeout(interval))",
+									"    .catch(err => {",
+									"        console.log(err);",
+									"        clearTimeout(interval);",
+									"    });",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -851,7 +938,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"familyID\": \"abc\",\n   \"momentID\": 12782440\n}"
+							"raw": "{\n   \"momentID\": {{momentID}}\n}"
 						},
 						"url": {
 							"raw": "{{url}}/moment/delete",
@@ -874,6 +961,69 @@
 							"script": {
 								"id": "2aa7d5ec-f138-4574-a002-523c3a0bec62",
 								"exec": [
+									"const interval = setTimeout(() => {}, 2147483647);",
+									"",
+									"function login() {",
+									"    return new Promise((resolve, reject) => {",
+									"        pm.sendRequest({",
+									"            url: pm.environment.get(\"url\") + \"/login\",",
+									"            method: 'POST',",
+									"            header: 'Content-Type:application/json',",
+									"            body: {",
+									"                mode: 'raw',",
+									"                raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"password\")})",
+									"            }",
+									"            }, function (err, response) {",
+									"                if (err) {",
+									"                    console.log(err);",
+									"                    reject();",
+									"                } else {",
+									"                    console.log(response.json().token);",
+									"                    pm.environment.set(\"token\", response.json().token);",
+									"                    resolve();",
+									"                }",
+									"        });",
+									"    });",
+									"}",
+									"",
+									"function addMoment() {",
+									"    return new Promise((resolve, reject) => {",
+									"        pm.sendRequest({",
+									"            url: pm.environment.get(\"url\") + \"/moment/new\",",
+									"            method: 'POST',",
+									"            header: { ",
+									"                'content-type': 'application/json',",
+									"                'token': pm.environment.get(\"token\"),",
+									"                'user': pm.environment.get(\"username\")",
+									"            },",
+									"            body: {",
+									"                mode: 'raw',",
+									"                raw: JSON.stringify({ ",
+									"                    title: \"One pretty moment\", ",
+									"                    description: \"This is a moment test\", ",
+									"                    date: \"12-12-2019\"",
+									"                })",
+									"            }",
+									"            }, function (err, response) {",
+									"                if (err) {",
+									"                    console.log(err);",
+									"                    reject();",
+									"                } else {",
+									"                    console.log(response.json().momentID);",
+									"                    pm.environment.set(\"momentID\", response.json().momentID);",
+									"                    resolve();",
+									"                }",
+									"        });",
+									"    });",
+									"}",
+									"",
+									"login()",
+									"    .then(addMoment)",
+									"    .then(() => clearTimeout(interval))",
+									"    .catch(err => {",
+									"        console.log(err);",
+									"        clearTimeout(interval);",
+									"    });",
 									""
 								],
 								"type": "text/javascript"
@@ -917,7 +1067,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n   \"momentID\": 12388547\n}"
+							"raw": "{\n   \"momentID\": {{momentID}}\n}"
 						},
 						"url": {
 							"raw": "{{url}}/moment/oneMoment",
@@ -966,10 +1116,32 @@
 					]
 				}
 			],
-			"description": "Everything direcetly related to moments"
+			"description": "Everything direcetly related to moments",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7c0539a9-40aa-4afa-bd19-37502f117e4b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "101e34fc-8361-4265-8297-2abdfb1aaff7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		},
 		{
-			"name": "MomentImages",
+			"name": "momentImages",
 			"item": [
 				{
 					"name": "delete image",
@@ -985,18 +1157,11 @@
 									"    header: 'Content-Type:application/json',",
 									"    body: {",
 									"        mode: 'raw',",
-									"        raw: JSON.stringify({un: pm.globals.get(\"username\"), pw: pm.globals.get(\"passwort\")})",
+									"        raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"password\")})",
 									"    }",
 									"    }, function (err, response) {",
 									"            console.log(response.json().token);",
 									"            pm.environment.set(\"token\", response.json().token);",
-									"});",
-									"",
-									"pm.sendRequest(pm.environment.get(\"url\") + \"/news\", function (err, response) {",
-									"    if(!response.json().some(a=> a.articleId === pm.environment.get(\"id\"))){",
-									"        pm.environment.set(\"id\", response.json().reverse()[0].articleId); ",
-									"        console.log(\"set id\", pm.environment.get(\"id\"));",
-									"    }",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1008,11 +1173,18 @@
 						"header": [
 							{
 								"key": "user",
-								"value": "{{username}}"
+								"value": "{{username}}",
+								"type": "text"
 							},
 							{
 								"key": "token",
-								"value": "{{token}}"
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1020,14 +1192,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/momentimage/deleteImage/5cc6decd1dd79006974b59ae",
+							"raw": "{{url}}/momentimage/deleteImage/5cd6c773bf651217df38314d",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"momentimage",
 								"deleteImage",
-								"5cc6decd1dd79006974b59ae"
+								"5cd6c773bf651217df38314d"
 							]
 						}
 					},
@@ -1062,13 +1234,19 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/momentimage/getImage/340/5cc6decd1dd79006974b59ae",
+							"raw": "{{url}}/momentimage/getImage/340/5cd6c636bf651217df383118",
 							"host": [
 								"{{url}}"
 							],
@@ -1076,7 +1254,7 @@
 								"momentimage",
 								"getImage",
 								"340",
-								"5cc6decd1dd79006974b59ae"
+								"5cd6c636bf651217df383118"
 							]
 						}
 					},
@@ -1090,26 +1268,69 @@
 							"script": {
 								"id": "57783840-1f23-49a4-9704-09b29a516ea7",
 								"exec": [
-									"pm.sendRequest({",
-									"    url: pm.environment.get(\"url\") + \"/login\",",
-									"    method: 'POST',",
-									"    header: 'Content-Type:application/json',",
-									"    body: {",
-									"        mode: 'raw',",
-									"        raw: JSON.stringify({un: pm.globals.get(\"username\"), pw: pm.globals.get(\"passwort\")})",
-									"    }",
-									"    }, function (err, response) {",
-									"            console.log(response.json().token);",
-									"            pm.environment.set(\"token\", response.json().token);",
-									"});",
+									"const interval = setTimeout(() => {}, 2147483647);",
 									"",
-									"pm.sendRequest(pm.environment.get(\"url\") + \"/news\", function (err, response) {",
-									"    if(!response.json().some(a=> a.articleId === pm.environment.get(\"id\"))){",
-									"        pm.environment.set(\"id\", response.json().reverse()[0].articleId); ",
-									"        console.log(\"set id\", pm.environment.get(\"id\"));",
-									"    }",
-									"});",
+									"function login() {",
+									"    return new Promise((resolve, reject) => {",
+									"        pm.sendRequest({",
+									"            url: pm.environment.get(\"url\") + \"/login\",",
+									"            method: 'POST',",
+									"            header: 'Content-Type:application/json',",
+									"            body: {",
+									"                mode: 'raw',",
+									"                raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"password\")})",
+									"            }",
+									"            }, function (err, response) {",
+									"                if (err) {",
+									"                    console.log(err);",
+									"                    reject();",
+									"                } else {",
+									"                    console.log(response.json().token);",
+									"                    pm.environment.set(\"token\", response.json().token);",
+									"                    resolve();",
+									"                }",
+									"        });",
+									"    });",
+									"}",
 									"",
+									"function addMoment() {",
+									"    return new Promise((resolve, reject) => {",
+									"        pm.sendRequest({",
+									"            url: pm.environment.get(\"url\") + \"/moment/new\",",
+									"            method: 'POST',",
+									"            header: { ",
+									"                'content-type': 'application/json',",
+									"                'token': pm.environment.get(\"token\"),",
+									"                'user': pm.environment.get(\"username\")",
+									"            },",
+									"            body: {",
+									"                mode: 'raw',",
+									"                raw: JSON.stringify({ ",
+									"                    title: \"Test1\", ",
+									"                    description: \"This is a test\", ",
+									"                    date: \"12-12-2019\"",
+									"                })",
+									"            }",
+									"            }, function (err, response) {",
+									"                if (err) {",
+									"                    console.log(err);",
+									"                    reject();",
+									"                } else {",
+									"                    console.log(response.json().momentID);",
+									"                    pm.environment.set(\"momentID\", response.json().momentID);",
+									"                    resolve();",
+									"                }",
+									"        });",
+									"    });",
+									"}",
+									"",
+									"login()",
+									"    .then(addMoment)",
+									"    .then(() => clearTimeout(interval))",
+									"    .catch(err => {",
+									"        console.log(err);",
+									"        clearTimeout(interval);",
+									"    });",
 									""
 								],
 								"type": "text/javascript"
@@ -1134,11 +1355,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "momentID",
-								"value": "text/plain",
-								"type": "text"
 							}
 						],
 						"body": {
@@ -1148,31 +1364,95 @@
 									"key": "image",
 									"type": "file",
 									"src": ""
-								},
-								{
-									"key": "description",
-									"value": "test",
-									"description": "plain text",
-									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{url}}/momentimage/addimage/12388547",
+							"raw": "{{url}}/momentimage/addimage/{{momentID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"momentimage",
 								"addimage",
-								"12388547"
+								"{{momentID}}"
 							]
 						}
 					},
 					"response": []
 				}
 			],
-			"description": "Everything related to images of each moment"
+			"description": "Everything related to images of each moment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "58d21b74-5f77-4bab-b054-dd107df88a69",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "54287619-029e-4d6f-9f23-654f091fed7d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "logs",
+			"item": [
+				{
+					"name": "getLogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/logs",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"logs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "clearLogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/logs/clear",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"logs",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
