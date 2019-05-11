@@ -25,6 +25,11 @@ const routes: Routes = [
     loadChildren: '../register/register.module#RegisterModule',
     data: { title: 'MOMENT', preload: false },
   },
+  {
+    path: 'console',
+    loadChildren: '../console/console.module#ConsoleModule',
+    data: { title: 'DEV', preload: false },
+  },
   // {
   //   path: 'recipes',
   //   loadChildren: '../recipes/recipes.module#RecipesModule',

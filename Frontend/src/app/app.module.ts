@@ -24,6 +24,9 @@ import { environment } from '../environments/environment';
 import { DirectivesModule } from './helpers/directives.module';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './routing/auth.interceptor';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: environment.url, options: {} };
 
 declare var Hammer: any;
 @Injectable()
@@ -65,6 +68,7 @@ export class MyHammerConfig extends HammerGestureConfig {
         MaterialModule,
         RoutingModule,
         DirectivesModule,
+        SocketIoModule.forRoot(config),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -78,7 +82,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     providers: [
         { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig, },
         { provide: ErrorHandler, useClass: ErrorService },
-        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
     entryComponents: [
         ExceptionComponent

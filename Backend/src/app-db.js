@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 const mongoUrl = process.env.mongoUrl || "mongodb://127.0.0.1:27017/fampedia";
 const bcrypt = require("bcrypt");
 
-const { log } = require("./app");
+const { log, sendToSocket } = require("./app");
+
+
 mongoose.connect(mongoUrl);
 // Try to connect to the database
 let db = mongoose.connection;
@@ -38,6 +40,11 @@ let logs = mongoose.Schema({
     date: String,
     permanent: Boolean,
 });
+
+logs.post('save', function (doc) {
+    sendToSocket(doc)
+});
+
 let us = mongoose.Schema({
     user: String,
     hash: String,

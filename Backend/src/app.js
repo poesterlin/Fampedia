@@ -45,12 +45,15 @@ else {
     });
 }
 
+const io = require('socket.io').listen(server);
+
 exports.server = server;
 exports.router = router;
 exports.authFail = authFail;
 exports.log = log;
 exports.handle = handle;
 exports.sanitize = sanitize;
+exports.sendToSocket = sendToSocket;
 
 const { auth, router: userRoutes } = require('./app-login');
 exports.auth = auth;
@@ -109,6 +112,16 @@ function sanitize(obj) {
         }
     }
     return obj;
+}
+
+
+/**
+ * 
+ * @param {{message: string, date: string}} log 
+ */
+function sendToSocket(log) {
+    // io.emit('log', { for: 'everyone' }, JSON.stringify(log));
+    io.emit('log', JSON.stringify(log));
 }
 
 
