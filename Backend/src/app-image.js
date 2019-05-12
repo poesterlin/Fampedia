@@ -1,6 +1,7 @@
 // @ts-check
 const multer = require("multer");
 const { MomentDB, ImageDB } = require("./app-db");
+const { createNews } = require("./app-news.js")
 const { router, auth, authFail, log, handle } = require("./app");
 
 const sharp = require('sharp');
@@ -30,7 +31,7 @@ const upload = multer({
 //Image upload
 router.post("/addimage/:ID", upload.single("image"), async (req, res) => {
     try {
-        await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
         if (!req.file) throw 400;
         let aID = parseInt(req.params.ID);
         let modArt = await MomentDB.findOne({
@@ -55,6 +56,7 @@ router.post("/addimage/:ID", upload.single("image"), async (req, res) => {
             images: modArt.images
         });
         log("Bild hochgeladen");
+        createNews("Image", user.id, user.familyID, img.id);
     }
     catch (error) {
         handle(res, error);

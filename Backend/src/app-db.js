@@ -65,6 +65,14 @@ let family = mongoose.Schema({
     name: String,
 });
 
+let news = mongoose.Schema({
+    type: String,
+    date: { type: Date, default: Date.now },
+    userID: String,
+    familyID: String,
+    data: { imageID: String, comment: String }
+});
+
 async function testUser(user, password, keep = true) {
     let allUsers = await UserDB.find({
         user
@@ -106,3 +114,5 @@ let TokenDB = mongoose.model("token", token);
 exports.TokenDB = TokenDB;
 let LogsDB = mongoose.model("logs", logs);
 exports.LogsDB = LogsDB;
+let NewsDB = mongoose.model("news", news)
+exports.NewsDB = NewsDB
