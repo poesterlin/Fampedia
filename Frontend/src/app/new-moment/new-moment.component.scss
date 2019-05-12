@@ -3,73 +3,79 @@
 @import "../styles/theme.scss";
 
 .buttons {
-  width: 100vw;
-  button.nextBtn {
-    @include clickable() {
-      background: gray;
+    width: 100vw;
+
+    button.nextBtn {
+        @include clickable() {
+            background: gray;
+        }
+
+        margin: 10px auto;
+        background: lightgray;
+        font-size: 180%;
+        border: none;
+        width: 300px;
+        max-width: 90vw;
+        height: 50px;
+        text-align: center;
+        display: table;
     }
-    margin: 10px auto;
-    background: lightgray;
-    font-size: 180%;
-    border: none;
-    width: 300px;
-    max-width: 90vw;
-    height: 50px;
-    text-align: center;
-    display: table;
-  }
 }
 
 button:focus {
-  outline: none;
+    outline: none;
 }
 
 mat-toolbar {
-  background: white !important;
-  color: black !important;
-  user-select: none;
+    background: white !important;
+    color: black !important;
+    user-select: none;
 
-  div,
-  button {
-    height: 100%;
-  }
+    div,
+    button {
+        height: 100%;
+    }
 
-  #headline {
-    text-align: center;
-    padding-top: 15px;
-  }
+    #headline {
+        text-align: center;
+        padding-top: 15px;
+    }
 }
 
 $height: 4px;
 
 .status {
-  overflow: hidden;
-  width: 99vw;
+    overflow: hidden;
+    width: 99vw;
 
-  .progress {
-    height: $height;
+    .progress {
+        height: $height;
 
-    .line {
-      background: lightgray;
-      border-radius: 2px;
+        .line {
+            background: lightgray;
+            border-radius: 2px;
+        }
     }
-  }
 }
 
 .bar {
-  @include forType(lt-md) {
-    top: 56px;
-  }
+    @include forType(lt-md) {
+        top: 56px;
+    }
 
-  height: $height;
-  position: absolute;
-  top: 64px;
-  width: calc(33% - 5px);
-  background: black;
-  transition: left 417.322ms cubic-bezier(0.55, 0.38, 0.28, 0.81);
+    height: $height;
+    position: absolute;
+    top: 64px;
+    width: calc(33% - 5px);
+    background: black;
+    transition: left 417.322ms cubic-bezier(0.55, 0.38, 0.28, 0.81);
 }
 
 .container {
-  height: calc(100vh - 158px);
-  overflow: auto;
+    height: calc(100vh - 158px);
+    overflow: auto;
+}
+
+.big {
+    height: 100vh;
 }
