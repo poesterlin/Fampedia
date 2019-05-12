@@ -18,18 +18,19 @@ interface Comment {
 })
 export class PhotoDetailsComponent implements OnInit {
   public imageId?: string;
-  public comments: Comment[] = ["Inga Innes", "Cathrine Chism", "Johnnie Jone", "Margarite Mcdavis", "Beryl Bame", "Dahlia Down",
-    "Valentina Vandiver", "Su Said", "Darci Desimone", "Meggan Mcpartland"]
-    .map((name, id) => {
-      return {
-        user:
-        {
-          name,
-          image: 'https://randomuser.me/api/portraits/women/' + (id + 1) + '.jpg'
-        },
-        lines: 'wow looks great |'.repeat(Math.random() * 3 + 1).split('|').filter(s => s.length > 2)
-      }
-    });
+  // public comments: Comment[] = ["Inga Innes", "Cathrine Chism", "Johnnie Jone", "Margarite Mcdavis", "Beryl Bame", "Dahlia Down",
+  //   "Valentina Vandiver", "Su Said", "Darci Desimone", "Meggan Mcpartland"]
+  //   .map((name, id) => {
+  //     return {
+  //       user:
+  //       {
+  //         name,
+  //         image: 'https://randomuser.me/api/portraits/women/' + (id + 1) + '.jpg'
+  //       },
+  //       lines: 'wow looks great |'.repeat(Math.random() * 3 + 1).split('|').filter(s => s.length > 2)
+  //     }
+  //   });
+  public comments: Comment[] = [];
 
   constructor(private route: ActivatedRoute, private location: Location) { }
 
@@ -40,7 +41,7 @@ export class PhotoDetailsComponent implements OnInit {
     });
   }
 
-  back(){
+  back() {
     this.location.back();
   }
 
