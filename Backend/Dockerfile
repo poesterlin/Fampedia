@@ -8,8 +8,9 @@ COPY package.json package-lock.json fullchain.pem privkey.pem ./
 
 RUN npm install --quiet
 
-COPY . .
+COPY ./src ./src
+COPY ./test ./test
 
 EXPOSE 3000
 
-CMD ls && /bin/sh -c "sleep 10 && node app.js"
+CMD cd ./src && ls && /bin/sh -c "sleep 10 && node app.js"
