@@ -61,6 +61,8 @@ exports.auth = auth;
 const { testUser, LogsDB } = require("./app-db");
 exports.testUser = testUser;
 
+const { router:newsRoutes } = require("./app-news")
+
 /**
  *  moment routes
  */
@@ -79,7 +81,7 @@ app.use("/user", userRoutes);
 /**
  *  news routes
  */
-app.use("/news", require('./app-news'));
+app.use("/news", newsRoutes);
 
 ///////////////////
 // Required global functions

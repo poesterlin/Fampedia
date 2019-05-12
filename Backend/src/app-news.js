@@ -1,14 +1,21 @@
-
-const { NewsDB } = require("./app-db")
-const { router, auth, authFail, handle } = require("./app");
+// @ts-check
+const { NewsDB, FamilyDB, UserDB } = require("./app-db")
+const { router, auth, authFail, handle, sanitize } = require("./app");
+const moment = require("moment");
 
 router.get("/", async (req, res) => {
     try {
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
-        const news = await NewsDB.find({ familyID: user.familyID });
+        const reqUser = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const news = await NewsDB.find({ familyID: reqUser.familyID });
         if (news) {
-            console.log("Found")
-            res.status(200).json(news);
+            const userArray = await UserDB.find({familyID: reqUser.familyID})
+            res.status(200).json(sanitize(news.map(newsItem => {
+                let found = userArray.find(user=>user.id === newsItem.userID);
+                newsItem = newsItem.toJSON();
+                newsItem.userName = found.user;
+                newsItem.date = moment(newsItem.date).fromNow();
+                return newsItem;
+            })));
         }
         else {
             throw 404;
@@ -18,8 +25,32 @@ router.get("/", async (req, res) => {
     }
 });
 
-function createNews() {
-    
+async function createNews(type, userID, familyID, dataChunk ) {
+    const data = { imageID: null, comment: null };
+    if (type === "Image") {
+        data.imageID = dataChunk;
+    }
+    else if (type == "Comment"){
+        data.comment = dataChunk;
+    }
+    let newNews = new NewsDB({
+        type: type,
+        userID: userID,
+        familyID: familyID,
+        data: data
+    });
+    await newNews.save();
 }
 
-module.exports = router;
+const msDay = 1000 * 60 * 60 * 24;
+setInterval(async () => {
+    const news = await NewsDB.find();
+    for (const newsItem of news) {
+        if (Date.now() - Date.parse(newsItem.date) > msDay) {
+            await newsItem.remove();
+        }
+    }
+}, msDay); //Run every day
+
+exports.createNews = createNews;
+exports.router = router;

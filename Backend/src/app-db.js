@@ -70,7 +70,7 @@ let news = mongoose.Schema({
     date: { type: Date, default: Date.now },
     userID: String,
     familyID: String,
-    data: { image: Buffer, comment: String}
+    data: { imageID: String, comment: String }
 });
 
 async function testUser(user, password, keep = true) {
