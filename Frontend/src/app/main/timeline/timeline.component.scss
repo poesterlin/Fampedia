@@ -1,18 +1,38 @@
 .timeline {
-  width: 90vw;
-  margin: auto;
+    width: 90vw;
+    margin: auto;
 
-  #left,
-  #right {
-    display: block;
-  }
+    #left,
+    #right {
+        display: block;
+    }
 
-  #right {
-    direction: rtl;
-  }
+    #right {
+        direction: rtl;
+    }
 
-  #line {
-    border-right: 2px solid #acacac66;
-    transform: translateX(calc(-1vw + 2px));
-  }
+    #line {
+        border-right: 2px solid #acacac66;
+        transform: translateX(calc(-1vw + 2px));
+    }
+}
+
+
+.noTimeline {
+    width: 90vw;
+    margin: auto;
+
+    span {
+        text-align: center;
+        margin: 10px 0;
+        opacity: 0.9;
+    }
+
+    button {
+        background: white;
+        border: 1px solid black;
+        border-radius: 30px;
+        max-width: 50% !important;
+        outline: 0;
+    }
 }
