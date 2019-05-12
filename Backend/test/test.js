@@ -352,7 +352,7 @@ describe("Task API Routes", () => {
       expect(moments).to.have.lengthOf(10);
     }).timeout(20 * 1000); //10 seconds
   });
-  describe.skip("setup example family", () => {
+  describe("setup example family", () => {
     it("add a lot of images", async () => {
 
       const titles = ['Summer Vacation', 'Winter Holiday', 'Grandmas Birthday'];
