@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { IMoment, MomentCreated } from './Interfaces/IMoment';
 import { Observable } from 'rxjs';
+import { INews } from './Interfaces/IEvent';
 
 interface HttpOptions {
   headers?: { key: string, value: string }[];
@@ -32,6 +33,10 @@ export class CoreService {
 
   public getMoments() {
     return this.get<IMoment[]>(`moment/all`).pipe(map(momentJSON => momentJSON.map(json => new Moment(json))))
+  }
+
+  public getNews() {
+    return this.get<INews[]>(`news`);
   }
 
   public login(username: string, password: string) {
