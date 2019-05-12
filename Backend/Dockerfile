@@ -8,7 +8,8 @@ COPY package.json package-lock.json fullchain.pem privkey.pem ./
 
 RUN npm install --quiet
 
-COPY . .
+COPY ./src ./src
+COPY ./test ./test
 
 EXPOSE 3000
 
