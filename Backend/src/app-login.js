@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const randtoken = require("rand-token");
 const { UserDB, TokenDB, FamilyDB, LogsDB } = require("./app-db");
 const { router, log, handle } = require("./app");
+const { createNews } = require("./app-news.js");
 
 router.post("/login", async (req, res) => {
     try {
@@ -66,7 +67,7 @@ router.post("/register", async (req, res) => {
             familyID: findFamily.id
         })
         await u.save();
-
+        createNews("Register", u.id, u.familyID, `${user} joined the family`);
         res.status(201).send();
     }
     catch (error) {

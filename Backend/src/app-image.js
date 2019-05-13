@@ -1,7 +1,7 @@
 // @ts-check
 const multer = require("multer");
 const { MomentDB, ImageDB } = require("./app-db");
-const { createNews } = require("./app-news.js")
+const { createNews } = require("./app-news.js");
 const { router, auth, authFail, log, handle } = require("./app");
 
 const sharp = require('sharp');

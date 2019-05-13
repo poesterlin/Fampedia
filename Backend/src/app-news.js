@@ -1,9 +1,10 @@
 // @ts-check
 const { NewsDB, UserDB } = require("./app-db");
-const { router, auth, authFail, handle, sanitize } = require("./app");
+const { router } = require("./app");
 const moment = require("moment");
 
 router.get("/", async (req, res) => {
+    const { auth, authFail, handle, sanitize } = require("./app");
     try {
         const reqUser = await auth(req.headers.user, req.headers.token).catch(authFail);
         let news = await NewsDB.find({ familyID: reqUser.familyID });
@@ -32,6 +33,9 @@ async function createNews(type, userID, familyID, dataChunk ) {
         data.imageID = dataChunk;
     }
     else if (type == "Comment"){
+        data.comment = dataChunk;
+    }
+    else if (type == "Register"){
         data.comment = dataChunk;
     }
     let newNews = new NewsDB({
