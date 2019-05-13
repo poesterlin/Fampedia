@@ -1,13 +1,14 @@
 // @ts-check
-const { NewsDB, FamilyDB, UserDB } = require("./app-db")
+const { NewsDB, UserDB } = require("./app-db");
 const { router, auth, authFail, handle, sanitize } = require("./app");
 const moment = require("moment");
 
 router.get("/", async (req, res) => {
     try {
         const reqUser = await auth(req.headers.user, req.headers.token).catch(authFail);
-        const news = await NewsDB.find({ familyID: reqUser.familyID });
+        let news = await NewsDB.find({ familyID: reqUser.familyID });
         if (news) {
+            news = news.reverse()
             const userArray = await UserDB.find({familyID: reqUser.familyID})
             res.status(200).json(sanitize(news.map(newsItem => {
                 let found = userArray.find(user=>user.id === newsItem.userID);
