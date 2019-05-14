@@ -85,4 +85,9 @@ export class AppComponent {
         }
         return;
     }
+
+    public setLang(idx: number) {
+        const langs = ['en', 'de', 'pt'];
+        this.translate.use(langs[idx])
+    }
 }

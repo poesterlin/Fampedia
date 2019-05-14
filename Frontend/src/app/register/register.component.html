@@ -3,41 +3,41 @@
     <button mat-button routerLink="/login" fxFlex="10">
       <mat-icon>keyboard_backspace</mat-icon>
     </button>
-    <div fxFlex="90" id="headline">Create new Fampedia Account</div>
+    <div fxFlex="90" id="headline">{{'register.Create' | translate}}</div>
   </div>
 </mat-toolbar>
 
 <div fxLayout="row break" id="card">
   <div fxFlex="100" fxLayout="row break">
-    <label for="family">Join Family</label>
+    <label for="family">{{'register.Join' | translate}}</label>
     <input fxFlex="100" id="family" type="text" [(ngModel)]="family" (change)="checkFamilyName()">
   </div>
   <span fxFlex="100" *ngIf="!avaliable && family">
-    Family doesn’t exist yet. New Family will be created.
+    {{'register.Not_Avaliable' | translate}}
   </span>
   <span fxFlex="100" *ngIf="avaliable && family">
-    Family found. Ready to join.
+    {{'register.Avaliable' | translate}}
   </span>
   <div class="spacer" fxFlex="100"></div>
   <div fxFlex="100" fxLayout="row break">
-    <label for="email">E-Mail</label>
+    <label for="email">{{'register.Email' | translate}}</label>
     <input fxFlex="100" id="email" type="email">
   </div>
   <div fxFlex="100" fxLayout="row break">
-    <label for="un">Username</label>
+    <label for="un">{{'login.Username' | translate}}</label>
     <input fxFlex="100" id="un" type="text" [(ngModel)]="username">
   </div>
   <div fxFlex="100" fxLayout="row break">
-    <label for="pw">Password</label>
+    <label for="pw">{{'login.Password' | translate}}</label>
     <input fxFlex="100" id="pw" type="password" [(ngModel)]="password">
   </div>
   <span fxFlex="100" id="test">
-    This is just a test.
+    {{'register.Alpha1' | translate}}
     <br>
-    Data might not be saved permanently.
+    {{'register.Alpha2' | translate}}
   </span>
   <div fxFlex="100">
-    <button (click)="register()">Register</button>
+    <button (click)="register()">{{'login.Register' | translate}}</button>
   </div>
 
 </div>

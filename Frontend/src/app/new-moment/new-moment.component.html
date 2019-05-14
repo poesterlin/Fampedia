@@ -3,7 +3,7 @@
         <button mat-button routerLink="/" fxFlex="10">
             <mat-icon>keyboard_backspace</mat-icon>
         </button>
-        <div fxFlex="90" id="headline">NEW MOMENT</div>
+        <div fxFlex="90" id="headline">{{'AddingMoment.New_Moment' | translate}}</div>
     </div>
 </mat-toolbar>
 
@@ -26,6 +26,6 @@
 </div>
     
 <div class="buttons" *ngIf="showButton">
-    <button (click)="next()" class="nextBtn" *ngIf="index < 2">NEXT</button>
-    <button (click)="upload()" class="nextBtn" *ngIf="index == 2">UPLOAD</button>
+    <button (click)="next()" class="nextBtn" *ngIf="index < 2">{{'AddingMoment.Next' | translate}}</button>
+    <button (click)="upload()" class="nextBtn" *ngIf="index == 2">{{'AddingMoment.Upload' | translate}}</button>
 </div>

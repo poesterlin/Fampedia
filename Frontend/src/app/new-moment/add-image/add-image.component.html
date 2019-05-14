@@ -8,12 +8,12 @@
 </mat-toolbar>
 
 <p>
-  Add Images to Moment.
+    {{'AddingMoment.Add_Image' | translate}}
 </p>
 <div class="container">
   <fampedia-new-moment-images [title]="false"></fampedia-new-moment-images>
 </div>
 
 <div class="buttons" *ngIf="showButton">
-  <button (click)="add()">Add</button>
+  <button (click)="add()">{{'AddingMoment.Add' | translate}}</button>
 </div>

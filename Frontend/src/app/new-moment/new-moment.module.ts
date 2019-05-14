@@ -13,6 +13,7 @@ import { DirectivesModule } from '../helpers/directives.module';
 import { FormsModule } from '@angular/forms';
 import { NewMomentService } from './new-moment.service';
 import { AddImageComponent } from './add-image/add-image.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   { path: 'moment', data: { title: 'NOT_FOUND' }, component: NewMomentComponent },
@@ -38,7 +39,8 @@ const routes: Routes = [
     NavbarModule,
     MaterialModule,
     DirectivesModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ],
   providers: [NewMomentService]
 })

@@ -2,6 +2,6 @@
     <fampedia-profile-pic (click)="logout()" [src]="image"></fampedia-profile-pic>
     <div class="search">
         <mat-icon>search</mat-icon>
-        <input type="text" placeholder="Find something">
+        <input type="text" [placeholder]="'dashboard.Find_Something' | translate">
     </div>
 </header>

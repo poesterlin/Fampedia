@@ -4,6 +4,7 @@ import { RegisterComponent } from './register.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
     FormsModule,
     MaterialModule,
     RouterModule.forChild(routes),
+    TranslateModule
   ]
 })
 export class RegisterModule { }

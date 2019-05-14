@@ -1,11 +1,11 @@
 {
-    "test": "englisch",
+    "test": "english",
     "login": {
         "Username": "Username",
         "Password": "Password",
         "Login": "Login",
         "Register": "Register",
-        "Request_a_Demo": "Request_a_Demo-Version"
+        "Request_a_Demo": "Demo-Version"
     },
     "titles": {
         "undefined": "",
@@ -21,8 +21,14 @@
         "Add_Moment": "Add Moment",
         "Timeline": "Timeline",
         "News": "News",
+        "No_News": "No News",
         "Archive": "Archive",
-        "Find_Something": "Search ..."
+        "Find_Something": "Find something ...",
+        "No_Moments": "No Moments recorded yet.",
+        "Add_First_Moment": "Add the first moment",
+        "Recipes": "Recipes",
+        "Stories": "Stories",
+        "Documents": "Documents"
     },
     "AddingMoment": {
         "New_Moment": "New Moment",
@@ -30,19 +36,33 @@
         "What": "Name",
         "When": "Date",
         "Where": "Place",
-        "Next": "Next ...",
+        "Next": "Next",
         "Take_Pic": "Take pic",
         "Intro_Text_UL": "A Moment is much more realistic when you add one or two pictures.",
         "Upload_Pics": "Upload pics",
         "No_Pictures": "No pics uploaded :(",
-        "Titel": "Title",
-        "Description": "Description",
         "Summary": "Summary",
         "Images": "Images",
-        "Upload": "Upload"
+        "Upload": "Upload",
+        "Add_Image": "Add Images to Moment.",
+        "Add": "Add",
+        "Add_Image_Intro": "Would you like to add some media to help you remeber this moment?",
+        "Data_Missing": "Please fill out everything.",
+        "Image_Missing": "Please add at least one image."
     },
     "SeeMoment": {
         "Photos": "Pics",
         "Thread": "Comments"
+    },
+    "register": {
+        "Create": "Create new Fampedia Account",
+        "Join": "Join Family",
+        "Avaliable": "Family found. Ready to join.",
+        "Not_Avaliable": "Family doesn’t exist yet. New Family will be created.",
+        "Email": "E-Mail",
+        "Alpha1": "Webseite ist nur ein Test.",
+        "Alpha2": "Daten werden möglicherweise nicht permanent gespeichert.",
+        "Success": "Registration successfull. Invite link was copied to clipboard.",
+        "Share": "share"
     }
 }

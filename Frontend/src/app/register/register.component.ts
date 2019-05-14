@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CoreService } from '../core/core.service';
 import { ErrorService, eMessageDuration } from '../error/shared/error.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'fampedia-register',
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
   public username = "";
   public avaliable = true;
 
-  constructor(private service: CoreService, private error: ErrorService, private router: Router, private route: ActivatedRoute, ) {
+  constructor(private service: CoreService, private error: ErrorService, private router: Router, private route: ActivatedRoute, private translate: TranslateService) {
   }
 
   ngOnInit() {
@@ -43,8 +44,7 @@ export class RegisterComponent implements OnInit {
         el.select();
         document.execCommand('copy');
         document.body.removeChild(el);
-        debugger
-        this.error.showMessage('Registration successfull. Invite link was copied to clipboard.', true, eMessageDuration.Long, 'share')
+        this.error.showMessage(this.translate.instant('register.Success'), true, eMessageDuration.Long, this.translate.instant('register.Share'))
           .then(resp => {
             if (resp.dismissedByAction && (<any>navigator).share) {
               (<any>navigator).share({

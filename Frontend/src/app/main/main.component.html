@@ -5,9 +5,9 @@
 </div>
 
 <menu fxLayout="row">
-  <a fxFlex="33" [ngClass]="{'selected': comp === 0}" (click)="setComp(0)"> Timeline </a>
-  <a fxFlex="33" [ngClass]="{'selected': comp === 1}" (click)="setComp(1)"> News </a>
-  <a fxFlex="33" [ngClass]="{'selected': comp === 2}" (click)="setComp(2)"> Archive </a>
+  <a fxFlex="33" [ngClass]="{'selected': comp === 0}" (click)="setComp(0)"> {{'dashboard.Timeline' | translate}} </a>
+  <a fxFlex="33" [ngClass]="{'selected': comp === 1}" (click)="setComp(1)"> {{'dashboard.News' | translate}} </a>
+  <a fxFlex="33" [ngClass]="{'selected': comp === 2}" (click)="setComp(2)"> {{'dashboard.Archive' | translate}} </a>
 </menu>
 
 <div [ngSwitch]="comp" (swipeleft)="left()" (swiperight)="right()">

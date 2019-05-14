@@ -1,23 +1,22 @@
 <p>
-  Moments are worth to remind dates. <br>
-  You can upload whatever feels important to you and share it with your loved ones!
+    {{'AddingMoment.Intro_Text_Facts' | translate}}
 </p>
 
 
 <table>
   <tr>
-    <td> <span>What?</span> </td>
+    <td> <span>{{'AddingMoment.What' | translate}}</span> </td>
     <td> <input type="text" placeholder="Wedding" [(ngModel)]="service.moment.title"> </td>
   </tr>
   <tr>
-    <td> <span>When?</span> </td>
+    <td> <span>{{'AddingMoment.When' | translate}}</span> </td>
     <td>
       <input type="text" [(ngModel)]="dateVal" (focusout)="setDate($event.currentTarget.value)">
       <span style="color:red; opacity: 0.7; font-size: 13px" *ngIf="dateError">Error in date</span>
     </td>
   </tr>
   <tr>
-    <td> <span>Where?</span> </td>
+    <td> <span>{{'AddingMoment.Where' | translate}}</span> </td>
     <td> <input type="text" placeholder="Restaurant" [(ngModel)]="service.moment.description"> </td>
   </tr>
 </table>

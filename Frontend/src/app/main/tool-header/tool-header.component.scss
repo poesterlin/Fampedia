@@ -28,7 +28,6 @@
     width: 75px;
     margin: 4px 0;
     text-align: center;
-    text-transform: capitalize;
 
     @include forType(gt-md) {
       height: 100px;

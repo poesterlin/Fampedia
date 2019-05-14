@@ -1,12 +1,12 @@
 <div *ngIf="!takePicture" fxLayout="row break">
   <p fxFlex="100" *ngIf="title">
-    Would you like to add some media to help you remeber this moment?
+    {{'AddingMoment.Add_Image_Intro' | translate}}
   </p>
   <div fxFlex="100">
     <div id="openCamera" fxFlex="50" fxLayout="row break" fxLayoutAlign="space-around center">
       <button (click)="imageMode()" fxLayout="row break" fxLayoutAlign="center center">
         <mat-icon>photo_camera</mat-icon>
-        Take Pic
+        {{'AddingMoment.Take_Pic' | translate}}
       </button>
     </div>
 
@@ -16,7 +16,7 @@
         <label for="file" fxFlex="100" fxLayout="row break" fxLayoutAlign="center center">
           <mat-icon>collections</mat-icon>
           <div id="folderDropDown">
-            Upload Pictures
+              {{'AddingMoment.Upload_Pics' | translate}}
           </div>
         </label>
       </button>
@@ -24,7 +24,7 @@
   </div>
 
   <div class="fotogrid" fxLayout="row break" fxLayoutAlign="space-around start" fxLayoutGap="3px">
-    <div id="noPics" *ngIf="images.length === 0">No pictures :(</div>
+    <div id="noPics" *ngIf="images.length === 0">{{'AddingMoment.No_Pictures' | translate}}</div>
     <div class="imageContainer" *ngFor="let im of images; let idx = index" fxFlex="calc(25% - 3px)" fxLayout="row"
       fxLayoutAlign="end start" (click)="select(idx)">
       <div fxFlex="100">
