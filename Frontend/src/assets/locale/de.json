@@ -1,12 +1,48 @@
 {
+    "test": "deutsch",
+    "login":{
+        "Username" : "Benutzername",
+        "Password" : "Passwort",
+        "Login" : "Einloggen",
+        "Register" : "Registrieren",
+        "Request_a_Demo" : "Demo-Version"
+    },
     "titles": {
         "undefined": "",
         "DASHBOARD": "Dashboard",
         "RECIPES": "Rezepte",
         "MAIN": "Timeline",
         "MOMENT": "Moment",
-        "LOGIN": "Login",
         "NEW_MOMENT": "neuer Moment",
+        "LOGIN": "Login",
         "NOT_FOUND": ""
+    },
+    "dashboard": {
+        "Add_Moment": "Moment hinzufügen",
+        "Timeline": "Geschichte",
+        "News": "News",
+        "Archive": "Archiev",
+        "Find_Something": "Suchen ..."
+    },
+    "AddingMoment": {
+        "New_Moment": "Neuer Moment",
+        "Intro_Text_Facts": "Es lohnt sich Momente für die Zukunft aufzuheben. Teile die wichtigsten Momente der letzten Zeit mit deinen Lieben!",
+        "What": "Name",
+        "When": "Datum",
+        "Where": "Port",
+        "Next": "Weiter ...",
+        "Take_Pic": "Bild machen",
+        "Intro_Text_UL": "Ein Moment ist viel greifbarer, wenn man ein Bild hinterlegt.",
+        "Upload_Pics": "Bilder hochladen",
+        "No_Pictures": "Keine Bilder vorhanden :(",
+        "Titel": "Titel",
+        "Description": "Bescheibung",
+        "Summary": "Zusammenfassung",
+        "Images": "Bilder",
+        "Upload": "Hochladen"
+    },
+    "SeeMoment": {
+        "Photos": "Bilder",
+        "Thread": "Kommentare",
     }
 }

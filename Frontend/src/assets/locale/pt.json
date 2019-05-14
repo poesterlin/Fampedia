@@ -1,12 +1,48 @@
 {
+    "test": "português",
+    "login": {
+        "Username": "Username",
+        "Password": "Password",
+        "Login": "Login",
+        "Register": "Register",
+        "Request_a_Demo": "Request_a_Demo-Version"
+    },
     "titles": {
         "undefined": "",
-        "DASHBOARD": "Dashboard",
-        "RECIPES": "Recipes",
-        "MAIN": "Main",
-        "MOMENT": "Moment",
+        "DASHBOARD": "DASHBOARD",
+        "RECIPES": "RECIPES",
+        "MAIN": "MAIN",
+        "MOMENT": "MOMENT",
+        "NEW_MOMENT": "NEW MOMENT",
         "LOGIN": "Login",
-        "NEW_MOMENT": "new Moment",
         "NOT_FOUND": ""
+    },
+    "dashboard": {
+        "Add_Moment": "Add Moment",
+        "Timeline": "Timeline",
+        "News": "News",
+        "Archive": "Archive",
+        "Find_Something": "Search ..."
+    },
+    "AddingMoment": {
+        "New_Moment": "New Moment",
+        "Intro_Text_Facts": "It is worth to save moments for the future. Share the most important memories with your loved ones!",
+        "What": "Name",
+        "When": "Date",
+        "Where": "Place",
+        "Next": "Next ...",
+        "Take_Pic": "Take pic",
+        "Intro_Text_UL": "A Moment is much more realistic when you add one or two pictures.",
+        "Upload_Pics": "Upload pics",
+        "No_Pictures": "No pics uploaded :(",
+        "Titel": "Title",
+        "Description": "Description",
+        "Summary": "Summary",
+        "Images": "Images",
+        "Upload": "Upload"
+    },
+    "SeeMoment": {
+        "Photos": "Pics",
+        "Thread": "Comments"
     }
 }
