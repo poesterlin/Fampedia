@@ -41,6 +41,13 @@ let logs = mongoose.Schema({
     permanent: Boolean,
 });
 
+let mom_comment = mongoose.Schema({
+    userID: String,
+    date: { type: Date, default: Date.now },
+    desc: String,
+    momentID: String,
+});
+
 logs.post('save', function (doc) {
     sendToSocket(doc)
 });
@@ -116,3 +123,5 @@ let LogsDB = mongoose.model("logs", logs);
 exports.LogsDB = LogsDB;
 let NewsDB = mongoose.model("news", news)
 exports.NewsDB = NewsDB
+let MomentCommentDB = mongoose.model("moment_comment", mom_comment)
+exports.MomentCommentDB = MomentCommentDB

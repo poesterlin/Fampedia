@@ -32,7 +32,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"un\": \"{{username}}\", \"pw\": \"{{password}}\", \"familyName\": \"{{familyName}}\"}"
+							"raw": "{\"un\": \"abcd\", \"pw\": \"abcd\", \"familyName\": \"ddd\"}"
 						},
 						"url": {
 							"raw": "{{url}}/user/register",
@@ -253,7 +253,18 @@
 							"script": {
 								"id": "2aa7d5ec-f138-4574-a002-523c3a0bec62",
 								"exec": [
-									""
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"url\") + \"/login\",",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"password\")})",
+									"    }",
+									"    }, function (err, response) {",
+									"            console.log(response.json().token);",
+									"            pm.environment.set(\"token\", response.json().token);",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -325,18 +336,35 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "user",
+								"value": "{{username}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/news",
+							"raw": "{{url}}/news/all",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"news"
+								"news",
+								"all"
 							]
 						}
 					},
@@ -1114,6 +1142,183 @@
 							"body": "{\n  \"moments\":\n    { \n    \"momentiD\": \"momentDI1\",\n    \"momenttitle\": \"title\",\n    \"momentdescription\": \"text\",\n    \"Images\": {\n        \"description\": \"string\",\n        \"imageID\": \"string\",\n        \"timestamp\": \"timestamp\"\n    }\n    \n    }\n}"
 						}
 					]
+				},
+				{
+					"name": "addComment",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5c050b78-adbd-4622-83ca-451608b33742",
+								"exec": [
+									"const interval = setTimeout(() => {}, 2147483647);",
+									"",
+									"function login() {",
+									"    return new Promise((resolve, reject) => {",
+									"        pm.sendRequest({",
+									"            url: pm.environment.get(\"url\") + \"/login\",",
+									"            method: 'POST',",
+									"            header: 'Content-Type:application/json',",
+									"            body: {",
+									"                mode: 'raw',",
+									"                raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"password\")})",
+									"            }",
+									"            }, function (err, response) {",
+									"                if (err) {",
+									"                    console.log(err);",
+									"                    reject();",
+									"                } else {",
+									"                    console.log(response.json().token);",
+									"                    pm.environment.set(\"token\", response.json().token);",
+									"                    resolve();",
+									"                }",
+									"        });",
+									"    });",
+									"}",
+									"",
+									"function addMoment() {",
+									"    return new Promise((resolve, reject) => {",
+									"        pm.sendRequest({",
+									"            url: pm.environment.get(\"url\") + \"/moment/new\",",
+									"            method: 'POST',",
+									"            header: { ",
+									"                'content-type': 'application/json',",
+									"                'token': pm.environment.get(\"token\"),",
+									"                'user': pm.environment.get(\"username\")",
+									"            },",
+									"            body: {",
+									"                mode: 'raw',",
+									"                raw: JSON.stringify({ ",
+									"                    title: \"One pretty moment\", ",
+									"                    description: \"This is a moment test\", ",
+									"                    date: \"12-12-2019\"",
+									"                })",
+									"            }",
+									"            }, function (err, response) {",
+									"                if (err) {",
+									"                    console.log(err);",
+									"                    reject();",
+									"                } else {",
+									"                    console.log(response.json().momentID);",
+									"                    pm.environment.set(\"momentID\", response.json().momentID);",
+									"                    resolve();",
+									"                }",
+									"        });",
+									"    });",
+									"}",
+									"",
+									"login()",
+									"    .then(addMoment)",
+									"    .then(() => clearTimeout(interval))",
+									"    .catch(err => {",
+									"        console.log(err);",
+									"        clearTimeout(interval);",
+									"    });",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "user",
+								"value": "{{username}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"desc\": \"This is a test comment\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/moment/{{momentID}}/comment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"moment",
+								"{{momentID}}",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getComments",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "6e1423bf-6e4b-4a55-bddf-9918267f17b3",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"url\") + \"/login\",",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"password\")})",
+									"    }",
+									"    }, function (err, response) {",
+									"            console.log(response.json().token);",
+									"            pm.environment.set(\"token\", response.json().token);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "user",
+								"value": "{{username}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/moment/{{momentID}}/comments",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"moment",
+								"{{momentID}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "Everything direcetly related to moments",
@@ -1246,7 +1451,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/momentimage/getImage/340/5cd6c636bf651217df383118",
+							"raw": "{{url}}/momentimage/getImage/340/5cd6d7a27639621c2b887cfc",
 							"host": [
 								"{{url}}"
 							],
@@ -1254,7 +1459,7 @@
 								"momentimage",
 								"getImage",
 								"340",
-								"5cd6c636bf651217df383118"
+								"5cd6d7a27639621c2b887cfc"
 							]
 						}
 					},

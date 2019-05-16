@@ -67,6 +67,7 @@ const { router:newsRoutes } = require("./app-news")
  *  moment routes
  */
 app.use("/moment", require('./app-moment'));
+app.use("/", require('./app-moment_comment'));
 
 /**
  *  image routes
