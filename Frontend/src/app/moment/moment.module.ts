@@ -8,6 +8,8 @@ import { MomentService } from './moment.service';
 import { DirectivesModule } from '../helpers/directives.module';
 import { GridItemComponent } from './grid-item/grid-item.component';
 import { PhotoDetailsComponent } from './photo-details/photo-details.component';
+import { CommentsComponent } from './comment/comment.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: ':id', component: MomentComponent, data: { preload: true } },
@@ -18,13 +20,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [MomentComponent, GridItemComponent, PhotoDetailsComponent],
+  declarations: [MomentComponent, GridItemComponent, PhotoDetailsComponent, CommentsComponent],
   imports: [
     TranslateModule,
     CommonModule,
     RouterModule.forChild(routes),
     DirectivesModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   providers: [MomentService]
 })

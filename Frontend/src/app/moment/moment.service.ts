@@ -11,6 +11,7 @@ export class MomentService {
     this.core.getMoments().subscribe((moments) => {
       this.moments$.next(moments);
     });
+
   }
 
   public getMoment(id: number) {

@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { IMoment, MomentCreated } from './Interfaces/IMoment';
 import { Observable } from 'rxjs';
 import { INews } from './Interfaces/IEvent';
+import { IComment } from './Interfaces/IComment';
 
 interface HttpOptions {
   headers?: { key: string, value: string }[];
@@ -33,6 +34,14 @@ export class CoreService {
 
   public getMoments() {
     return this.get<IMoment[]>(`moment/all`).pipe(map(momentJSON => momentJSON.map(json => new Moment(json))))
+  }
+
+  public getComments(moment: number) {
+    return this.get<IComment[]>(`moment/${moment}/comments`);
+  }
+
+  public postComment(moment: number, comment: string) {
+    return this.post(`moment/${moment}/comment`, { desc: comment });
   }
 
   public getNews() {

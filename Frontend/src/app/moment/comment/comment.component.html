@@ -1,0 +1,10 @@
+
+
+<div class="comment" fxLayout="row break">
+    <img [src]="'https://randomuser.me/api/portraits/women/' + fakeImage + '.jpg'" fxFlex="40px">
+    <div fxFlex="calc(100% - 100px)" fxLayout="row break">
+      <span class="title" fxFlex="calc(100% - 95px)">{{comment.userName}}</span>
+      <span fxFlex="95px" class="date"> {{comment.date}} </span>
+      <span fxFlex="100"> {{comment.desc}} </span>
+    </div>
+</div>
