@@ -16,9 +16,11 @@ export class MainService {
 
 
   constructor(private core: CoreService) {
-    this.core.getMoments().subscribe(moments => {
-      this.moments$.next(moments);
-    });
+    this.core.getMoments().toPromise().then(() => {
+      this.core.moments$.subscribe((moments) => {
+        this.moments$.next(moments);
+      });
+    })
     this.core.getNews().subscribe(news => this.news$.next(news));
   }
 }

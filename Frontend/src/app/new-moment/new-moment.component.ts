@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NewMomentService } from './new-moment.service';
 import { ErrorService, eMessageDuration } from '../error/shared/error.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fampedia-new-moment',
@@ -12,7 +13,7 @@ export class NewMomentComponent implements OnInit {
   public index = 0;
   public showButton = true;
 
-  constructor(private service: NewMomentService, private error: ErrorService, private translate: TranslateService) { }
+  constructor(private service: NewMomentService, private error: ErrorService, private translate: TranslateService, private router: Router) { }
 
   ngOnInit() {
     this.service.showButton.subscribe(val => this.showButton = val);
@@ -36,8 +37,9 @@ export class NewMomentComponent implements OnInit {
     }
   }
 
-  public upload() {
-    this.service.uploadMoment();
+  public async upload() {
+    const id = await this.service.uploadMoment();
+    this.router.navigate(['/moment/' + id]);
   }
 
 }

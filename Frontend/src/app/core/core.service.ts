@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Moment } from './Entitys/Moment';
 import { environment } from 'src/environments/environment';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { IMoment, MomentCreated } from './Interfaces/IMoment';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { INews } from './Interfaces/IEvent';
 import { IComment } from './Interfaces/IComment';
 
@@ -16,7 +16,11 @@ interface HttpOptions {
   providedIn: 'root'
 })
 export class CoreService {
-  constructor(private http: HttpClient) { }
+  public readonly moments$: BehaviorSubject<Moment[]> = new BehaviorSubject<Moment[]>([]);
+
+  constructor(private http: HttpClient) {
+
+  }
 
   public addMomentImage(description: string, momentID: number, file: Blob) {
     const formdata = new FormData();
@@ -33,7 +37,10 @@ export class CoreService {
   }
 
   public getMoments() {
-    return this.get<IMoment[]>(`moment/all`).pipe(map(momentJSON => momentJSON.map(json => new Moment(json))))
+    return this.get<IMoment[]>(`moment/all`).pipe(
+      map(momentJSON => momentJSON.map(json => new Moment(json))),
+      tap((moments) => this.moments$.next(moments))
+    )
   }
 
   public getComments(moment: number) {

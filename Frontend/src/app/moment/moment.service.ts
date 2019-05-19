@@ -8,15 +8,14 @@ export class MomentService {
   public readonly moments$: BehaviorSubject<Moment[]> = new BehaviorSubject<Moment[]>([]);
 
   constructor(private core: CoreService) {
-    this.core.getMoments().subscribe((moments) => {
-      this.moments$.next(moments);
-    });
-
+    this.core.getMoments().toPromise().then(() => {
+      this.core.moments$.subscribe((moments) => {
+        this.moments$.next(moments);
+      });
+    })
   }
 
   public getMoment(id: number) {
     return this.moments$.getValue().find(m => m.momentId === id);
   }
-
-
 }

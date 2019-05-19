@@ -10,16 +10,15 @@ export class NewMomentService {
 
   constructor(private core: CoreService) { }
 
-  public uploadMoment() {
+  public async uploadMoment() {
     if (this.moment.title && this.moment.description) {
-      this.core.addMoment(this.moment.title, this.moment.description, this.moment.date)
-        .subscribe(async ({ momentID }) => {
-          await this.uploadImages(momentID);
-
-          // reload to kill camera stream
-          document.location.href = document.location.origin;
-        })
+      const { momentID } = await this.core.addMoment(this.moment.title, this.moment.description, this.moment.date).toPromise();
+      console.log(momentID)
+      await this.uploadImages(momentID);
+      await this.core.getMoments().toPromise();
+      return momentID;
     }
+    return -1;
   }
 
   public async uploadImages(momentID: number) {
@@ -27,7 +26,8 @@ export class NewMomentService {
     for (const image of this.images) {
       promises.push(this.core.addMomentImage('image', momentID, this.dataURItoBlob(image)).toPromise());
     }
-    return await Promise.all(promises);
+    await Promise.all(promises);
+    return await this.core.getMoments().toPromise();
   }
 
   private dataURItoBlob(dataURI: string) {
