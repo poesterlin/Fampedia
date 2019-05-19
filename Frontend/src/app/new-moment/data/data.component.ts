@@ -14,8 +14,9 @@ export class DataComponent implements OnInit {
 
   ngOnInit() {
     this.getDate();
+    this.service.showButton.next(true);
   }
-
+  
   public setDate(input: string) {
     const dateRegex = /(?<day>[0-3]{0,1}[1-9])\s*\/*\s*(?<month>[0-1]{0,1}[1-9])\s*\/*\s*((?<year>[0-9]{4})|(?<shortYear>[0-9]{2}))/;
     if (!dateRegex.test(input)) {
