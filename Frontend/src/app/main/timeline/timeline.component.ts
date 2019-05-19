@@ -20,15 +20,11 @@ export class TimelineComponent {
   public convert(moments: Moment[]) {
     const timeline: [TimelineElement[], TimelineElement[]] = [[], []];
 
-    // const dateSort = (d1: Event, d2: Event) =>
-    //   d1.date.getTime() - d2.date.getTime();
-
     moments
       .filter(m => m.images.length > 0)
-      // .sort(dateSort)
       .forEach((moment, idx) => {
         const sideIdx = idx % 2;
-        const height = window.innerHeight / 5;
+        const height = window.innerHeight / 8;
         const margin = 8;
         const last = timeline[sideIdx][timeline[sideIdx].length - 1] || timeline[sideIdx][timeline[sideIdx].length - 1] || { top: - margin };
 
@@ -36,7 +32,7 @@ export class TimelineComponent {
         const element = {
           row: (sideIdx === 0 ? 'left' : 'right') as any,
           top,
-          height: Math.random() * height + height,
+          height: Math.log(Math.max(moment.images.length, 3)) * height,
           moment
         };
 
