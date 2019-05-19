@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Moment } from '../core/Entitys/Moment';
 import { MomentService } from './moment.service';
 import { environment } from 'src/environments/environment';
@@ -22,7 +22,7 @@ export class MomentComponent implements OnInit {
   public comments: IComment[] = [];
   public commentInput = '';
 
-  constructor(private route: ActivatedRoute, private service: MomentService, private core: CoreService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private service: MomentService, private core: CoreService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -69,6 +69,12 @@ export class MomentComponent implements OnInit {
         this.commentInput = "";
         this.updateComments();
       });
+    }
+  }
+
+  public navigateToHeaderImage() {
+    if(this.moment){
+      this.router.navigate(['/moment/image/' + this.moment.images[0]]);
     }
   }
 }
