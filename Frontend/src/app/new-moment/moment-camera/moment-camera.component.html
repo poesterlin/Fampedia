@@ -1,5 +1,5 @@
 <div class="camera" *ngIf="mode === 'capture'">
-  <video [width]="width" [height]="height" *ngIf="allowed" #video>Video stdeam not
+  <video [width]="width" [height]="height" (canplay)="setHeight()" *ngIf="allowed" #video>Video stdeam not
     available.</video>
 
   <table class="buttons" *ngIf="allowed">
