@@ -126,4 +126,5 @@ router.delete("/deleteImage/:ID", async (req, res) => {
     }
 });
 
-module.exports = router;
+exports.prepareImage = prepareImage
+exports.router = router;

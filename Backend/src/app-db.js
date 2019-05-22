@@ -66,10 +66,11 @@ let image = mongoose.Schema({
     data50: Buffer,
     data320: Buffer,
     data640: Buffer,
-    desc: String
+    desc: String,
 });
 let family = mongoose.Schema({
     name: String,
+    qrCode: Buffer
 });
 
 let news = mongoose.Schema({

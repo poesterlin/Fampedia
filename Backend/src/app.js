@@ -62,6 +62,8 @@ const { testUser, LogsDB } = require("./app-db");
 exports.testUser = testUser;
 
 const { router:newsRoutes } = require("./app-news")
+const { router:qrRoutes } = require("./app-news")
+const { router:imageRoutes } = require("./app-image")
 
 /**
  *  moment routes
@@ -70,9 +72,13 @@ app.use("/moment", require('./app-moment'));
 app.use("/", require('./app-moment_comment'));
 
 /**
+ * qr codes
+ */
+app.use("/", qrRoutes);
+/**
  *  image routes
  */
-app.use("/momentimage", require('./app-image'));
+app.use("/momentimage", imageRoutes);
 
 /**
  *  user management routes

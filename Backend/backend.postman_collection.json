@@ -221,10 +221,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{url}}/user/family/{{familyName}}",
 							"host": [
@@ -353,10 +349,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{url}}/news/all",
 							"host": [
@@ -374,10 +366,6 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{url}}/news",
 									"host": [
@@ -510,10 +498,6 @@
 										"type": "text"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{url}}/getAllMoments/",
 									"host": [
@@ -1120,10 +1104,6 @@
 										"value": "text/plain"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{url}}/getMoment/{{MomentID}}/",
 									"host": [
@@ -1302,10 +1282,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{url}}/moment/{{momentID}}/comments",
 							"host": [
@@ -1446,10 +1422,6 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{url}}/momentimage/getImage/340/5cd6d7a27639621c2b887cfc",
 							"host": [
@@ -1568,7 +1540,7 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": ""
+									"src": "/Users/christiancoenen/Desktop/fampedia/Backend/test/testImage.jpg"
 								}
 							]
 						},
@@ -1619,10 +1591,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{url}}/logs",
 							"host": [
@@ -1640,10 +1608,6 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "{{url}}/logs/clear",
 							"host": [
@@ -1656,6 +1620,96 @@
 						}
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "QRCode",
+			"item": [
+				{
+					"name": "getQRCode",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "0c108087-d005-481f-8a86-9a65ff2c2d52",
+								"exec": [
+									"pm.sendRequest({",
+									"    url: pm.environment.get(\"url\") + \"/login\",",
+									"    method: 'POST',",
+									"    header: 'Content-Type:application/json',",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({un: pm.environment.get(\"username\"), pw: pm.environment.get(\"password\")})",
+									"    }",
+									"    }, function (err, response) {",
+									"            console.log(response.json().token);",
+									"            pm.environment.set(\"token\", response.json().token);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							},
+							{
+								"key": "user",
+								"value": "{{username}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/QRCode",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"QRCode"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "34568c46-9013-4be8-b0f5-73d76ffd6c7f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "46dcda74-52a2-4f09-ae99-29a6a56b5f59",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		}

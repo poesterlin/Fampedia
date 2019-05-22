@@ -5,6 +5,7 @@ const randtoken = require("rand-token");
 const { UserDB, TokenDB, FamilyDB, LogsDB } = require("./app-db");
 const { router, log, handle } = require("./app");
 const { createNews } = require("./app-news.js");
+const { createQRCode } = require("./app-qr_code.js");
 
 router.post("/login", async (req, res) => {
     try {
@@ -98,8 +99,9 @@ router.post("/family/new", async (req, res) => {
         });
 
         if (findFamily) { throw 400; }
+        qrCode = await createQRCode();
 
-        await new FamilyDB({ name: req.body.name }).save();
+        const family = await new FamilyDB({ name: req.body.name, qrCode: qrCode }).save();
 
         res.status(200).send();
     }
