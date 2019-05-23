@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   public password = "";
   public username = "";
   public avaliable = true;
+  public showScanner = false;
 
   constructor(private service: CoreService, private error: ErrorService, private router: Router, private route: ActivatedRoute, private translate: TranslateService) {
   }
@@ -58,4 +59,9 @@ export class RegisterComponent implements OnInit {
       });
   }
 
+
+  public foundID(id: string) {
+    this.family = id;
+    this.showScanner = false;
+  }
 }
