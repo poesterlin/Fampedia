@@ -62,7 +62,7 @@ const { testUser, LogsDB } = require("./app-db");
 exports.testUser = testUser;
 
 const { router:newsRoutes } = require("./app-news")
-const { router:qrRoutes } = require("./app-news")
+const { router:qrRoutes } = require("./app-qr_code")
 const { router:imageRoutes } = require("./app-image")
 
 /**

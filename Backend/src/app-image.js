@@ -2,7 +2,7 @@
 const multer = require("multer");
 const { MomentDB, ImageDB } = require("./app-db");
 const { createNews } = require("./app-news.js");
-const { router, auth, authFail, log, handle } = require("./app");
+const { router, log, handle } = require("./app");
 
 const sharp = require('sharp');
 sharp.cache(false);
@@ -30,6 +30,7 @@ const upload = multer({
 });
 //Image upload
 router.post("/addimage/:ID", upload.single("image"), async (req, res) => {
+    const { auth, authFail } = require("./app");
     try {
         const user = await auth(req.headers.user, req.headers.token).catch(authFail);
         if (!req.file) throw 400;
@@ -104,7 +105,7 @@ router.get("/getImage/:width/:ID", async (req, res, next) => {
 //delete image with id
 router.delete("/deleteImage/:ID", async (req, res) => {
     // also update moment: need to add image to string array
-
+    const { auth, authFail } = require("./app");
     try {
         const id = req.params.ID;
         await auth(req.headers.user, req.headers.token).catch(authFail);
