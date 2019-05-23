@@ -99,10 +99,12 @@ router.post("/family/new", async (req, res) => {
         });
 
         if (findFamily) { throw 400; }
-        qrCode = await createQRCode();
 
-        const family = await new FamilyDB({ name: req.body.name, qrCode: qrCode }).save();
+        const family = await new FamilyDB({ name: req.body.name }).save();
 
+        let qrCode = await createQRCode(`https://fampedia.de/#/register?family=${family.id}`);
+
+        const update = await FamilyDB.update({_id: family.id}, {$set:{qrCode:qrCode}});
         res.status(200).send();
     }
     catch (error) {

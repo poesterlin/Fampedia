@@ -26,8 +26,8 @@ router.get("/QRCode", async (req, res) => {
     }
 });
 
-async function createQRCode() {
-    var qr_png = qr.imageSync("https://fampedia.de",{ type: 'png'})
+async function createQRCode(url) {
+    var qr_png = qr.imageSync(url,{ type: 'png'})
     const qr_png_buff = await prepareImage(qr_png, 320, 65);
     console.log(`Created QR Code`);
     return qr_png;
