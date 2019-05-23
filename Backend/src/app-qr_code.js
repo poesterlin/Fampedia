@@ -1,13 +1,13 @@
- // @ts-check
+// @ts-check
 const { FamilyDB } = require("./app-db");
 const { handle, router, log } = require("./app");
-const { prepareImage } = require("./app-image.js");
+const { prepareImage } = require("./app-image");
 const qr = require('qr-image');
 
 router.get("/QRCode", async (req, res) => {
-    const { auth, authFail } = require("./app");
     try {
-        const reqUser = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const { auth, authFail } = require("./app");
+        const reqUser = await auth(req.query.token).catch(authFail);
 
         let family = await FamilyDB.findById(reqUser.familyID);
 
@@ -27,7 +27,7 @@ router.get("/QRCode", async (req, res) => {
 });
 
 async function createQRCode(url) {
-    var qr_png = qr.imageSync(url,{ type: 'png'})
+    const qr_png = qr.imageSync(url, { type: 'png' })
     const qr_png_buff = await prepareImage(qr_png, 320, 65);
     console.log(`Created QR Code`);
     return qr_png_buff;

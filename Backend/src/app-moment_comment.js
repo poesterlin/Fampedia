@@ -5,7 +5,7 @@ const { auth, authFail, handle, sanitize, router, log } = require("./app");
 
 router.get("/moment/:ID/comments", async (req, res) => {
     try {
-        const reqUser = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const reqUser = await auth(req.headers.token).catch(authFail);
 
         let momentID = parseInt(req.params.ID);
 
@@ -31,7 +31,7 @@ router.post("/moment/:ID/comment", async (req, res) => {
         if (!req.body.desc) {
             throw 400;
         }
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.token).catch(authFail);
 
         let momentID = parseInt(req.params.ID);
         let moment = new MomentCommentDB({

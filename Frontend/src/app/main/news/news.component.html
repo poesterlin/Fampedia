@@ -9,6 +9,12 @@
       <span class="date" fxFlex="100">{{item.date}}</span>
     </div>
   </div>
+  <div class="comment" *ngIf="item.type === 'Register'" fxLayout="row" fxLayoutAlign="center center">
+    <div class="data" fxFlex="calc(100% - 100px)" fxLayout="row break">
+      <span class="desc" fxFlex="100">New family member: {{item.userName}} 🎉🎉🎉</span>
+      <span class="date" fxFlex="100">{{item.date}}</span>
+    </div>
+  </div>
   <div class="image" *ngIf="item.type === 'Image'" fxLayout="row" fxLayoutAlign="center center" (click)="goToMoment(item.data.imageID)">
     <div class="imageWrapper" fxFlex="100">
       <img famImage [size]="320" [lazy]="true" [imageId]="item.data.imageID">

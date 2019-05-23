@@ -1,18 +1,18 @@
 // @ts-check
 const { NewsDB, UserDB } = require("./app-db");
-const { router } = require("./app");
+const { router, handle, sanitize } = require("./app");
 const moment = require("moment");
 
 router.get("/", async (req, res) => {
-    const { auth, authFail, handle, sanitize } = require("./app");
+    const { auth, authFail } = require("./app");
     try {
-        const reqUser = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const reqUser = await auth(req.headers.token).catch(authFail);
         let news = await NewsDB.find({ familyID: reqUser.familyID });
         if (news) {
             news = news.reverse()
-            const userArray = await UserDB.find({familyID: reqUser.familyID})
+            const userArray = await UserDB.find({ familyID: reqUser.familyID })
             res.status(200).json(sanitize(news.map(newsItem => {
-                let found = userArray.find(user=>user.id === newsItem.userID);
+                let found = userArray.find(user => user.id === newsItem.userID);
                 newsItem = newsItem.toJSON();
                 newsItem.userName = found.user;
                 newsItem.date = moment(newsItem.date).fromNow();
@@ -27,15 +27,15 @@ router.get("/", async (req, res) => {
     }
 });
 
-async function createNews(type, userID, familyID, dataChunk ) {
+async function createNews(type, userID, familyID, dataChunk) {
     const data = { imageID: null, comment: null };
     if (type === "Image") {
         data.imageID = dataChunk;
     }
-    else if (type == "Comment"){
+    else if (type == "Comment") {
         data.comment = dataChunk;
     }
-    else if (type == "Register"){
+    else if (type == "Register") {
         data.comment = dataChunk;
     }
     let newNews = new NewsDB({

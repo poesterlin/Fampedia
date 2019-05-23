@@ -1,27 +1,23 @@
-<mat-toolbar>
-  <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
-    <button mat-button routerLink="/login" fxFlex="10">
-      <mat-icon>keyboard_backspace</mat-icon>
-    </button>
-    <div fxFlex="90" id="headline">{{'register.Create' | translate}}</div>
-  </div>
-</mat-toolbar>
-
 <div id="card">
   <fampedia-qr-scanner *ngIf="showScanner" (familyId)="foundID($event)"></fampedia-qr-scanner>
 
   <div *ngIf="!showScanner" fxLayout="row break">
-    <div fxFlex="100" fxLayout="row break">
-      <label for="family">{{'register.Join' | translate}}</label>
-      <input fxFlex="100" id="family" type="text" [(ngModel)]="family" (change)="checkFamilyName()">
+
+    <span fxFlex="100" *ngIf="mode === 3" style="color:red">Family was not found... </span>
+
+    <span fxFlex="100" *ngIf="!!service.familyId && mode < 3"> Found Family to join </span>
+
+    <div fxFlex="100" fxLayout="row break" *ngIf="(!service.familyId || mode == 3) && mode !== 4">
+      <span fxFlex="100">Scan Fampedia Code to join Family</span>
+      <button fxFlex="100" id="openScanner" (click)="showScanner = true">Open Scanner</button>
     </div>
-    <button fxFlex="100" id="openScanner" (click)="showScanner = true">Scan Family code</button>
-    <span fxFlex="100" *ngIf="!avaliable && family">
-      {{'register.Not_Avaliable' | translate}}
-    </span>
-    <span fxFlex="100" *ngIf="avaliable && family">
-      {{'register.Avaliable' | translate}}
-    </span>
+
+    <div fxFlex="100" fxLayout="row break" *ngIf="mode === 4">
+      <label for="family">{{'register.Join' | translate}}</label>
+      <input fxFlex="100" id="family" [placeholder]="'register.Family_Name' | translate" type="text"
+        [(ngModel)]="family" (change)="checkFamilyName()">
+    </div>
+
     <div class="spacer" fxFlex="100"></div>
     <div fxFlex="100" fxLayout="row break">
       <label for="email">{{'register.Email' | translate}}</label>
@@ -35,11 +31,13 @@
       <label for="pw">{{'login.Password' | translate}}</label>
       <input fxFlex="100" id="pw" type="password" [(ngModel)]="password">
     </div>
+
     <span fxFlex="100" id="test">
       {{'register.Alpha1' | translate}}
       <br>
       {{'register.Alpha2' | translate}}
     </span>
+
     <div fxFlex="100">
       <button (click)="register()">{{'login.Register' | translate}}</button>
     </div>
