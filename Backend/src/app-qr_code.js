@@ -30,7 +30,7 @@ async function createQRCode(url) {
     var qr_png = qr.imageSync(url,{ type: 'png'})
     const qr_png_buff = await prepareImage(qr_png, 320, 65);
     console.log(`Created QR Code`);
-    return qr_png;
+    return qr_png_buff;
 }
 
 exports.createQRCode = createQRCode;
