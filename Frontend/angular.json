@@ -30,7 +30,12 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.json"
+              "src/manifest.json",
+              {
+                "glob": "qr-scanner-worker.min.js",
+                "input": "node_modules/qr-scanner",
+                "output": "/"
+              }
             ],
             "styles": [
               "src/styles.scss",

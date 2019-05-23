@@ -15,7 +15,7 @@ router.post("/new", async (req, res) => {
         if (!req.body.title || !req.body.description || !req.body.date) {
             throw 400;
         }
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.token).catch(authFail);
         //random integer 
         const count = crypto.randomBytes(64).readUIntBE(0, 3);
         let newMoment = new MomentDB({
@@ -39,7 +39,7 @@ router.post("/new", async (req, res) => {
 // Get all moments
 router.get("/all", async (req, res) => {
     try {
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.token).catch(authFail);
         const allMoments = await MomentDB.find({ familyID: user.familyID });
         if (allMoments) {
             allMoments.sort(function(a, b) {
@@ -65,7 +65,7 @@ router.get("/oneMoment", async (req, res) => {
         if (!req.body.momentID) {
             throw 400;
         }
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.token).catch(authFail);
 
         const result = await MomentDB.findOne({
             momentID: req.body.momentID,
@@ -88,7 +88,7 @@ router.get("/oneMoment", async (req, res) => {
 // Delete one moment
 router.delete("/delete", async (req, res) => {
     try {
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.token).catch(authFail);
 
         const result = await MomentDB.findOne({
             momentID: req.body.momentID,
@@ -114,7 +114,7 @@ router.delete("/delete", async (req, res) => {
 // Edit one moment
 router.post("/edit", async (req, res) => {
     try {
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.token).catch(authFail);
         if (!req.body.title || !req.body.momentdescription || !req.body.momentID) {
             throw 400;
         }

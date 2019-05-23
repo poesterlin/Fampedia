@@ -32,7 +32,7 @@ const upload = multer({
 router.post("/addimage/:ID", upload.single("image"), async (req, res) => {
     const { auth, authFail } = require("./app");
     try {
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.token).catch(authFail);
         if (!req.file) throw 400;
         let aID = parseInt(req.params.ID);
         let modArt = await MomentDB.findOne({
@@ -79,13 +79,16 @@ async function prepareImage(image, resize, option) {
 
 //get image with number ImageNr
 router.get("/getImage/:width/:ID", async (req, res, next) => {
+    const { auth, authFail } = require("./app");
+
     try {
+        await auth(req.query.token).catch(authFail);
         let imgID = req.params.ID;
         let width = parseInt(req.params.width);
         let image = await ImageDB.findOne({
             _id: imgID
         });
-        
+
         if (!image) throw 404;
 
         let data = image['data' + width];
@@ -108,7 +111,7 @@ router.delete("/deleteImage/:ID", async (req, res) => {
     const { auth, authFail } = require("./app");
     try {
         const id = req.params.ID;
-        await auth(req.headers.user, req.headers.token).catch(authFail);
+        await auth(req.headers.token).catch(authFail);
         await ImageDB.findByIdAndRemove(id);
 
         let affectedMoment = await MomentDB.findOne({ images: id });

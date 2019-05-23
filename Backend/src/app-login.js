@@ -1,4 +1,5 @@
 // @ts-check
+const fs = require('fs');
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const randtoken = require("rand-token");
@@ -6,6 +7,16 @@ const { UserDB, TokenDB, FamilyDB, LogsDB } = require("./app-db");
 const { router, log, handle } = require("./app");
 const { createNews } = require("./app-news.js");
 const { createQRCode } = require("./app-qr_code.js");
+
+
+
+let secret;
+try {
+    secret = fs.readFileSync('../privkey.pem').toString('base64');
+} catch (e) {
+    console.log('unsave dev mode');
+    secret = '1234';
+}
 
 router.post("/login", async (req, res) => {
     try {
@@ -19,12 +30,15 @@ router.post("/login", async (req, res) => {
             throw 401;
         }
         let token = jwt.sign({
-            user,
+            userId: findUser.id,
             rand: randtoken.generate(10)
-        }, findUser.hash, {
+        }, secret, {
                 expiresIn: '1h',
                 issuer: getIp()
             });
+
+        token = encodeURIComponent(token);
+
         //delete old tokens of user
         await TokenDB.deleteMany({
             user
@@ -56,9 +70,7 @@ router.post("/register", async (req, res) => {
 
         if (findUser) { throw 400; }
 
-        const findFamily = await FamilyDB.findOne({
-            name: req.body.familyName
-        });
+        const findFamily = await FamilyDB.findById(req.body.familyName);
 
         if (!findFamily) { throw 400; }
 
@@ -77,12 +89,9 @@ router.post("/register", async (req, res) => {
 });
 
 
-router.get("/family/:NAME", async (req, res) => {
+router.get("/family/:ID", async (req, res) => {
     try {
-        const findFamily = await FamilyDB.findOne({
-            name: req.params.NAME
-        });
-
+        const findFamily = await FamilyDB.findById(req.params.ID);
         res.status(200).json({ avaliable: !!findFamily });
     }
     catch (error) {
@@ -104,8 +113,8 @@ router.post("/family/new", async (req, res) => {
 
         let qrCode = await createQRCode(`https://fampedia.de/#/register?family=${family.id}`);
 
-        const update = await FamilyDB.update({_id: family.id}, {$set:{qrCode:qrCode}});
-        res.status(200).send();
+        const update = await FamilyDB.update({ _id: family.id }, { $set: { qrCode: qrCode } });
+        res.status(201).json({ familyId: family.id });
     }
     catch (error) {
         handle(res, error);
@@ -141,30 +150,28 @@ router.get("/logs/clear", async (req, res) => {
 
 /**
  * verify token
- * @param {string | string[]} user 
  * @param {string | string[]} token 
  */
-async function auth(user, token) {
-    if (!user || !token || Array.isArray(user) || Array.isArray(token)) {
+async function auth(token) {
+    if (!token || Array.isArray(token)) {
         throw 400;
     }
     try {
-        let findUser = await UserDB.findOne({
-            user
-        });
-        if (!findUser) throw "unknown user";
-        let result = jwt.verify(token, findUser.hash, {
+        token = decodeURIComponent(token);
+
+        let result = jwt.verify(token, secret, {
             issuer: getIp()
         });
-        // @ts-ignore
-        if (!result || result.user !== user)
-            throw "cant verify token";
 
-        log(user + " authorized");
+
+        // @ts-ignore
+        let findUser = await UserDB.findById(result.userId);
+        log(findUser.user + " authorized");
+
         return findUser;
     } catch (err) {
-        log(err)
-        log(user + " unauthorized")
+        log(err);
+        log("unauthorized");
         throw 401;
     }
 }

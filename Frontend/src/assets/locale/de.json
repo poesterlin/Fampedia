@@ -56,7 +56,8 @@
     },
     "register": {
         "Create": "Neuen Fampedia Account erstellen",
-        "Join": "Join Family",
+        "Join": "Create Family",
+        "Family_Name": "Familiename",
         "Avaliable": "Family found. Ready to join.",
         "Not_Avaliable": "Family doesn’t exist yet. New Family will be created.",
         "Email": "E-Mail",

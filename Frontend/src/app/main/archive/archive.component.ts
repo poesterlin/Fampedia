@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ErrorService } from 'src/app/error/shared/error.service';
+import { ErrorService } from '../../error/shared/error.service';
+import { LoginService } from '../../login/login.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'fampedia-archive',
@@ -8,7 +10,7 @@ import { ErrorService } from 'src/app/error/shared/error.service';
 })
 export class ArchiveComponent implements OnInit {
 
-  constructor(private error: ErrorService) { }
+  constructor(private error: ErrorService, private loginService: LoginService) { }
 
   ngOnInit() {
   }
@@ -16,5 +18,10 @@ export class ArchiveComponent implements OnInit {
 
   public notImplemented() {
     this.error.showMessage('not implemented yet');
+  }
+
+
+  public get qrcodeUrl() {
+    return `${environment.url}/QRCode?token=${this.loginService.user$.getValue()!.token}`
   }
 }

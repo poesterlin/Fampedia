@@ -64,7 +64,7 @@ export class CoreService {
   }
 
   public registerFamily(name: string) {
-    return this.post('user/family/new', { name });
+    return this.post<{ familyId: string }>('user/family/new', { name });
   }
 
   public registerUser(un: string, pw: string, familyName: string) {

@@ -5,6 +5,7 @@ import { MomentService } from './moment.service';
 import { environment } from 'src/environments/environment';
 import { CoreService } from '../core/core.service';
 import { IComment } from '../core/Interfaces/IComment';
+import { LoginService } from '../login/login.service';
 
 enum ShowMode {
   PHOTO = 0, COMMENT = 1
@@ -22,7 +23,12 @@ export class MomentComponent implements OnInit {
   public comments: IComment[] = [];
   public commentInput = '';
 
-  constructor(private route: ActivatedRoute, private router: Router, private service: MomentService, private core: CoreService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private service: MomentService,
+    private core: CoreService,
+    private loginService: LoginService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -50,7 +56,7 @@ export class MomentComponent implements OnInit {
 
   get imageUrl() {
     if (this.moment) {
-      return `url("${environment.url}/momentimage/getImage/640/${this.moment.images[0]}")`
+      return `url("${environment.url}/momentimage/getImage/640/${this.moment.images[0]}?token=${this.loginService.user$.getValue()!.token}")`
     }
     return '';
   }
@@ -73,7 +79,7 @@ export class MomentComponent implements OnInit {
   }
 
   public navigateToHeaderImage() {
-    if(this.moment){
+    if (this.moment) {
       this.router.navigate(['/moment/image/' + this.moment.images[0]]);
     }
   }

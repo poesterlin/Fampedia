@@ -1,0 +1,39 @@
+mat-toolbar {
+    background: white !important;
+    color: black !important;
+    user-select: none;
+
+    button {
+        height: 100%;
+        color: black;
+    }
+
+    #headline {
+        text-align: center;
+        padding-right: 55px;
+        white-space: normal;
+    }
+}
+
+#card {
+    width: 400px;
+    padding: 10px;
+    max-width: 90vw;
+    margin: 22vh auto 0;
+
+    button {
+        width: 196px;
+        height: 10vh;
+        min-height: 33px;
+        background: #c0c0c0;
+        border-radius: 20px;
+        font-size: 16px;
+        text-align: center;
+        color: black;
+        border: 0;
+        outline: 0;
+        margin: 12% auto;
+        display: block;
+        box-shadow: 1px 1px 8px #00000029;
+    }
+}

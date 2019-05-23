@@ -1,5 +1,6 @@
 import { Directive, Input, ElementRef, HostBinding, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { LoginService } from '../login/login.service';
 
 const transparentGif = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
@@ -22,7 +23,7 @@ export class ImageDirective implements AfterViewInit, OnDestroy {
   private parent?: HTMLElement | null;
   private loadingClass = 'loadingImage';
 
-  constructor(private elRef: ElementRef) { }
+  constructor(private elRef: ElementRef, private loginService: LoginService) { }
 
   ngAfterViewInit(): void {
     if (!this.lazy) {
@@ -41,7 +42,8 @@ export class ImageDirective implements AfterViewInit, OnDestroy {
   public onVisibilityChange(elementData?: IntersectionObserverEntry) {
     if (!elementData || elementData.intersectionRatio > 0 && this.source) {
       setTimeout(() => {
-        this.source = `${environment.url}/momentimage/getImage/${this.size}/${this.imageId}`;
+        const token = this.loginService.user$.getValue()!.token
+        this.source = `${environment.url}/momentimage/getImage/${this.size}/${this.imageId}?token=${token}`;
       })
       this.visible = true;
       this.destroy();

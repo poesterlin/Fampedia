@@ -1,0 +1,17 @@
+<mat-toolbar>
+  <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
+    <button mat-button (click)="back()" fxFlex="10">
+      <mat-icon>keyboard_backspace</mat-icon>
+    </button>
+    <div fxFlex="90" id="headline">{{'register.Create' | translate}}</div>
+  </div>
+</mat-toolbar>
+
+
+
+<div id="card" *ngIf="mode === 0">
+  <button (click)="modeCreateNew()">Sign up new Family</button>
+  <button (click)="modeJoin()">Join Family</button>
+</div>
+
+<fampedia-register *ngIf="mode > 0"></fampedia-register>
