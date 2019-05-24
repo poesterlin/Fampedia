@@ -33,7 +33,7 @@ router.post("/login", async (req, res) => {
             userId: findUser.id,
             rand: randtoken.generate(10)
         }, secret, {
-                expiresIn: '1h',
+                expiresIn: '1d',
                 issuer: getIp()
             });
 
@@ -49,7 +49,7 @@ router.post("/login", async (req, res) => {
         });
         await newToken.save();
         let expireDate = new Date();
-        expireDate.setHours(expireDate.getHours() + 1);
+        expireDate.setHours(expireDate.getHours() + 24);
         log("token generated");
         res.status(200).json({
             token,
