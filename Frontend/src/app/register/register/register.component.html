@@ -5,7 +5,7 @@
 
     <span fxFlex="100" *ngIf="mode === 3" style="color:red">Family was not found... </span>
 
-    <span fxFlex="100" *ngIf="!!service.familyId && mode < 3"> Found Family to join </span>
+    <span fxFlex="100" *ngIf="!!service.familyId && mode < 3"> Found Family <b>{{family}}</b> to join </span>
 
     <div fxFlex="100" fxLayout="row break" *ngIf="(!service.familyId || mode == 3) && mode !== 4">
       <span fxFlex="100">Scan Fampedia Code to join Family</span>

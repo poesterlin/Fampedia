@@ -7,6 +7,7 @@ import { IMoment, MomentCreated } from './Interfaces/IMoment';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { INews } from './Interfaces/IEvent';
 import { IComment } from './Interfaces/IComment';
+import { IFamilyFound } from './Interfaces/IFamily';
 
 interface HttpOptions {
   headers?: { key: string, value: string }[];
@@ -59,8 +60,8 @@ export class CoreService {
     return this.post(`user/login`, { "un": username, "pw": password })
   }
 
-  public checkFamilyName(family: string): Observable<boolean> {
-    return this.get<{ avaliable: boolean }>('user/family/' + family).pipe(map(resp => resp.avaliable));
+  public checkFamilyName(family: string): Observable<IFamilyFound> {
+    return this.get<IFamilyFound>('user/family/' + family);
   }
 
   public registerFamily(name: string) {

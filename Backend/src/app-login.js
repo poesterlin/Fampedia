@@ -92,7 +92,7 @@ router.post("/register", async (req, res) => {
 router.get("/family/:ID", async (req, res) => {
     try {
         const findFamily = await FamilyDB.findById(req.params.ID);
-        res.status(200).json({ avaliable: !!findFamily });
+        res.status(200).json({ avaliable: !!findFamily, name: findFamily ? findFamily.name : undefined });
     }
     catch (error) {
         handle(res, error);

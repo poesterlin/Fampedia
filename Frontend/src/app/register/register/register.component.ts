@@ -33,8 +33,13 @@ export class RegisterComponent {
 
   public checkFamilyName() {
     if (!this.service.familyId) { return; }
-    this.core.checkFamilyName(this.service.familyId).subscribe(avaliable => {
-      this.service.familyMode.next(avaliable ? FamilyMode.joinAvaliable : FamilyMode.joinNotAvaliable);
+    this.core.checkFamilyName(this.service.familyId).subscribe(family => {
+      if (family.avaliable && family.name) {
+        this.service.familyMode.next(FamilyMode.joinAvaliable);
+        this.family = family.name;
+      } else {
+        this.service.familyMode.next(FamilyMode.joinNotAvaliable);
+      }
     });
   }
 
