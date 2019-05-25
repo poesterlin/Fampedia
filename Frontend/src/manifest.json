@@ -1,8 +1,8 @@
 {
   "name": "Fampedia",
   "short_name": "Fampedia",
-  "theme_color": "#16c5c2",
-  "background_color": "#2c4558",
+  "theme_color": "#50b996",
+  "background_color": "white",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
