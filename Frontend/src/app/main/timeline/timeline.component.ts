@@ -32,7 +32,7 @@ export class TimelineComponent {
         const element = {
           row: (sideIdx === 0 ? 'left' : 'right') as any,
           top,
-          height: Math.log(Math.max(moment.images.length, 3)) * height,
+          height: Math.log(Math.max(moment.images.length, 6)) * height,
           moment
         };
 

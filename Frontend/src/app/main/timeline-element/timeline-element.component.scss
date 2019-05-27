@@ -19,7 +19,7 @@ $rad: 19px;
     }
     img {
       @include constrainImage(100%, 100%, cover);
-      z-index: -1;
+      z-index: 1;
       overflow: hidden;
       border-radius: $rad;
     }
@@ -42,7 +42,7 @@ $rad: 19px;
       position: absolute;
       padding: 10px 15px 0px;
       text-shadow: 0 0 4px #00000047;
-      z-index: 1;
+      z-index: 2;
       line-height: 12px;
       direction: initial;
       border-radius: $rad;
@@ -62,7 +62,7 @@ $rad: 19px;
     width: 5vw;
     height: 1px;
     position: absolute;
-    z-index: -10;
+    z-index: 0;
     &.left {
       transform: translate(40vw, 25px);
     }

@@ -2,6 +2,14 @@
 @import "../styles/helperMixins.scss";
 @import "../styles/theme.scss";
 
+div.background {
+  background: linear-gradient(0deg, #eff4f7, #eff4f7), rgba(239, 244, 247, 0.7);
+  width: 100%;
+  padding: 20px 0;
+  min-height: calc(100vh - 230px);
+  z-index: -1;
+}
+
 .headerContainer {
   height: 66px;
   width: 90%;
