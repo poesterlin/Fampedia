@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Moment } from './Entitys/Moment';
 import { environment } from 'src/environments/environment';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, distinctUntilChanged } from 'rxjs/operators';
 import { IMoment, MomentCreated } from './Interfaces/IMoment';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { INews } from './Interfaces/IEvent';
 import { IComment } from './Interfaces/IComment';
 import { IFamilyFound } from './Interfaces/IFamily';
@@ -13,11 +13,17 @@ interface HttpOptions {
   headers?: { key: string, value: string }[];
 }
 
+export enum EUpdateType {
+  comment = "comment", moment = "moment", news = "news"
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class CoreService {
   public readonly moments$: BehaviorSubject<Moment[]> = new BehaviorSubject<Moment[]>([]);
+  public readonly news$: BehaviorSubject<INews[]> = new BehaviorSubject<INews[]>([]);
+  public readonly updatesAvaliable$: Subject<EUpdateType> = new Subject();
 
   constructor(private http: HttpClient) {
 
@@ -39,6 +45,7 @@ export class CoreService {
 
   public getMoments() {
     return this.get<IMoment[]>(`moment/all`).pipe(
+      distinctUntilChanged(),
       map(momentJSON => momentJSON.map(json => new Moment(json))),
       tap((moments) => this.moments$.next(moments))
     )
@@ -53,7 +60,10 @@ export class CoreService {
   }
 
   public getNews() {
-    return this.get<INews[]>(`news`);
+    return this.get<INews[]>(`news`).pipe(
+      distinctUntilChanged(),
+      tap((news) => this.news$.next(news))
+    )
   }
 
   public login(username: string, password: string) {

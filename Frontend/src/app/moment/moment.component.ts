@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Moment } from '../core/Entitys/Moment';
 import { MomentService } from './moment.service';
 import { environment } from 'src/environments/environment';
-import { CoreService } from '../core/core.service';
+import { CoreService, EUpdateType } from '../core/core.service';
 import { IComment } from '../core/Interfaces/IComment';
 import { LoginService } from '../login/login.service';
+import { filter } from 'rxjs/operators';
 
 enum ShowMode {
   PHOTO = 0, COMMENT = 1
@@ -37,6 +38,10 @@ export class MomentComponent implements OnInit {
         this.moment = this.service.getMoment(this.id);
         this.updateComments();
       });
+    });
+
+    this.core.updatesAvaliable$.pipe(filter((type) => type === EUpdateType.comment)).subscribe(() => {
+      this.updateComments();
     });
   }
 

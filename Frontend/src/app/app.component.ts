@@ -5,6 +5,8 @@ import { Router, RouterState, ActivatedRoute, Scroll, NavigationEnd } from '@ang
 import { Title } from '@angular/platform-browser';
 import { filter } from 'rxjs/operators';
 import { ViewportScroller } from '@angular/common';
+import { Socket } from 'ngx-socket-io';
+import { CoreService, EUpdateType } from './core/core.service';
 
 @Component({
     selector: 'fampedia-root',
@@ -13,7 +15,7 @@ import { ViewportScroller } from '@angular/common';
 })
 export class AppComponent {
     constructor(private translate: TranslateService, private router: Router, private titleService: Title,
-        storage: StorageService, viewportScroller: ViewportScroller) {
+        storage: StorageService, viewportScroller: ViewportScroller, private socket: Socket, private core: CoreService) {
         console.log('%cfampedia', 'font-size:40px');
 
         this.updateTitle();
@@ -65,6 +67,22 @@ export class AppComponent {
                 (<any>window).ga('set', 'page', event.urlAfterRedirects);
                 (<any>window).ga('send', 'pageview');
             }
+        });
+
+
+        this.socket.on(EUpdateType.comment, () => {
+            console.log("socket", EUpdateType.comment);
+            this.core.updatesAvaliable$.next(EUpdateType.comment);
+        });
+        
+        this.socket.on(EUpdateType.moment, () => {
+            console.log("socket", EUpdateType.moment);
+            this.core.getMoments().subscribe();
+        });
+        
+        this.socket.on(EUpdateType.news, () => {
+            console.log("socket", EUpdateType.news);
+            this.core.getNews().subscribe();
         });
     }
 

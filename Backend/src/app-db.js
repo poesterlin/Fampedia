@@ -48,10 +48,6 @@ let mom_comment = mongoose.Schema({
     momentID: String,
 });
 
-logs.post('save', function (doc) {
-    sendToSocket(doc)
-});
-
 let us = mongoose.Schema({
     user: String,
     hash: String,
@@ -80,6 +76,24 @@ let news = mongoose.Schema({
     familyID: String,
     data: { imageID: String, comment: String }
 });
+
+
+news.post('save', function (doc) {
+    sendToSocket('news', doc);
+});
+
+mom.post('save', function (doc) {
+    sendToSocket('moment', doc);
+});
+
+mom_comment.post('save', function (doc) {
+    sendToSocket('comment', doc);
+});
+
+logs.post('save', function (doc) {
+    sendToSocket('log', doc);
+});
+
 
 async function testUser(user, password, keep = true) {
     let allUsers = await UserDB.find({

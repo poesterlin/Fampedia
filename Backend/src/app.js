@@ -61,9 +61,9 @@ exports.auth = auth;
 const { testUser, LogsDB } = require("./app-db");
 exports.testUser = testUser;
 
-const { router:newsRoutes } = require("./app-news")
-const { router:qrRoutes } = require("./app-qr_code")
-const { router:imageRoutes } = require("./app-image")
+const { router: newsRoutes } = require("./app-news")
+const { router: qrRoutes } = require("./app-qr_code")
+const { router: imageRoutes } = require("./app-image")
 
 /**
  *  moment routes
@@ -131,11 +131,11 @@ function sanitize(obj) {
 
 /**
  * 
- * @param {{message: string, date: string}} log 
+ * @param {string} type 
+ * @param {{message: string, date: string}} data 
  */
-function sendToSocket(log) {
-    // io.emit('log', { for: 'everyone' }, JSON.stringify(log));
-    io.emit('log', JSON.stringify(log));
+function sendToSocket(type, data) {
+    io.volatile.emit(type, JSON.stringify(data));
 }
 
 
