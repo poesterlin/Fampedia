@@ -5,6 +5,7 @@ $rad: 19px;
 
 :host {
   width: 40vw;
+  max-width: 400px;
   position: relative;
   display: inline-block;
   border-radius: $rad;
@@ -59,15 +60,16 @@ $rad: 19px;
   }
   i.line {
     background: rgb(97, 97, 97);
-    width: 5vw;
+    width: 15vw;
     height: 1px;
     position: absolute;
     z-index: 0;
+    top: 23px;
     &.left {
-      transform: translate(40vw, 25px);
+      right: calc(-14% + 3px);
     }
     &.right {
-      transform: translate(-40vw, 25px);
+      left: calc(-14% + 1px);
     }
   }
   i.bubble {
@@ -76,13 +78,20 @@ $rad: 19px;
     background: black;
     position: absolute;
     border-radius: 50%;
-    z-index: 50;
+    z-index: 0;
+    top: 20px;
     box-shadow: inset 0 0 0 1px white, 0 0 0 1px black;
     &.left {
-      transform: translate(calc(45vw - 3px), 22px);
+      @media only screen and (max-width: 800px) {
+        left: 111%;
+      }
+      left: calc(100% + 46px);
     }
     &.right {
-      transform: translate(calc(-45vw + 4px), 22px);
+      @media only screen and (max-width: 800px) {
+        right: 111%;
+      }
+      right: calc(111% + 3px);
     }
   }
 }

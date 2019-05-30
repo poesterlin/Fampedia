@@ -1,14 +1,15 @@
-<div class="noTimeline" *ngIf="timeline.length === 0 || (timeline[0].length === 0 && timeline[1].length === 0)" fxLayout="row break" fxLayoutAlign="center center">
+<div class="noTimeline" *ngIf="timeline.length === 0 || (timeline[0].length === 0 && timeline[1].length === 0)"
+  fxLayout="row break" fxLayoutAlign="center center">
   <span fxFlex="100">{{'dashboard.No_Moments' | translate}}</span>
   <button fxFlex="100" routerLink="/new/moment">{{'dashboard.Add_First_Moment' | translate}}</button>
 </div>
 
 <div class="timeline" *ngIf="timeline.length === 2" fxLayout="row">
-  <div id="left" fxFlex="49">
+  <div id="left" fxFlex="calc(49% - 1px)">
     <fampedia-timeline-element *ngFor="let el of timeline[0]" [element]="el"></fampedia-timeline-element>
   </div>
-  <div id="line" fxFlex="2"></div>
-  <div id="right" fxFlex="49">
+  <div id="line" fxFlex="2px"></div>
+  <div id="right" fxFlex="calc(49% - 1px)">
     <fampedia-timeline-element *ngFor="let el of timeline[1]" [element]="el"></fampedia-timeline-element>
   </div>
 </div>

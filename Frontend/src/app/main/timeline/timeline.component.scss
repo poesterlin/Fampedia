@@ -1,5 +1,6 @@
 .timeline {
     width: 90vw;
+    max-width: 900px;
     margin: auto;
 
     #left,
@@ -12,8 +13,7 @@
     }
 
     #line {
-        border-right: 2px solid #acacac66;
-        transform: translateX(calc(-1vw + 2px));
+        background: #acacac66;
     }
 }
 

@@ -11,14 +11,10 @@ div.background {
 }
 
 .headerContainer {
-  height: 66px;
+  height: 80px;
   width: 90%;
   background: white;
-  margin: auto;
-
-  @include forType(gt-md) {
-    height: 108px;
-  }
+  margin: 10px auto 0;
 }
 
 menu {
