@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { NewMomentService } from './new-moment.service';
 import { AddImageComponent } from './add-image/add-image.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { UploadingComponent } from './uploading/uploading.component';
 
 const routes: Routes = [
   { path: 'moment', data: { title: 'NOT_FOUND' }, component: NewMomentComponent },
@@ -31,7 +32,8 @@ const routes: Routes = [
     AccessComponent,
     PeopleSelectComponent,
     MomentCameraComponent,
-    AddImageComponent
+    AddImageComponent,
+    UploadingComponent
   ],
   imports: [
     CommonModule,

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class NewMomentComponent implements OnInit {
   public index = 0;
   public showButton = true;
+  public loading = false;
 
   constructor(private service: NewMomentService, private error: ErrorService, private translate: TranslateService, private router: Router) { }
 
@@ -38,7 +39,9 @@ export class NewMomentComponent implements OnInit {
   }
 
   public async upload() {
+    this.loading = true;
     const id = await this.service.uploadMoment();
+    this.loading = false;
     this.router.navigate(['/moment/' + id]);
   }
 

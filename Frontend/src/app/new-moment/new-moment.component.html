@@ -19,13 +19,17 @@
 <div class="container" [ngClass]="{'big': !showButton}">
 
     <fampedia-new-moment-data *ngIf="index === 0"></fampedia-new-moment-data>
-    
+
     <fampedia-new-moment-images *ngIf="index === 1"></fampedia-new-moment-images>
-    
+
     <fampedia-new-moment-access *ngIf="index === 2"></fampedia-new-moment-access>
 </div>
-    
+
 <div class="buttons" *ngIf="showButton">
     <button (click)="next()" class="nextBtn" *ngIf="index < 2">{{'AddingMoment.Next' | translate}}</button>
-    <button (click)="upload()" class="nextBtn" *ngIf="index == 2">{{'AddingMoment.Upload' | translate}}</button>
+    <button (click)="upload()" [disabled]="loading" class="nextBtn"
+        *ngIf="index == 2">{{'AddingMoment.Upload' | translate}}</button>
 </div>
+
+
+<fampedia-uploading *ngIf="loading"></fampedia-uploading>

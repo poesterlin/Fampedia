@@ -1,0 +1,59 @@
+.icon {
+  animation: upload 1s infinite;
+  margin: 10px auto;
+  text-align: center;
+  height: 100%;
+
+  @keyframes upload {
+    0% {
+      animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+      transform: translate(0px, 55px);
+    }
+
+    50% {
+      animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+      transform: translate(0px, 100%);
+      opacity: 1;
+    }
+
+    49% {
+      transform: translate(0px, -10%);
+      opacity: 0;
+    }
+
+    100% {
+      animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+      transform: translate(0px, 55px);
+    }
+  }
+}
+
+.background {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.container {
+  height: 170px;
+  overflow: hidden;
+  margin: 10px auto;
+  background: white;
+  border-radius: 11px;
+  box-shadow: 3px 3px 3px 0px #0000006b;
+}
+
+mat-icon {
+  font-size: 40px;
+  transform: translate(-6px);
+  color: #50b996;
+}
+
+h3 {
+  text-align: center;
+  color: #50b996;
+  font-weight: bold;
+}

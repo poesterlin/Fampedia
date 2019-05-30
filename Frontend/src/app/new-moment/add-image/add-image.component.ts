@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddImageComponent {
   private id = 0
   public showButton = true;
+  public loading = false;
 
   constructor(private service: NewMomentService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => this.id = +params['id']);
@@ -17,7 +18,9 @@ export class AddImageComponent {
   }
 
   async add() {
+    this.loading = true;
     await this.service.uploadImages(this.id);
+    this.loading = false;
     this.router.navigate(['moment/' + this.id]);
   }
 

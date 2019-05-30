@@ -15,5 +15,7 @@
 </div>
 
 <div class="buttons" *ngIf="showButton">
-  <button (click)="add()">{{'AddingMoment.Add' | translate}}</button>
+  <button [disabled]="loading" (click)="add()">{{'AddingMoment.Add' | translate}}</button>
 </div>
+
+<fampedia-uploading *ngIf="loading"></fampedia-uploading>
