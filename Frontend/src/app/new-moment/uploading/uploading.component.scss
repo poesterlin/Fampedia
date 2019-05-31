@@ -1,13 +1,9 @@
-img {
-  width: 200px;
-  mix-blend-mode: darken;
-}
-
 .uploadIcon {
   animation: upload 1.5s infinite;
   height: 170px;
   position: absolute;
   top: 45px;
+  width: 200px;
   opacity: 0.8;
 
   @keyframes upload {
@@ -34,9 +30,46 @@ img {
   }
 }
 
-.cloudIcon {
-  animation: wiggle 1.5s infinite 750ms;
-  z-index: -1;
+.book {
+  // animation: wiggle 1.5s infinite 750ms;
+  img {
+    width: 110px;
+    object-fit: cover;
+    height: 86px;
+  }
+
+  .hider {
+    overflow: hidden;
+    margin: -68px 0 0;
+    position: relative;
+    height: 50px;
+    animation: reveal 1.5s infinite 125ms;
+
+    @keyframes reveal {
+      0% {
+        width: 0px;
+      }
+
+      30% {
+        animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+        width: 17px;
+      }
+
+      100% {
+        animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+        width: 100px;
+      }
+    }
+  }
+
+  svg {
+    transform: translate(-122px, -85px) scale(0.35, 0.45);
+  }
+  width: 110px;
+  position: absolute;
+  top: 50px;
+  left: 60px;
+  height: 86px;
 
   $amount: 20%;
   $rotate: 15deg;

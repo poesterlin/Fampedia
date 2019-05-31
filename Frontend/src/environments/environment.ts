@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: "https://backend.df-ma.de:3000",
+  url: "localhost:3000",
 };
 
 /*
