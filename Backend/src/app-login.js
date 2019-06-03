@@ -65,7 +65,7 @@ router.post("/login", async (req, res) => {
         const resp = {
             token,
             expireDate,
-            familyMembers: familyMembers.filter(famMemb => famMemb.id !== findUser.id),
+            familyMembers,
         }
 
         res.status(200).json(resp);
