@@ -70,6 +70,7 @@ const { router: imageRoutes } = require("./app-image")
  */
 app.use("/moment", require('./app-moment'));
 app.use("/", require('./app-moment_comment'));
+app.use("/", require('./app-tagging'));
 
 /**
  * qr codes

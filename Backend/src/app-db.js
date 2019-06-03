@@ -33,7 +33,8 @@ let mom = mongoose.Schema({
     momentdescription: String,
     date: String,
     images: [String],
-    familyID: String
+    familyID: String,
+    taggedUsers: [String],
 });
 let logs = mongoose.Schema({
     message: String,
