@@ -10,6 +10,7 @@ header {
     width: calc(94% - 47px);
     margin: 7px 3% 0;
     height: 37px;
+    overflow: hidden;
 
     border: 1px solid #173c58;
     box-sizing: border-box;
@@ -33,4 +34,44 @@ header {
       float: right;
     }
   }
+}
+
+
+
+img {
+  @include constrainImage(35px, 35px);
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+span{
+  @include ellipsis(80%);
+}
+
+.userlist {
+  position: absolute;
+  z-index: 30;
+  max-height: 140px;
+  overflow: auto;
+  width: 170px;
+  flex-flow: row wrap;
+  box-sizing: border-box;
+  display: flex;
+  flex: 1 1 170px;
+  max-width: 170px;
+  min-width: 170px;
+  background: white;
+  margin-top: 37px;
+  border-radius: 9px;
+  border: 1px solid #c4c4c4;
+}
+
+.plus {
+  background: cP(100);
+  height: 35px;
+  border-radius: 50%;
+}
+
+.noMatch {
+  margin: 5px;
 }

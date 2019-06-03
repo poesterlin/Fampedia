@@ -8,6 +8,7 @@ import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { INews } from './Interfaces/IEvent';
 import { IComment } from './Interfaces/IComment';
 import { IFamilyFound } from './Interfaces/IFamily';
+import { Member } from './Interfaces/IUser';
 
 interface HttpOptions {
   headers?: { key: string, value: string }[];
@@ -29,6 +30,12 @@ export class CoreService {
 
   }
 
+  public filterFor(member: Member) {
+    this.get<number[]>(`tagged/${member.id}`).subscribe(val => {
+      this.moments$.next(this.moments$.getValue().filter(mom => val.includes(mom.momentId)))
+    })
+  }
+
   public addMomentImage(description: string, momentID: number, file: Blob) {
     const formdata = new FormData();
     formdata.append('image', file);
@@ -39,8 +46,12 @@ export class CoreService {
     return this.post(`moment/edit`, moment)
   }
 
-  public addMoment(title: string, description: string, date: Date = new Date()) {
-    return this.post<MomentCreated>(`moment/new`, { title, description, date })
+  public addMoment(title: string, description: string, date: Date = new Date(), userIds: string[]) {
+    return this.post<MomentCreated>(`moment/new`, { title, description, date }).pipe(tap((moment: MomentCreated) => {
+      if (userIds.length > 0) {
+        this.post(`moment/${moment.momentID}/tag`, { ids: userIds }).subscribe();
+      }
+    }));
   }
 
   public getMoments() {

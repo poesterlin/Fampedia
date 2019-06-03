@@ -5,14 +5,14 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class NewMomentService {
   public readonly showButton: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-  public moment: { title?: string, description?: string, date?: Date } = {};
+  public moment: { title?: string, description?: string, date?: Date, tags: string[] } = { tags: [] };
   public images: string[] = [];
 
   constructor(private core: CoreService) { }
 
   public async uploadMoment() {
     if (this.moment.title && this.moment.description) {
-      const { momentID } = await this.core.addMoment(this.moment.title, this.moment.description, this.moment.date).toPromise();
+      const { momentID } = await this.core.addMoment(this.moment.title, this.moment.description, this.moment.date, this.moment.tags).toPromise();
       console.log(momentID)
       await this.uploadImages(momentID);
       await this.core.getMoments().toPromise();

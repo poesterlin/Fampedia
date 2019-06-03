@@ -1,4 +1,8 @@
-import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { LoginService } from 'src/app/login/login.service';
+import { Member } from 'src/app/core/Interfaces/IUser';
+import { NewMomentService } from '../new-moment.service';
+
 
 @Component({
   selector: 'fampedia-people-select',
@@ -6,36 +10,40 @@ import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular
   styleUrls: ['./people-select.component.scss']
 })
 export class PeopleSelectComponent {
-  @Output() output = new EventEmitter<string[]>();
   @ViewChild('queryInput') inputEl?: ElementRef;
 
   public query = "";
-  public people: { name: string, id: number }[] = [];
+  public people: Member[] = [];
   public input = false;
-  private peps = ["Inga Innes", "Cathrine Chism", "Johnnie Jone", "Margarite Mcdavis", "Beryl Bame", "Dahlia Down",
-    "Valentina Vandiver", "Su Said", "Darci Desimone", "Meggan Mcpartland"].map((n, id) => ({ name: n, id }));
+  private peps: Member[] = [];
 
-  constructor() { }
+  constructor(private userService: LoginService, private service: NewMomentService) {
+    this.userService.user$.subscribe((user) => {
+      if (user && user.familyMembers) {
+        this.peps = user.familyMembers;
+      }
+    })
+  }
 
-  select(pep: { name: string, id: number }) {
+  select(pep: Member) {
     if (!this.people.includes(pep)) {
       this.people.push(pep);
     }
-    this.output.emit(this.people.map(pep => pep.name));
     this.input = false;
     this.query = "";
+    this.service.moment.tags = this.people.map(user => user.id);
   }
 
-  remove(pep: { name: string, id: number }) {
+  remove(pep: Member) {
     const ind = this.people.findIndex(p => p === pep);
     if (ind > -1) {
       this.people.splice(ind, 1);
     }
-    this.output.emit(this.people.map(pep => pep.name));
+    this.service.moment.tags = this.people.map(user => user.id);
   }
 
-  search(): { name: string, id: number }[] | undefined {
-    let fitQuery: { name: string, id: number }[];
+  search(): Member[] | undefined {
+    let fitQuery: Member[];
     if (this.query) {
       fitQuery = this.peps
         .filter(pep =>

@@ -115,7 +115,7 @@ function handle(res, err, desc) {
 }
 
 function sanitize(obj) {
-    const forbiddenField = ['_id', '__v'];
+    const forbiddenField = ['_id', '__v', 'hash'];
     if (Array.isArray(obj)) {
         obj = obj.map(sanitize);
     } else if (typeof obj === 'object') {

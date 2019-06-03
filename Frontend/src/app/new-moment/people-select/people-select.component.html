@@ -1,12 +1,12 @@
 <div fxLayout="row break" fxLayoutGap="5px">
-    <div fxFlex="35px" *ngFor="let pep of people" class="user" (click)="remove(pep)">
-        <img [src]="'https://randomuser.me/api/portraits/women/' + pep.id + '.jpg'" [alt]="pep.name">
+    <div fxFlex="35px" *ngFor="let pep of people; let idx = index" class="user" (click)="remove(pep)">
+        <img [src]="'https://randomuser.me/api/portraits/women/' + idx + '.jpg'" [alt]="pep.name">
     </div>
     <div fxFlex="170px" *ngIf="input === true" fxLayout="row break">
         <input #queryInput fxFlex="100" type="text" placeholder="Type the name" [(ngModel)]="query">
         <div class="userlist" fxFlex="100">
-            <div *ngFor="let pep of search()" class="user" (click)="select(pep)" fxLayout="row break" fxLayoutAlign="center center" fxLayoutGap="5px">
-                <img fxFlex="35px" [src]="'https://randomuser.me/api/portraits/women/' + pep.id + '.jpg'"
+            <div *ngFor="let pep of search(); let idx = index" class="user" (click)="select(pep)" fxLayout="row break" fxLayoutAlign="center center" fxLayoutGap="5px">
+                <img fxFlex="35px" [src]="'https://randomuser.me/api/portraits/women/' + idx + '.jpg'"
                     [alt]="pep.name">
                 <span fxFlex="calc(100% - 40px)">{{pep.name}}</span>
             </div>

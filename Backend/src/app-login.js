@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const randtoken = require("rand-token");
 const { UserDB, TokenDB, FamilyDB, LogsDB } = require("./app-db");
-const { router, log, handle } = require("./app");
+const { router, log, handle, sanitize } = require("./app");
 const { createNews } = require("./app-news.js");
 const { createQRCode } = require("./app-qr_code.js");
 
@@ -51,10 +51,24 @@ router.post("/login", async (req, res) => {
         let expireDate = new Date();
         expireDate.setHours(expireDate.getHours() + 24);
         log("token generated");
-        res.status(200).json({
-            token,
-            expireDate
+
+        let familyMembers = await UserDB.find({ familyID: findUser.familyID });
+
+        familyMembers = familyMembers.map(famMemb => {
+            return {
+                id: famMemb.id,
+                name: famMemb.user,
+            };
         });
+
+        // TODO: return family language
+        const resp = {
+            token,
+            expireDate,
+            familyMembers: familyMembers.filter(famMemb => famMemb.id !== findUser.id),
+        }
+
+        res.status(200).json(resp);
     }
     catch (error) {
         handle(res, error, "Nutzer konnte nicht autentifiziert werden.");
@@ -82,8 +96,11 @@ router.post("/register", async (req, res) => {
         await u.save();
         createNews("Register", u.id, u.familyID, `${user} joined the family`);
         res.status(201).send();
-    }
-    catch (error) {
+    } catch (error) {
+        if (req.body.familyName && !await UserDB.findOne({ familyID: req.body.familyName })) {
+            await FamilyDB.findByIdAndRemove(req.body.familyName);
+            log("deleted");
+        }
         handle(res, error, "Nutzer konnte nicht registriert werden.");
     }
 });

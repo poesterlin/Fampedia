@@ -9,7 +9,8 @@ router.post("/moment/:ID/tag", async (req, res) => {
         }
         await auth(req.headers.token).catch(authFail);
 
-        const update = await MomentDB.update({ momentID: req.params.ID }, { $set: { taggedUsers: req.body.ids } });
+        await MomentDB.update({ momentID: req.params.ID }, { $set: { taggedUsers: req.body.ids } });
+        
         res.status(201).json();
         log(`Saved tagged users to moment with id: ${req.params.ID}`);
     }

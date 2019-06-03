@@ -1,5 +1,5 @@
 <p>
-    {{'AddingMoment.Intro_Text_Facts' | translate}}
+  {{'AddingMoment.Intro_Text_Facts' | translate}}
 </p>
 
 
@@ -18,5 +18,11 @@
   <tr>
     <td> <span>{{'AddingMoment.Where' | translate}}</span> </td>
     <td> <input type="text" placeholder="Restaurant" [(ngModel)]="service.moment.description"> </td>
+  </tr>
+  <tr>
+    <td> <span>Who?</span> </td>
+    <td>
+      <fampedia-people-select></fampedia-people-select>
+    </td>
   </tr>
 </table>

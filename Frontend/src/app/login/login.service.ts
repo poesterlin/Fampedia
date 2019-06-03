@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { StorageService } from '../storage/storage.service';
-import { User } from '../core/Interfaces/IUser';
+import { IUser } from '../core/Interfaces/IUser';
 import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  public readonly user$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
+  public readonly user$: BehaviorSubject<IUser | undefined> = new BehaviorSubject<IUser | undefined>(undefined);
 
   constructor(private storage: StorageService, private router: Router) {
-    const user = this.storage.getSettingAsObject<User>('userdata');
+    const user = this.storage.getSettingAsObject<IUser>('userdata');
     if (user) {
       user.expireDate = new Date(Date.parse(user.expireDate as any));
       this.user$.next(user);

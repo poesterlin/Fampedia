@@ -18,7 +18,7 @@ export class LoginComponent {
     // TODO: add loading indicator
     this.core.login(this.username, this.password).subscribe(
       (response: any) => {
-         this.loginService.user$.next({ token: response.token, expireDate: new Date(response.expireDate), username: this.username });
+         this.loginService.user$.next({ token: response.token, familyMembers: response.familyMembers, expireDate: new Date(response.expireDate), username: this.username });
          this.router.navigate(['']);
       },
       (error) => console.log(error)
