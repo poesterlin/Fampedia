@@ -79,21 +79,25 @@ let news = mongoose.Schema({
 });
 
 
-news.post('save', function (doc) {
-    sendToSocket('news', doc);
+mom.post('save', function (doc) {
+    sendToSocket('moment', doc.familyID);
 });
 
-mom.post('save', function (doc) {
-    sendToSocket('moment', doc);
+mom.post('update', function (doc) {
+    sendToSocket('moment', doc.familyID);
 });
 
 mom_comment.post('save', function (doc) {
-    sendToSocket('comment', doc);
+    MomentDB.findOne({ momentID: doc.momentID }).then((moment) => {
+        sendToSocket('comment', moment.familyID);
+    })
 });
 
-logs.post('save', function (doc) {
-    sendToSocket('log', doc);
+news.post('save', function (doc) {
+    sendToSocket('news', doc.familyID);
 });
+
+
 
 
 async function testUser(user, password, keep = true) {

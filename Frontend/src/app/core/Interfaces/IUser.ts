@@ -3,6 +3,7 @@ export interface IUser {
   expireDate: Date;
   token: string;
   username: string;
+  familyID: string;
 }
 
 export interface Member {

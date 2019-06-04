@@ -133,10 +133,11 @@ function sanitize(obj) {
 /**
  * 
  * @param {string} type 
- * @param {{message: string, date: string}} data 
+ * @param {string} familyID 
  */
-function sendToSocket(type, data) {
-    io.volatile.emit(type, JSON.stringify(data));
+function sendToSocket(type, familyID) {
+    const nsp = io.of(familyID);
+    nsp.emit(type);
 }
 
 

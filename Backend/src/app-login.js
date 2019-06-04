@@ -66,6 +66,7 @@ router.post("/login", async (req, res) => {
             token,
             expireDate,
             familyMembers,
+            familyID: findUser.familyID,
         }
 
         res.status(200).json(resp);

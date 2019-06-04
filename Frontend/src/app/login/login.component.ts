@@ -18,14 +18,20 @@ export class LoginComponent {
     // TODO: add loading indicator
     this.core.login(this.username, this.password).subscribe(
       (response: any) => {
-         this.loginService.user$.next({ token: response.token, familyMembers: response.familyMembers, expireDate: new Date(response.expireDate), username: this.username });
-         this.router.navigate(['']);
+        this.loginService.user$.next({
+          token: response.token,
+          familyMembers: response.familyMembers,
+          familyID: response.familyID,
+          expireDate: new Date(response.expireDate),
+          username: this.username
+        });
+        this.router.navigate(['']);
       },
       (error) => console.log(error)
     )
   }
 
-  readonlyUser(){
+  readonlyUser() {
     this.username = 'fampedia';
     this.password = 'fampedia';
     this.login();
