@@ -26,7 +26,7 @@ export class AppComponent {
         translate.addLangs(['de', 'en', 'pt']);
 
         // load language from the storage service
-        translate.use(storage.getSetting('language', 'en'));
+        translate.use('en');
 
         translate.onLangChange.subscribe((changeLang: LangChangeEvent) => {
             storage.setSetting('language', changeLang.lang);
@@ -125,10 +125,5 @@ export class AppComponent {
             }
         }
         return;
-    }
-
-    public setLang(idx: number) {
-        const langs = ['en', 'de', 'pt'];
-        this.translate.use(langs[idx])
     }
 }
