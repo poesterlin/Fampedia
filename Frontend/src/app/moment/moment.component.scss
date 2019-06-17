@@ -2,143 +2,175 @@
 @import "../styles/helperMixins.scss";
 @import "../styles/theme.scss";
 
-
-
 #header {
-    z-index: 2;
+  z-index: 2;
 
-    #image {
-        z-index: 0;
-        background-image: url("https://www.w3schools.com/w3images/photographer.jpg");
-        position: absolute;
-        height: 250px;
-        width: 100%;
-        background-position: top;
-        background-repeat: no-repeat;
-        background-size: cover;
-        box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.4);
-    }
-
-    position: sticky;
-    top: -150px;
+  #image {
+    z-index: 0;
+    position: absolute;
     height: 250px;
-    background: gray;
+    width: 100%;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.4);
+    background-blend-mode: darken;
+  }
 
-    #back,
-    #add {
-        color: white;
-        border: 0;
-        font-size: 25px;
-        position: sticky;
-        top: 10px;
+  position: sticky;
+  top: -150px;
+  height: 250px;
+  background: gray;
+
+  #back,
+  #add {
+    color: white;
+    border: 0;
+    font-size: 25px;
+    position: sticky;
+    top: 10px;
+  }
+
+  #add {
+    background: #3b78e7;
+    float: right;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+
+    mat-icon {
+      transform: translate(1px, -2px);
     }
+  }
 
-    #add {
-        background: #3B78E7;
-        float: right;
-        margin-right: 10px;
-        width: 50px;
-        height: 50px;
+  #title {
+    z-index: 1;
+    position: sticky;
+    top: 20px;
+    display: block;
+    font-size: 20px;
+    width: 70%;
+    margin: 120px 50px 0;
+    color: white;
+    text-shadow: 0 0 4px #00000066;
 
-        mat-icon {
-            transform: translate(1px, -2px);
-        }
+    span {
+      display: block;
     }
-
-    #title {
-        z-index: 1;
-        position: sticky;
-        top: 20px;
-        display: block;
-        font-size: 20px;
-        width: 70%;
-        margin: 120px 50px 0;
-        color: white;
-        text-shadow: 0 0 4px #00000066;
-
-        span {
-            display: block;
-        }
-    }
+  }
 }
 
-
-
-
 mat-card {
-    width: 600px;
-    margin: 20px auto;
-    max-width: 90vw;
+  width: 600px;
+  margin: 20px auto;
+  max-width: 90vw;
 }
 
 menu {
-    margin: 2px 0;
-    padding: 6px 0;
-    overflow-x: auto;
-    display: flex;
-    align-content: space-between;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    position: sticky;
-    top: 100px;
-    z-index: 1;
-    background: white;
+  margin: 2px 0;
+  padding: 6px 0;
+  overflow-x: auto;
+  display: flex;
+  align-content: space-between;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  position: sticky;
+  top: 100px;
+  z-index: 1;
+  background: white;
 
-    a {
-        @include clickable() {
-            background: cA(100);
-            color: fA(100);
-        }
-
-        text-decoration: none;
-        color: inherit;
-        border-radius: 5px;
-        padding: 5px 0;
-        text-align: center;
-        width: 25%;
-        min-width: 90px;
+  a {
+    @include clickable() {
+      background: cA(100);
+      color: fA(100);
     }
+
+    text-decoration: none;
+    color: inherit;
+    border-radius: 5px;
+    padding: 5px 0;
+    text-align: center;
+    width: 25%;
+    min-width: 90px;
+  }
 }
 
 $gap: 5px;
 
 .dash {
-    display: grid;
+  display: grid;
 
-    grid-template-columns: repeat(4, calc(25vmin - 5px));
-    grid-template-rows: repeat(100, calc(25vmin - 5px));
+  grid-template-columns: repeat(4, calc(25vmin - 10px));
+  // grid-template-rows: repeat(100, calc(25vmin - 5px));
 
-    grid-gap: $gap;
-    padding: 0;
-    justify-content: center;
-    align-content: center;
-    margin-bottom: 50vh;
-    scroll-snap-type: y mandatory;
+  grid-gap: $gap;
+  padding: 0;
+  justify-content: center;
+  align-content: center;
+  margin-bottom: 50vh;
+  scroll-snap-type: y mandatory;
 
-    span {
-        margin: 0 auto;
-        height: 50px;
-    }
+  span {
+    margin: 0 auto;
+    height: 50px;
+  }
 }
 
 .fresh {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .side {
-    scroll-snap-type: x mandatory;
-    overflow: auto;
-    display: flex;
-    flex-wrap: nowrap;
-    row-gap: 10px;
-    flex-direction: row;
+  scroll-snap-type: x mandatory;
+  overflow: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  row-gap: 10px;
+  flex-direction: row;
 
-    .placeholder {
-        opacity: 0;
-        scroll-snap-align: start;
-        user-select: none;
-        width: 30vw;
-        height: 180px;
+  .placeholder {
+    opacity: 0;
+    scroll-snap-align: start;
+    user-select: none;
+    width: 30vw;
+    height: 180px;
+  }
+}
+
+.comments {
+  margin-bottom: 25vh;
+  #noComment {
+    margin: calc(50% - 20px) 0 0;
+  }
+
+  .addComment {
+    position: fixed;
+    bottom: 4px;
+    left: 0px;
+    right: 0px;
+    max-width: 100vw;
+    margin: auto;
+    width: 600px;
+    height: 45px;
+    background: #fff;
+    z-index: 2;
+
+    input,
+    button {
+      height: 45px;
+      outline: 0;
+      background: 0;
+      border-radius: 14px;
+      border: 1px solid black;
+      margin: 0 8px;
+      z-index: 2;
     }
+
+    input {
+      margin-right: 0;
+      padding: 9px;
+      font-size: 20px;
+    }
+  }
 }

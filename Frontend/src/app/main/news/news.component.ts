@@ -1,18 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { INews } from 'src/app/core/Interfaces/IEvent';
+import { MainService } from '../main.service';
+import { Router } from '@angular/router';
 
-
-interface NewsItem {
-  type: 'Comment' | 'Image';
-  user: {
-    img: string;
-    name: string;
-  }
-  data: {
-    img?: string;
-    desc?: string;
-  },
-  date: string;
-}
 
 @Component({
   selector: 'fampedia-news',
@@ -20,20 +10,20 @@ interface NewsItem {
   styleUrls: ['./news.component.scss']
 })
 export class NewsComponent implements OnInit {
-  public news: NewsItem[] = [];
-  constructor() {
+  public news: INews[] = [];
+  constructor(private service: MainService, private router: Router) {
+    this.service.news$.subscribe(news => this.news = news);
   }
 
   ngOnInit() {
-    const user = { img: 'https://randomuser.me/api/portraits/women/10.jpg', name: 'Anne Wurst' };
-    this.news.push({ type: "Comment", user, data: { desc: 'What a nice day!' }, date: 'two weeks ago' });
-    this.news.push({ type: "Image", user, data: { img: 'https://source.unsplash.com/200x200/?water,' + Math.random() }, date: 'one week ago' });
-    this.news.push({ type: "Image", user, data: { img: 'https://source.unsplash.com/200x200/?water,' + Math.random() }, date: 'one week ago' });
-    this.news.push({ type: "Comment", user, data: { desc: 'What a nice day!' }, date: 'one week ago' });
-    this.news.push({ type: "Image", user, data: { img: 'https://source.unsplash.com/200x200/?water,' + Math.random() }, date: 'two days ago' });
-    this.news.push({ type: "Comment", user, data: { desc: 'What a nice day!' }, date: 'two days ago' });
 
-    this.news = this.news.reverse();
   }
 
+  public goToMoment(imageId: string) {
+    const moments = this.service.moments$.getValue();
+    const moment = moments.find(m => m.images.includes(imageId));
+    if (moment) {
+      this.router.navigate(['/moment/', moment.momentId]);
+    }
+  }
 }

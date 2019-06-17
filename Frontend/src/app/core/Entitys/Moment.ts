@@ -1,33 +1,39 @@
-import { IMoment, IMomentImage } from '../Interfaces/IMoment';
+import { IMoment } from '../Interfaces/IMoment';
 
-export class Moment implements IMoment {
-    public dirtyFlag = false;
-    public title = "test Moment";
-    public description = "test descriptiontest descriptiontest descriptiontest description";
-    public momentID = 1;
+export class Moment {
 
-
-    constructor(private json: IMoment) { 
-        // TODO: remove
-        this.images = [];
-        this.images.push({imageID: "", description: "image description"})
+    constructor(private json: IMoment) {
     }
-
-
-    // TODO: implement more property getter/setter with change detection
 
     public get images() {
         return this.json.images;
     }
 
-    public set images(val: IMomentImage[]) {
-        this.compare(this.json.images, val);
+    public set images(val: string[]) {
         this.json.images = val;
     }
 
-    private compare(oldVal: any, newVal: any) {
-        if (JSON.stringify(oldVal) !== JSON.stringify(newVal)) {
-            this.dirtyFlag = true;
-        }
+    public get title() {
+        return this.json.momenttitle;
+    }
+
+    public set title(val: string) {
+        this.json.momenttitle = val;
+    }
+
+    public get description() {
+        return this.json.momentdescription;
+    }
+
+    public set description(val: string) {
+        this.json.momentdescription = val;
+    }
+
+    public get date() {
+        return this.json.date;
+    }
+
+    public get momentId() {
+        return this.json.momentID;
     }
 }

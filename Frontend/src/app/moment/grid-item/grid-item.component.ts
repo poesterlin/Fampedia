@@ -8,12 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./grid-item.component.scss']
 })
 export class GridItemComponent {
-  @Input() importance: number = 1;
-  @Input() itemId!: string;
+  @Input() importance!: number;
+  @Input() imageId!: number;
 
-  public rand = Math.random();
-
-  constructor(private sanitizer: DomSanitizer, private router: Router) { }
+  constructor(private sanitizer: DomSanitizer, private router: Router) {
+  }
 
   @HostBinding('style')
   public get gridSize(): SafeStyle {
@@ -28,7 +27,7 @@ export class GridItemComponent {
     );
   }
 
-  public goToEvent() {
-    this.router.navigate(['/moment/', this.itemId]);
+  public goToImage() {
+    this.router.navigate(['/moment/image/' + this.imageId]);
   }
 }

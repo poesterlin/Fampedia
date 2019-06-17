@@ -1,7 +1,6 @@
 export const environment = {
   production: true,
-  url: "141.19.142.86:3000",
-  isNative: false
+  url: "https://backend.df-ma.de:3000",
 };
 
 // TODO: update to server url

@@ -1,0 +1,15 @@
+<div fxLayout="row break" id="card">
+  <div fxFlex="100" fxLayout="row break">
+    <label for="name">{{'login.Username' | translate}}</label>
+    <input fxFlex="100" id="name" type="text" [(ngModel)]="username">
+  </div>
+  <div fxFlex="100" fxLayout="row break">
+    <label for="passwd">{{'login.Password' | translate}}</label>
+    <input fxFlex="100" id="passwd" type="password" [(ngModel)]="password">
+  </div>
+  <div fxLayout="row break" fxLayoutGap="5px">
+    <button fxFlex="calc(50% - 5px)" (click)="login()">{{'login.Login' | translate}}</button>
+    <button fxFlex="calc(50% - 5px)" routerLink="/register">{{'login.Register' | translate}}</button>
+    <button class="big" fxFlex="100" (click)="readonlyUser()">{{'login.Request_a_Demo' | translate}}</button>
+  </div>
+</div>

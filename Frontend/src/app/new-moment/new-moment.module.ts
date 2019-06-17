@@ -11,20 +11,39 @@ import { PeopleSelectComponent } from './people-select/people-select.component';
 import { MomentCameraComponent } from './moment-camera/moment-camera.component';
 import { DirectivesModule } from '../helpers/directives.module';
 import { FormsModule } from '@angular/forms';
-import { NewMomentServiceService } from './new-moment-service.service';
+import { NewMomentService } from './new-moment.service';
+import { AddImageComponent } from './add-image/add-image.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { UploadingComponent } from './uploading/uploading.component';
 
-const routes: Routes = [{ path: '**', component: NewMomentComponent }];
+const routes: Routes = [
+  { path: 'moment', data: { title: 'NOT_FOUND' }, component: NewMomentComponent },
+  {
+    path: 'add', data: { title: 'NOT_FOUND' },
+    children: [{ path: ':id', component: AddImageComponent }]
+  }
+];
 
 @NgModule({
-  declarations: [NewMomentComponent, DataComponent, ImagesWebComponent, AccessComponent, PeopleSelectComponent, MomentCameraComponent],
+  declarations: [
+    NewMomentComponent,
+    DataComponent,
+    ImagesWebComponent,
+    AccessComponent,
+    PeopleSelectComponent,
+    MomentCameraComponent,
+    AddImageComponent,
+    UploadingComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     NavbarModule,
     MaterialModule,
     DirectivesModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ],
-  providers: [NewMomentServiceService]
+  providers: [NewMomentService]
 })
 export class NewMomentModule { }

@@ -1,14 +1,69 @@
 {
-    "test": "Deutsch",
+    "test": "deutsch",
+    "login": {
+        "Username": "Benutzername",
+        "Password": "Passwort",
+        "Login": "Einloggen",
+        "Register": "Registrieren",
+        "Request_a_Demo": "Demo-Version"
+    },
     "titles": {
         "undefined": "",
         "DASHBOARD": "Dashboard",
         "RECIPES": "Rezepte",
-        "MAIN": "Main",
-        "MOMENT": "Moment"
+        "MAIN": "Zeitleiste",
+        "MOMENT": "Moment",
+        "NEW_MOMENT": "neuer Moment",
+        "LOGIN": "Login",
+        "NOT_FOUND": ""
     },
-    "navbar":{
-        "LANGUAGE_SWITCH": "Sprache wechseln",
-        "NONE": ""
+    "dashboard": {
+        "Add_Moment": "Moment hinzufügen",
+        "Timeline": "Zeitleiste",
+        "News": "News",
+        "No_News": "Keine News",
+        "Archive": "Archiv",
+        "Find_Something": "Suchen ...",
+        "No_Moments": "Noch keine Momente vorhanden.",
+        "Add_First_Moment": "Ersten Moment erstellen",
+        "Recipes": "Rezepte",
+        "Stories": "Geschichten",
+        "Documents": "Dokumente"
+    },
+    "AddingMoment": {
+        "New_Moment": "Neuer Moment",
+        "Intro_Text_Facts": "Es lohnt sich Momente für die Zukunft aufzuheben. Teile die wichtigsten Momente der letzten Zeit mit deinen Lieben!",
+        "What": "Name",
+        "When": "Datum",
+        "Where": "Ort",
+        "Next": "Weiter",
+        "Take_Pic": "Bild aufnehmen",
+        "Intro_Text_UL": "Ein Moment ist viel greifbarer, wenn man ein Bild hinterlegt.",
+        "Upload_Pics": "Hochladen",
+        "No_Pictures": "Keine Bilder vorhanden :(",
+        "Summary": "Zusammenfassung",
+        "Images": "Bilder",
+        "Upload": "Hochladen",
+        "Add_Image": "Füge Bilder zu dem Moment hinzu.",
+        "Add": "Hinzufügen",
+        "Add_Image_Intro": "Füge Bilder zum Moment hinzu.",
+        "Data_Missing": "Bitte alles ausfüllen.",
+        "Image_Missing": "Bitte mindestens ein Bild hinzufügen."
+    },
+    "SeeMoment": {
+        "Photos": "Bilder",
+        "Thread": "Kommentare"
+    },
+    "register": {
+        "Create": "Neuen Fampedia Account erstellen",
+        "Join": "Create Family",
+        "Family_Name": "Familiename",
+        "Avaliable": "Family found. Ready to join.",
+        "Not_Avaliable": "Family doesn’t exist yet. New Family will be created.",
+        "Email": "E-Mail",
+        "Alpha1": "Webseite ist nur ein Test.",
+        "Alpha2": "Daten werden möglicherweise nicht permanent gespeichert.",
+        "Success": "Erfolgreich registriert. Einladungslink wurde kopiert.",
+        "Share": "Teilen"
     }
 }

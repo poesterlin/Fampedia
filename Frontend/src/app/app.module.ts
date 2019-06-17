@@ -1,7 +1,7 @@
 import { NgModule, ErrorHandler, Injectable } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -22,6 +22,11 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { DirectivesModule } from './helpers/directives.module';
+import { LoginComponent } from './login/login.component';
+import { AuthInterceptor } from './routing/auth.interceptor';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: environment.url, options: {} };
 
 declare var Hammer: any;
 @Injectable()
@@ -63,6 +68,7 @@ export class MyHammerConfig extends HammerGestureConfig {
         MaterialModule,
         RoutingModule,
         DirectivesModule,
+        SocketIoModule.forRoot(config),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -72,10 +78,11 @@ export class MyHammerConfig extends HammerGestureConfig {
         }),
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ],
-    declarations: [ExceptionComponent, AppComponent],
+    declarations: [ExceptionComponent, AppComponent, LoginComponent],
     providers: [
         { provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig, },
-        { provide: ErrorHandler, useClass: ErrorService }
+        { provide: ErrorHandler, useClass: ErrorService },
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ],
     entryComponents: [
         ExceptionComponent

@@ -5,3 +5,5 @@ Backend/data/
 Frontend/\.nyc_output/
 
 Backend/\.nyc_output/
+
+\.DS_Store

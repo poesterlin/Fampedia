@@ -1,10 +1,11 @@
-<div (click)="goToEvent()">
+<div (click)="goToMoment()">
   <div class="data" [ngClass]="{'left': element.row == 'left', 'right': element.row == 'right'}">
-    <span>{{element.title}}</span>
-    <span class="desc">{{element.desc}}</span>
+    <span>{{element.moment.title}}</span>
+    <span class="small">{{element.moment.description}}</span>
+    <span class="small">{{element.moment.date}}</span>
   </div>
-  <div class="imageWrapper">
-    <img famImage [image]="'https://source.unsplash.com/200x200/?water,' + rand">
+  <div class="imageWrapper" fxLayout="row break" fxLayoutAlign="center center">
+    <img fxFlex="100" famImage [lazy]="true" [size]="320" [imageId]="element.moment.images[0]">
   </div>
 </div>
 <i class="line" [ngClass]="{'left': element.row == 'left', 'right': element.row == 'right'}"></i>

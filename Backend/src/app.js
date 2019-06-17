@@ -4,7 +4,8 @@
 /////////////////////////////
 
 "use strict";
-
+var fs = require('fs');
+var https = require('https');
 const cors = require("cors");
 const express = require("express");
 const router = express.Router();
@@ -13,9 +14,11 @@ const bodyParser = require("body-parser");
 const port = process.env.PORT || 3000;
 
 const app = express();
+
 app.use(bodyParser.json());
 app.use(cors());
 app.use("/", router);
+
 app.use(function (err, _req, res, _next) {
     if (err) {
         if (err.message === "File too large") {
@@ -27,9 +30,22 @@ app.use(function (err, _req, res, _next) {
 });
 
 
-const server = app.listen(port, () => {
-    log("The Server ist running on Port " + port);
-});
+let server;
+if (process.env.NODE_ENV === 'production') {
+    server = https.createServer({
+        key: fs.readFileSync('../privkey.pem'),
+        cert: fs.readFileSync('../fullchain.pem')
+    }, app).listen(port, () => {
+        log("The Server ist running on Port " + port);
+    });
+}
+else {
+    server = app.listen(port, () => {
+        log("The Server ist running on Port " + port);
+    });
+}
+
+const io = require('socket.io').listen(server);
 
 exports.server = server;
 exports.router = router;
@@ -37,28 +53,43 @@ exports.authFail = authFail;
 exports.log = log;
 exports.handle = handle;
 exports.sanitize = sanitize;
+exports.sendToSocket = sendToSocket;
 
 const { auth, router: userRoutes } = require('./app-login');
 exports.auth = auth;
 
-const { testUser } = require("./app-db");
+const { testUser, LogsDB } = require("./app-db");
 exports.testUser = testUser;
+
+const { router: newsRoutes } = require("./app-news")
+const { router: qrRoutes } = require("./app-qr_code")
+const { router: imageRoutes } = require("./app-image")
 
 /**
  *  moment routes
  */
 app.use("/moment", require('./app-moment'));
+app.use("/", require('./app-moment_comment'));
+app.use("/", require('./app-tagging'));
 
+/**
+ * qr codes
+ */
+app.use("/", qrRoutes);
 /**
  *  image routes
  */
-app.use("/momentimage", require('./app-image'));
+app.use("/momentimage", imageRoutes);
 
 /**
  *  user management routes
  */
 app.use("/user", userRoutes);
 
+/**
+ *  news routes
+ */
+app.use("/news", newsRoutes);
 
 ///////////////////
 // Required global functions
@@ -84,7 +115,7 @@ function handle(res, err, desc) {
 }
 
 function sanitize(obj) {
-    const forbiddenField = ['_id', '__v'];
+    const forbiddenField = ['_id', '__v', 'hash'];
     if (Array.isArray(obj)) {
         obj = obj.map(sanitize);
     } else if (typeof obj === 'object') {
@@ -99,14 +130,26 @@ function sanitize(obj) {
 }
 
 
-function log(text) {
+/**
+ * 
+ * @param {string} type 
+ * @param {string} familyID 
+ */
+function sendToSocket(type, familyID) {
+    const nsp = io.of(familyID);
+    nsp.emit(type);
+}
+
+
+function log(message, logPerm = false) {
+    new LogsDB({ message, date: new Date(), permanent: logPerm }).save();
     if (process.env.log != "quiet") {
-        text = text + "";
+        message = message + "";
         let d = new Date();
+        const date = `${d.getHours()} : ${d.getMinutes() > 9 ? d.getMinutes() : "0" + d.getMinutes()} : ${d.getSeconds() > 9 ? d.getSeconds() : "0" + d.getSeconds()} - ${d.getMilliseconds()}`
         const width = process.stdout.columns - 20;
         let equalizer = " ".repeat(width > 0 ? width : 70);
-        equalizer = equalizer.slice(text.length);
-        console.log(text + equalizer, d.getHours(), ":", d.getMinutes() > 9 ? d.getMinutes() : "0" + d.getMinutes(),
-            ":", d.getSeconds() > 9 ? d.getSeconds() : "0" + d.getSeconds(), "-", d.getMilliseconds());
+        equalizer = equalizer.slice(message.length);
+        console.log(message + equalizer, date);
     }
 }

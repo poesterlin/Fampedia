@@ -1,49 +1,49 @@
 {
   "name": "Fampedia",
   "short_name": "Fampedia",
-  "theme_color": "#16c5c2",
-  "background_color": "#2c4558",
+  "theme_color": "#50b996",
+  "background_color": "white",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "icons": [
     {
-      "src": "assets/icons/icon-72x72.png",
+      "src": "assets/icons/logo-72x72-01.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "assets/icons/icon-96x96.png",
+      "src": "assets/icons/logo-96x96-01.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "assets/icons/icon-128x128.png",
+      "src": "assets/icons/logo-128x128-01.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "assets/icons/icon-144x144.png",
+      "src": "assets/icons/logo-144x144-01.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "assets/icons/icon-152x152.png",
+      "src": "assets/icons/logo-152x152-01.png",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
-      "src": "assets/icons/icon-192x192.png",
+      "src": "assets/icons/logo-192x192-01.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "assets/icons/icon-384x384.png",
+      "src": "assets/icons/logo-384x384-01.png",
       "sizes": "384x384",
       "type": "image/png"
     },
     {
-      "src": "assets/icons/icon-512x512.png",
+      "src": "assets/icons/logo-512x512-01.png",
       "sizes": "512x512",
       "type": "image/png"
     }

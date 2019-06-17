@@ -1,0 +1,46 @@
+<div id="card">
+  <fampedia-qr-scanner *ngIf="showScanner" (familyId)="foundID($event)"></fampedia-qr-scanner>
+
+  <div *ngIf="!showScanner" fxLayout="row break">
+
+    <span fxFlex="100" *ngIf="mode === 3" style="color:red">Family was not found... </span>
+
+    <span fxFlex="100" *ngIf="!!service.familyId && mode < 3"> Found Family <b>{{family}}</b> to join </span>
+
+    <div fxFlex="100" fxLayout="row break" *ngIf="(!service.familyId || mode == 3) && mode !== 4">
+      <span fxFlex="100">Scan Fampedia Code to join Family</span>
+      <button fxFlex="100" id="openScanner" (click)="showScanner = true">Open Scanner</button>
+    </div>
+
+    <div fxFlex="100" fxLayout="row break" *ngIf="mode === 4">
+      <label for="family">{{'register.Join' | translate}}</label>
+      <input fxFlex="100" id="family" [placeholder]="'register.Family_Name' | translate" type="text"
+        [(ngModel)]="family" (change)="checkFamilyName()">
+    </div>
+
+    <div class="spacer" fxFlex="100"></div>
+    <div fxFlex="100" fxLayout="row break">
+      <label for="email">{{'register.Email' | translate}}</label>
+      <input fxFlex="100" id="email" type="email">
+    </div>
+    <div fxFlex="100" fxLayout="row break">
+      <label for="un">{{'login.Username' | translate}}</label>
+      <input fxFlex="100" id="un" type="text" [(ngModel)]="username">
+    </div>
+    <div fxFlex="100" fxLayout="row break">
+      <label for="pw">{{'login.Password' | translate}}</label>
+      <input fxFlex="100" id="pw" type="password" [(ngModel)]="password">
+    </div>
+
+    <span fxFlex="100" id="test">
+      {{'register.Alpha1' | translate}}
+      <br>
+      {{'register.Alpha2' | translate}}
+    </span>
+
+    <div fxFlex="100">
+      <button (click)="register()">{{'login.Register' | translate}}</button>
+    </div>
+  </div>
+
+</div>

@@ -1,16 +1,16 @@
-FROM node:10.15.3-slim
+FROM node:10.15-slim
 
 # Create app directory
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json fullchain.pem privkey.pem ./
 
 RUN npm install --quiet
 
-# Bundle app source
-COPY . .
+COPY ./src ./src
+COPY ./test ./test
 
 EXPOSE 3000
 
-CMD npm run server
+CMD cd ./src && ls && /bin/sh -c "sleep 10 && node app.js"

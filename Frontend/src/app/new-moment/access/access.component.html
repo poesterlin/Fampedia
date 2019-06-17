@@ -1,3 +1,17 @@
-<p>
+<!-- <p>
   Who would you like to have access to this moment?
-</p>
+</p> -->
+
+
+<p>{{'AddingMoment.Summary' | translate}}</p>
+
+<div fxLayout="row break">
+  <span fxFlex="100">{{'AddingMoment.What' | translate}}: {{service.moment.title}}</span>
+  <span fxFlex="100">{{'AddingMoment.Where' | translate}}: {{service.moment.description}}</span>
+</div>
+
+<p>{{'AddingMoment.Images' | translate}}</p>
+
+<div fxLayout="row break" fxLayoutAlign="center center">
+  <img fxFlex="33" *ngFor="let img of service.images" [src]="img">
+</div>

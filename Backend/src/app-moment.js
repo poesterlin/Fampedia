@@ -12,17 +12,17 @@ moment.locale("en");
 // Add a new Moment 
 router.post("/new", async (req, res) => {
     try {
-        if (!req.body.title || !req.body.momentdescription) {
+        if (!req.body.title || !req.body.description || !req.body.date) {
             throw 400;
         }
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.token).catch(authFail);
         //random integer 
         const count = crypto.randomBytes(64).readUIntBE(0, 3);
         let newMoment = new MomentDB({
             momentID: count,
             momenttitle: req.body.title,
-            momentdescription: req.body.momentdescription,
-            date: new Date().toUTCString(),
+            momentdescription: req.body.description,
+            date: new Date(Date.parse(req.body.date)),
             images: [],
             familyID: user.familyID
         });
@@ -39,9 +39,14 @@ router.post("/new", async (req, res) => {
 // Get all moments
 router.get("/all", async (req, res) => {
     try {
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.token).catch(authFail);
         const allMoments = await MomentDB.find({ familyID: user.familyID });
         if (allMoments) {
+            allMoments.sort(function(a, b) {
+                var dateA = new Date(a.date), dateB = new Date(b.date);
+                // @ts-ignore
+                return dateB - dateA;
+            });
             res.status(200).json(sanitize(allMoments.map(mom => {
                 mom.date = moment(mom.date).fromNow();
                 return mom;
@@ -60,7 +65,7 @@ router.get("/oneMoment", async (req, res) => {
         if (!req.body.momentID) {
             throw 400;
         }
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.token).catch(authFail);
 
         const result = await MomentDB.findOne({
             momentID: req.body.momentID,
@@ -83,7 +88,7 @@ router.get("/oneMoment", async (req, res) => {
 // Delete one moment
 router.delete("/delete", async (req, res) => {
     try {
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.token).catch(authFail);
 
         const result = await MomentDB.findOne({
             momentID: req.body.momentID,
@@ -109,7 +114,7 @@ router.delete("/delete", async (req, res) => {
 // Edit one moment
 router.post("/edit", async (req, res) => {
     try {
-        const user = await auth(req.headers.user, req.headers.token).catch(authFail);
+        const user = await auth(req.headers.token).catch(authFail);
         if (!req.body.title || !req.body.momentdescription || !req.body.momentID) {
             throw 400;
         }

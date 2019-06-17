@@ -118,4 +118,10 @@ export class MomentCameraComponent implements AfterViewInit {
         .catch(e => console.log(e));
     }
   }
+
+  public setHeight() {
+    if (this.video) {
+      this.height = this.video.nativeElement.videoHeight / (this.video.nativeElement.videoWidth / this.width);
+    }
+  }
 }

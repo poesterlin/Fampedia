@@ -1,9 +1,22 @@
 // @ts-check
-const passwordHash = require("password-hash");
+const fs = require('fs');
+const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const randtoken = require("rand-token");
-const { UserDB, TokenDB, FamilyDB } = require("./app-db");
-const { router, log, handle } = require("./app");
+const { UserDB, TokenDB, FamilyDB, LogsDB } = require("./app-db");
+const { router, log, handle, sanitize } = require("./app");
+const { createNews } = require("./app-news.js");
+const { createQRCode } = require("./app-qr_code.js");
+
+
+
+let secret;
+try {
+    secret = fs.readFileSync('../privkey.pem').toString('base64');
+} catch (e) {
+    console.log('unsave dev mode');
+    secret = '1234';
+}
 
 router.post("/login", async (req, res) => {
     try {
@@ -13,16 +26,19 @@ router.post("/login", async (req, res) => {
         let findUser = await UserDB.findOne({
             user
         });
-        if (!findUser || !passwordHash.verify(req.body.pw, findUser.hash)) {
+        if (!findUser || ! await bcrypt.compare(req.body.pw, findUser.hash)) {
             throw 401;
         }
         let token = jwt.sign({
-            user,
+            userId: findUser.id,
             rand: randtoken.generate(10)
-        }, findUser.hash, {
-                expiresIn: '1h',
+        }, secret, {
+                expiresIn: '1d',
                 issuer: getIp()
             });
+
+        token = encodeURIComponent(token);
+
         //delete old tokens of user
         await TokenDB.deleteMany({
             user
@@ -33,12 +49,27 @@ router.post("/login", async (req, res) => {
         });
         await newToken.save();
         let expireDate = new Date();
-        expireDate.setHours(expireDate.getHours() + 1);
+        expireDate.setHours(expireDate.getHours() + 24);
         log("token generated");
-        res.status(200).json({
-            token,
-            expireDate
+
+        let familyMembers = await UserDB.find({ familyID: findUser.familyID });
+
+        familyMembers = familyMembers.map(famMemb => {
+            return {
+                id: famMemb.id,
+                name: famMemb.user,
+            };
         });
+
+        // TODO: return family language
+        const resp = {
+            token,
+            expireDate,
+            familyMembers,
+            familyID: findUser.familyID,
+        }
+
+        res.status(200).json(resp);
     }
     catch (error) {
         handle(res, error, "Nutzer konnte nicht autentifiziert werden.");
@@ -54,33 +85,32 @@ router.post("/register", async (req, res) => {
 
         if (findUser) { throw 400; }
 
-        const findFamily = await FamilyDB.findOne({
-            name: req.body.familyName
-        });
+        const findFamily = await FamilyDB.findById(req.body.familyName);
 
         if (!findFamily) { throw 400; }
 
-        await new UserDB({
+        const u = new UserDB({
             user,
-            hash: passwordHash.generate(req.body.pw),
+            hash: await bcrypt.hash(req.body.pw, 13),
             familyID: findFamily.id
-        }).save();
-
+        })
+        await u.save();
+        createNews("Register", u.id, u.familyID, `${user} joined the family`);
         res.status(201).send();
-    }
-    catch (error) {
+    } catch (error) {
+        if (req.body.familyName && !await UserDB.findOne({ familyID: req.body.familyName })) {
+            await FamilyDB.findByIdAndRemove(req.body.familyName);
+            log("deleted");
+        }
         handle(res, error, "Nutzer konnte nicht registriert werden.");
     }
 });
 
 
-router.get("/family/:NAME", async (req, res) => {
+router.get("/family/:ID", async (req, res) => {
     try {
-        const findFamily = await FamilyDB.findOne({
-            name: req.params.ID
-        });
-
-        res.status(200).json({ avaliable: !!findFamily });
+        const findFamily = await FamilyDB.findById(req.params.ID);
+        res.status(200).json({ avaliable: !!findFamily, name: findFamily ? findFamily.name : undefined });
     }
     catch (error) {
         handle(res, error);
@@ -97,8 +127,38 @@ router.post("/family/new", async (req, res) => {
 
         if (findFamily) { throw 400; }
 
-        await new FamilyDB({ name: req.body.name }).save();
+        const family = await new FamilyDB({ name: req.body.name }).save();
 
+        let qrCode = await createQRCode(`https://fampedia.de/#/register?family=${family.id}`);
+
+        const update = await FamilyDB.update({ _id: family.id }, { $set: { qrCode: qrCode } });
+        res.status(201).json({ familyId: family.id });
+    }
+    catch (error) {
+        handle(res, error);
+    }
+});
+
+
+router.get("/logs", async (req, res) => {
+    try {
+        const logs = await LogsDB.find();
+        log('LOGS RECIEVED: ' + req.ip, true);
+        res.status(200).json(logs);
+    }
+    catch (error) {
+        handle(res, error);
+    }
+});
+
+router.get("/logs/clear", async (req, res) => {
+    try {
+        const logs = await LogsDB.find();
+        for (const log of logs) {
+            if (!log.permanent) {
+                await log.remove();
+            }
+        }
         res.status(200).send();
     }
     catch (error) {
@@ -108,30 +168,28 @@ router.post("/family/new", async (req, res) => {
 
 /**
  * verify token
- * @param {string | string[]} user 
  * @param {string | string[]} token 
  */
-async function auth(user, token) {
-    if (!user || !token || Array.isArray(user) || Array.isArray(token)) {
+async function auth(token) {
+    if (!token || Array.isArray(token)) {
         throw 400;
     }
     try {
-        let findUser = await UserDB.findOne({
-            user
-        });
-        if (!findUser) throw "unknown user";
-        let result = jwt.verify(token, findUser.hash, {
+        token = decodeURIComponent(token);
+
+        let result = jwt.verify(token, secret, {
             issuer: getIp()
         });
-        // @ts-ignore
-        if (!result || result.user !== user)
-            throw "cant verify token";
 
-        log(user + " authorized");
+
+        // @ts-ignore
+        let findUser = await UserDB.findById(result.userId);
+        log(findUser.user + " authorized");
+
         return findUser;
     } catch (err) {
-        log(err)
-        log(user + " unauthorized")
+        log(err);
+        log("unauthorized");
         throw 401;
     }
 }

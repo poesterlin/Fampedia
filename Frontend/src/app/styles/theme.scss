@@ -1,15 +1,16 @@
 @import "~@angular/material/theming";
 @include mat-core();
 
-$primary-hue: 206;
-$primary-sat: 33%;
+
+$primary-hue: 160;
+$primary-sat: 43%;
 $font: #f0f1e5;
 $accent-hue: 179;
 $accent-sat: 80%;
 $fam-accent: #e54b5a;
 $fam-error: #b00020;
 
-$prm-adj: 10;
+$prm-adj: 7;
 $mat-primary: (
   50:  hsl($primary-hue, $primary-sat, 75% + $prm-adj),
   100: hsl($primary-hue, $primary-sat, 45% + $prm-adj),
@@ -27,7 +28,7 @@ $mat-primary: (
   A700: hsl($primary-hue, $primary-sat, 42%),
   contrast: (
     50: $black-87-opacity,
-    100: $black-87-opacity,
+    100: $font,
     200: $black-87-opacity,
     300: $black-87-opacity,
     400: $black-87-opacity,

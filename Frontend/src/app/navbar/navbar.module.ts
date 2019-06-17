@@ -4,6 +4,7 @@ import { NavbarComponent } from './navbar.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '../material/material.module';
 import { DirectivesModule } from '../helpers/directives.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [NavbarComponent],
@@ -11,6 +12,7 @@ import { DirectivesModule } from '../helpers/directives.module';
     CommonModule,
     TranslateModule,
     MaterialModule,
+    FormsModule,
     DirectivesModule,
   ],
   exports: [NavbarComponent]

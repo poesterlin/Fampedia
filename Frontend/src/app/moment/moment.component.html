@@ -1,35 +1,40 @@
-<div id="header" (window:scroll)="update()">
-  <div id="image"> </div>
+<div id="header" (window:scroll)="update()" (click)="navigateToHeaderImage()">
+  <div id="image"
+    [ngStyle]="{'background-image': 'linear-gradient(12deg, rgb(0, 0, 0, 0.3), transparent),' + imageUrl}"> </div>
   <button id="back" mat-icon-button routerLink="">
     <mat-icon>keyboard_backspace</mat-icon>
   </button>
-  <button id="add" mat-icon-button routerLink="">
+  <button id="add" mat-icon-button *ngIf="moment" [routerLink]="'/new/add/' + moment.momentId">
     <mat-icon>add</mat-icon>
   </button>
   <div>
-    <div id="title">
-      <span>new Moment</span>
-      <span>what a noice day</span>
+    <div id="title" *ngIf="moment">
+      <span>{{moment.title}}</span>
+      <span>{{moment.description}}</span>
     </div>
   </div>
-
-
 </div>
 
-<menu>
-  <a [routerLink]="['']">
+<menu *ngIf="moment && moment.images.length > 1">
+  <a (click)="showPhotos()">
     Photos
   </a>
-  <a [routerLink]="['']">
-    Visitors
-  </a>
-  <a [routerLink]="['']">
-    Thread
+  <a (click)="showComments()">
+    Comments
   </a>
 </menu>
 
-<div class="dash">
-  <fampedia-grid-item [importance]="i" [itemId]="idx + 'id'" *ngFor="let i of importances; let idx = index" (click)="fullscreen(i)">
-  </fampedia-grid-item>
+<div class="dash" *ngIf="moment && mode == 0 && moment.images.length > 1">
+  <fampedia-grid-item [importance]="3" [imageId]="i" *ngFor="let i of moment.images"> </fampedia-grid-item>
 </div>
 
+<div class="comments" *ngIf="(comments && mode == 1) || (moment && moment.images.length === 1)">
+  <fampedia-comment [comment]="c" *ngFor="let c of comments"> </fampedia-comment>
+  <div *ngIf="comments.length == 0" fxLayout="row break" fxLayoutAlign="center center">
+    <span id="noComment">no comments</span>
+  </div>
+  <div class="addComment" fxLayout="row">
+    <input fxFlex="80" placeholder="Send comment" type="text" [(ngModel)]="commentInput">
+    <button fxFlex="20" (click)="postComment()">Send</button>
+  </div>
+</div>

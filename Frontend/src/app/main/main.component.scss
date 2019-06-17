@@ -2,14 +2,19 @@
 @import "../styles/helperMixins.scss";
 @import "../styles/theme.scss";
 
-.headerContainer {
-  height: 146px;
+div.background {
+  background: linear-gradient(0deg, #eff4f7, #eff4f7), rgba(239, 244, 247, 0.7);
   width: 100%;
-  background: white;
+  padding: 20px 0;
+  min-height: calc(100vh - 230px);
+  z-index: -1;
+}
 
-  @include forType(gt-md) {
-    height: 108px;
-  }
+.headerContainer {
+  height: 80px;
+  width: 90%;
+  background: white;
+  margin: 10px auto 0;
 }
 
 menu {
@@ -19,8 +24,8 @@ menu {
 
   a {
     @include clickable() {
-      border-bottom: 2px solid black;
-      color: fA(100);
+      border-bottom: 2px solid rgb(18, 27, 42);;
+      color: cP(100);
     }
 
     text-decoration: none;
@@ -28,11 +33,11 @@ menu {
     padding: 5px 0;
     margin: 0 3px;
     text-align: center;
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid rgba(18, 27, 42, 0.7);;
   }
 
   a.selected {
-    border-bottom: 2px solid cA(300);
-    color: fA(100);
+    border-bottom: 2px solid cP(100);
+    color: cP(100);
   }
 }

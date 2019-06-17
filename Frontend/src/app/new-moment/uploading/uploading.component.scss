@@ -1,0 +1,188 @@
+.uploadIcon {
+  animation: upload 1.5s infinite;
+  height: 170px;
+  position: absolute;
+  top: 45px;
+  width: 200px;
+  opacity: 0.8;
+
+  @keyframes upload {
+    0% {
+      animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+      transform: translate(0px, 55px);
+    }
+
+    50% {
+      animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+      transform: translate(0px, 100%);
+      opacity: 1;
+    }
+
+    49% {
+      transform: translate(0px, -10%);
+      opacity: 0;
+    }
+
+    100% {
+      animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+      transform: translate(0px, 55px);
+    }
+  }
+}
+
+.book {
+  // animation: wiggle 1.5s infinite 750ms;
+  img {
+    width: 110px;
+    object-fit: cover;
+    height: 86px;
+  }
+
+  .hider {
+    overflow: hidden;
+    margin: -68px 0 0;
+    position: relative;
+    height: 50px;
+    animation: reveal 1.5s infinite 125ms;
+
+    @keyframes reveal {
+      0% {
+        width: 0px;
+      }
+
+      30% {
+        animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+        width: 17px;
+      }
+
+      100% {
+        animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+        width: 100px;
+      }
+    }
+  }
+
+  svg {
+    transform: translate(-122px, -85px) scale(0.35, 0.45);
+  }
+  width: 110px;
+  position: absolute;
+  top: 50px;
+  left: 60px;
+  height: 86px;
+
+  $amount: 20%;
+  $rotate: 15deg;
+
+  @keyframes wiggle {
+    0%,
+    to {
+      transform: translate(0, -$amount) rotate(0deg) translate(0, $amount);
+    }
+
+    4% {
+      transform: translate(0, -$amount) rotate($rotate * 0.5) translate(0, $amount);
+    }
+
+    10% {
+      transform: translate(0, -$amount) rotate($rotate * 0.7) translate(0, $amount);
+    }
+
+    18% {
+      transform: translate(0, -$amount) rotate($rotate * -0.5) translate(0, $amount);
+    }
+
+    20% {
+      transform: translate(0, -$amount) rotate($rotate * -0.65) translate(0, $amount);
+    }
+
+    21% {
+      transform: translate(0, -$amount) rotate($rotate * -0.55) translate(0, $amount);
+    }
+
+    22% {
+      transform: translate(0, -$amount) rotate($rotate * -0.45) translate(0, $amount);
+    }
+
+    24%,
+    36%,
+    56% {
+      transform: translate(0, -$amount) rotate($rotate * -0.25) translate(0, $amount);
+    }
+
+    26%,
+    44% {
+      transform: translate(0, -$amount) rotate($rotate * 0.15) translate(0, $amount);
+    }
+
+    28%,
+    31% {
+      transform: translate(0, -$amount) rotate($rotate * 0.4) translate(0, $amount);
+    }
+
+    30% {
+      transform: translate(0, -$amount) rotate($rotate * 0.45) translate(0, $amount);
+    }
+
+    33% {
+      transform: translate(0, -$amount) rotate($rotate * 0.37) translate(0, $amount);
+    }
+
+    34%,
+    63% {
+      transform: translate(0, -$amount) rotate($rotate * 0.05) translate(0, $amount);
+    }
+
+    39% {
+      transform: translate(0, -$amount) rotate($rotate * -0.4) translate(0, $amount);
+    }
+
+    40% {
+      transform: translate(0, -$amount) rotate($rotate * -0.48) translate(0, $amount);
+    }
+
+    47% {
+      transform: translate(0, -$amount) rotate($rotate * 0.48) translate(0, $amount);
+    }
+
+    75% {
+      transform: translate(0, -$amount) rotate($rotate * -0.05) translate(0, $amount);
+    }
+  }
+}
+
+.background {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.container {
+  position: relative;
+  height: 290px;
+  overflow: hidden;
+  margin: 10px auto;
+  background: white;
+  border-radius: 11px;
+  box-shadow: 3px 3px 3px 0px #0000006b;
+}
+
+mat-icon {
+  font-size: 40px;
+  transform: translate(-6px);
+  color: #50b996;
+}
+
+h3 {
+  position: absolute;
+  z-index: 3;
+  text-shadow: 1px 1px 1px #ffffffa8;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  color: #50b996;
+  font-weight: bold;
+}

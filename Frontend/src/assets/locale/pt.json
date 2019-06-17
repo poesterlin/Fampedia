@@ -1,14 +1,68 @@
 {
-    "test": "Portuguese",
+    "test": "português",
+    "login": {
+        "Username": "Nome de Utilizador",
+        "Password": "Palavra-Passe",
+        "Login": "Entrar",
+        "Register": "Registar",
+        "Request_a_Demo": "Experimentar primeiro"
+    },
     "titles": {
         "undefined": "",
-        "DASHBOARD": "Dashboard",
-        "RECIPES": "Recipes",
-        "MAIN": "Main",
-        "MOMENT": "Moment"
+        "DASHBOARD": "DASHBOARD",
+        "RECIPES": "RECEITAS",
+        "MAIN": "MAIN",
+        "MOMENT": "MOMENTO",
+        "NEW_MOMENT": "NOVO MOMENTO",
+        "LOGIN": "Entrar",
+        "NOT_FOUND": "Sem Resultados"
     },
-    "navbar":{
-        "LANGUAGE_SWITCH": "Change language",
-        "NONE": ""
+    "dashboard": {
+        "Add_Moment": "Novo Momento",
+        "Timeline": "Cronologia",
+        "News": "Novidades",
+        "No_News": "Sem novidades",
+        "Archive": "Arquivo",
+        "Find_Something": "Encontre algo...",
+        "No_Moments": "Sem Momentos criados",
+        "Add_First_Moment": "Criar o primeiro Evento",
+        "Recipes": "Receitas",
+        "Stories": "Histórias",
+        "Documents": "Documentos"
+    },
+    "AddingMoment": {
+        "New_Moment": "Novo Momento",
+        "Intro_Text_Facts": "A vida está feita de Momentos que valem a pena guardar! Partilhe as memórias mais importantes com aqueles que mais gosta.",
+        "What": "Nome",
+        "When": "Data",
+        "Where": "Lugar",
+        "Next": "Continuar",
+        "Take_Pic": "Tirar fotografia",
+        "Intro_Text_UL": "Um Momento fica melhor quando se adicionam uma ou duas fotos.",
+        "Upload_Pics": "Carregar fotografias",
+        "No_Pictures": "Ainda sem fotos :(",
+        "Summary": "Resumo",
+        "Images": "Imagens",
+        "Upload": "Carregar",
+        "Add_Image": "Adicionar Imagens ao Momento.",
+        "Add": "Adicionar",
+        "Add_Image_Intro": "Gostaria de adicionar alguma foto ou vídeo para melhor recordar este Momento?",
+        "Data_Missing": "Por favor preencha todos os campos.",
+        "Image_Missing": "Por favor adicione pelo menos uma imagem."
+    },
+    "SeeMoment": {
+        "Photos": "Fotografias",
+        "Thread": "Comentários"
+    },
+    "register": {
+        "Create": "Registar uma nova Família.",
+        "Join": "Aderir a uma Família",
+        "Avaliable": "Família encontrada. Pronto para ser adicionado!",
+        "Not_Avaliable": "A Família ainda não está registada. Uma nova conta será criada.",
+        "Email": "E-Mail",
+        "Alpha1": "Website em testes.",
+        "Alpha2": "A informação poderá não ser guardada.",
+        "Success": "Registo efetuado. O link de convite foi adicionado ao seu clipboard.",
+        "Share": "Partilhar"
     }
 }

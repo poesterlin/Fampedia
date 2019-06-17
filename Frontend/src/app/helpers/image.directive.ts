@@ -1,4 +1,6 @@
 import { Directive, Input, ElementRef, HostBinding, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { LoginService } from '../login/login.service';
 
 const transparentGif = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
@@ -10,7 +12,10 @@ const transparentGif = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAA
   }
 })
 export class ImageDirective implements AfterViewInit, OnDestroy {
-  @Input() image!: string;
+  @Input() imageId!: string;
+  @Input() size: 50 | 320 | 640 = 320;
+  @Input() lazy: boolean = false;
+
   @HostBinding('src') private source = transparentGif;
 
   private observer?: IntersectionObserver;
@@ -18,11 +23,13 @@ export class ImageDirective implements AfterViewInit, OnDestroy {
   private parent?: HTMLElement | null;
   private loadingClass = 'loadingImage';
 
-  constructor(private elRef: ElementRef) {
-
-  }
+  constructor(private elRef: ElementRef, private loginService: LoginService) { }
 
   ngAfterViewInit(): void {
+    if (!this.lazy) {
+      this.onVisibilityChange();
+      return;
+    }
     this.parent = (this.elRef.nativeElement as HTMLImageElement).parentElement;
     this.addLoadingClass();
     this.observer = new IntersectionObserver(entries =>
@@ -32,9 +39,12 @@ export class ImageDirective implements AfterViewInit, OnDestroy {
     this.observer.observe(this.elRef.nativeElement);
   }
 
-  public onVisibilityChange(elementData: IntersectionObserverEntry) {
-    if (elementData.intersectionRatio > 0 && this.source) {
-      this.source = this.image;
+  public onVisibilityChange(elementData?: IntersectionObserverEntry) {
+    if (!elementData || elementData.intersectionRatio > 0 && this.source) {
+      setTimeout(() => {
+        const token = this.loginService.user$.getValue()!.token
+        this.source = `${environment.url}/momentimage/getImage/${this.size}/${this.imageId}?token=${token}`;
+      })
       this.visible = true;
       this.destroy();
     }

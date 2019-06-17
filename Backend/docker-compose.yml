@@ -5,29 +5,19 @@ services:
     build: .
     environment:
       - mongoUrl=mongodb://db:27017/news
-      - user=Fampedia
-      - password=Fampedia
-    volumes:
-      - /root/.pm2
+      - NODE_ENV=production
     ports:
       - "3000:3000"
-    networks: 
-      - net
     links:
-      - "db:db"
+      - db
     depends_on:
       - db
-    # command: npm start
+    restart: always
 
   db:
     image: mongo
     restart: always
     volumes:
       - ./data:/data/db
-    networks: 
-      - net
     ports:
       - "27017:27017"
-      
-networks:
-  net:

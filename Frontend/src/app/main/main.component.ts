@@ -33,5 +33,4 @@ export class MainComponent {
       this.setComp(this.comp - 1);
     }
   }
-
 }

@@ -1,8 +1,21 @@
-<header>
-    <fampedia-profile-pic [src]="image"></fampedia-profile-pic>
-    <div class="search">
+<header fxLayout="row" fxLayoutAlign="center center">
+    <fampedia-profile-pic fxFlex="35px" (click)="logout()" [src]="image"></fampedia-profile-pic>
+    <div class="search" fxFlex="calc(80% - 35px)">
         <mat-icon>search</mat-icon>
-        <input type="text" placeholder="Find something">
-        <img src="../assets/images/susi.png" alt="">
+        <input #queryInput fxFlex="100" type="text" (focus)="input = true" [placeholder]="'dashboard.Find_Something' | translate" [(ngModel)]="query">
+        <mat-icon *ngIf="query" (click)="clear()">clear</mat-icon>
+        <div class="userlist" *ngIf="input">
+            <div *ngFor="let pep of search(); let idx = index" fxFlex="98" class="user" (click)="select(pep)" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+                <img fxFlex="35px" [src]="'https://randomuser.me/api/portraits/women/' + idx + '.jpg'"
+                    [alt]="pep.name">
+                <span fxFlex="calc(100% - 50px)">{{pep.name}}</span>
+            </div>
+            <div *ngIf="search().length === 0" class="noMatch">
+                No match...
+            </div>
+        </div>
     </div>
+
+
+    
 </header>

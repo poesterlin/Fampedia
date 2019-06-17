@@ -1,19 +1,16 @@
-<div>
+<div (click)="notImplemented()">
   <img src="../assets/images/recipes.jpeg" alt="">
-  <span>Recipes</span>
+  <span>{{'dashboard.Recipes' | translate}}</span>
 </div>
 
-<div>
+<div (click)="notImplemented()">
   <img src="../assets/images/stories.jpg" alt="">
-  <span>Stories</span>
+  <span>{{'dashboard.Stories' | translate}}</span>
 </div>
 
-<div>
+<div (click)="notImplemented()">
   <img src="../assets/images/documents.jpg" alt="">
-  <span>Documents</span>
+  <span>{{'dashboard.Documents' | translate}}</span>
 </div>
 
-<div>
-  <img src="../assets/images/susi.png" alt="">
-  <span>...</span>
-</div>
+<img [src]="qrcodeUrl">

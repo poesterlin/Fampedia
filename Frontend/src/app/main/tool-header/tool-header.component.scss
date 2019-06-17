@@ -2,58 +2,45 @@
 @import "../../styles/theme.scss";
 
 :host {
-    z-index: 1000;
-    top: 0px;
-    background: white;
-    box-shadow: 0px 1px 6px 4px rgba(0, 0, 0, 0.3);
-    color: black;
-    height: 146px;
-    width: 98vw;
+  z-index: 1000;
+  top: 0px;
+  background: white;
+  box-shadow: 0px 6px 2px 1px rgba(0, 0, 0, 0.3);
+  color: black;
+  height: 76px;
+  width: 100vw;
+  left: 0px;
+  border-radius: 5px;
+
+  #right {
+    margin-right: 5px;
+  }
+  
+  .block {
+    border-radius: 11px;
+    padding: 10px;
+    height: 65px;
+    width: 75px;
+    margin: 4px 0;
+    text-align: center;
+    background: linear-gradient(228.61deg, rgba(237, 232, 190, 0.43) 1.56%, rgba(255, 255, 255, 0) 47.75%), #4fb995;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-size: 16px;
+    line-height: 19px;
+    color: white;
 
     @include forType(gt-md) {
-        height: 108px;
+      width: 100px;
+      margin: 4px;
     }
 
-    #right {
-        margin-right: 5px;
+    @include forType(xs) {
+      width: 65px;
     }
 
-    .block {
-        background: lightgray;
-        border-radius: 10px;
-        padding: 10px;
-        height: 65px;
-        width: 75px;
-        margin: 4px 0;
-        text-align: center;
-        text-transform: capitalize;
-
-        @include forType(gt-md) {
-            height: 100px;
-            width: 100px;
-            margin: 4px;
-        }
-
-        @include forType(xs) {
-            width: 65px;
-        }
-
-        @include clickable() {
-            background: gray;
-        }
+    @include clickable() {
+      background: gray;
     }
+  }
 
-    .bigBlock {
-        height: 140px;
-        width: 100px;
-        margin: 3px 5px;
-
-        @include forType(gt-md) {
-            height: 100px;
-        }
-
-        img {
-            @include constrainImage(120px, 120px)
-        }
-    }
 }

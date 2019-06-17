@@ -1,11 +1,11 @@
 export interface IMoment {
-    title: string;
-    description: string;
+    momenttitle: string;
+    momentdescription: string;
     momentID: number;
-    images: IMomentImage[];
+    images: string[];
+    date: string;
 }
 
-export interface IMomentImage{
-    description: string;
-    imageID: string;
+export interface MomentCreated {
+    momentID: number;
 }

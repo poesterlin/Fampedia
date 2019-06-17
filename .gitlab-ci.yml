@@ -61,9 +61,10 @@ backend:
     - apk add --update nodejs
   script:
       # install docker compose
-      - apk add --no-cache python py2-pip git
+      - apk add --no-cache python py2-pip git openssl
       - pip install --no-cache-dir docker-compose==1.16.0
       - cd Backend
+      - openssl req -x509 -newkey rsa:4096 -keyout privkey.pem -out fullchain.pem -days 365 -nodes -subj "/C=DE/ST=NRW/L=Berlin/O=My Inc/OU=DevOps/CN=www.fampedia.de/emailAddress=dev@fampedia.de"
       - docker-compose --file ci-compose.yml up --build --abort-on-container-exit
 
 backendPostman:
@@ -79,9 +80,10 @@ backendPostman:
     - apk add --update nodejs nodejs-npm
   script:
     # install docker compose
-    - apk add --no-cache python py2-pip git
+    - apk add --no-cache python py2-pip git openssl
     - pip install --no-cache-dir docker-compose==1.16.0
     - cd Backend
+    - openssl req -x509 -newkey rsa:4096 -keyout privkey.pem -out fullchain.pem -days 365 -nodes -subj "/C=DE/ST=NRW/L=Berlin/O=My Inc/OU=DevOps/CN=www.fampedia.de/emailAddress=dev@fampedia.de"
     - docker-compose up -d
     - npm install -g newman
     - newman run backend.postman_collection.json -e fampedia.postman_environment.json --folder mandatory -k --timeout-request 10000  --env-var url=tcp://docker:3000

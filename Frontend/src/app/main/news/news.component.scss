@@ -3,53 +3,88 @@
 
 div.news {
   width: 800px;
-  margin: 10px auto;
+  margin: 15px auto;
   max-width: 90vw;
-  height: 110px;
-  border-radius: 13px;
+  height: 120px;
   overflow: hidden;
-  background: #c4c4c4;
-  box-shadow: -4px 3px 2px rgba(0, 0, 0, 0.25);
+  position: relative;
+
+  background: #ffffff;
+  box-shadow: -4px 3px 10px rgba(64, 79, 55, 0.25);
+  border-radius: 13px;
+
   .comment {
     height: 100%;
+
     img {
       @include constrainImage(57px, 57px, cover);
       overflow: hidden;
       border-radius: 50%;
     }
+
     div.data {
       padding: 25px 10px;
       height: 100%;
+      transform: translate(8px, -12px);
+
       .desc {
-        font-weight: bold;
+        font-size: 12px;
+        line-height: 14px;
       }
+
       span {
         font-size: 12px;
       }
+
       .date {
         font-size: 10px;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-weight: bold;
+        font-size: 10px;
+        line-height: 12px;
       }
     }
   }
 
   .image {
     height: 100%;
-    img {
-      @include constrainImage(100%, 100%, cover);
-      overflow: hidden;
-      border-radius: 13px;
+
+    .imageWrapper {
+      position: relative;
+      height: 100%;
+      widows: 100%;
+
+      img {
+        @include constrainImage(100%, 100%, cover);
+        overflow: hidden;
+        border-radius: 13px;
+      }
     }
+
     div.data {
       padding: 40px 10px;
       height: 100%;
+      transform: translate(8px, -12px);
+
       .desc {
-        font-weight: bold;
+        font-size: 12px;
+        line-height: 14px;
       }
+
       span {
         font-size: 12px;
       }
+
       .date {
         font-size: 10px;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        font-weight: bold;
+        font-size: 10px;
+        line-height: 12px;
       }
     }
   }
