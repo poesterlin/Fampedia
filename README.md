@@ -1,9 +1,5 @@
-# Fampedia
-
-## Status
 [![Netlify Status](https://api.netlify.com/api/v1/badges/a72c4645-2ef7-4cce-ac81-732f691f1813/deploy-status)](https://app.netlify.com/sites/competent-cray-989081/deploys)
 ![coverage](https://gitlab.com/philipOE/fampedia/badges/dev/coverage.svg)
-
 
 ![Fampedia Logo](/logo.png)
 
@@ -31,7 +27,7 @@ sudo apt-get install docker
 ``     
 [Windows](https://docs.docker.com/docker-for-windows/install/)      
 * Our software uses MongoDB as a database, removing the need to change anything when you use the docker-compose file.
-* To be able to use all functionality that `Fampedia`provides, make sure to have a domain that can be used to create a valid https certificate on the production server. The certificate keys need to be stored in the root directory (backend).
+* To be able to use all functionality that `Fampedia` provides, make sure to have a domain that can be used to create a valid https certificate on the production server. The certificate keys need to be stored in the root directory of the backend.
 
 ### Installing
 
@@ -56,5 +52,5 @@ It would be an honor to work with you again.
 
 
 ## Setup
-Setup documentation can be found [here](Docs/Setup.md)
+Setup documentation for development without docker can be found [here](/Setup.md)
 
