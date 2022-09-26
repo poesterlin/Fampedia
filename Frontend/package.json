@@ -30,7 +30,7 @@
     "@angular/router": "~7.2.8",
     "@angular/service-worker": "~7.2.8",
     "@capacitor/android": "^1.0.0-beta.19",
-    "@capacitor/cli": "^1.0.0-beta.19",
+    "@capacitor/cli": "^1.5.3",
     "@capacitor/core": "^1.0.0-beta.19",
     "@ionic/angular": "^4.2.0",
     "@ngx-translate/core": "^11.0.1",
