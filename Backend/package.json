@@ -20,7 +20,7 @@
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "jsonwebtoken": "^8.2.2",
     "moment": "^2.22.1",
     "mongodb": "^2.2.33",
